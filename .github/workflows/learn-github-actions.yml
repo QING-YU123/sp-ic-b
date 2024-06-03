@@ -1,0 +1,39 @@
+name: Build and Push Docker Image
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1 
+        with:
+          username: qingyu12321
+          password: dckr_pat_m4KwVZSuLPDRM7S7lKPGmpo9CZs
+
+      - name: Build and push
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: qingyu12321/intelligent-community-b:${{ github.sha }}
+
+      - name: Deploy to server
+        uses: appleboy/ssh-action@master
+        with:
+          host: 39.104.17.250
+          username: "root"
+          password: "20032003-y"
+          script: |
+            docker pull qingyu12321/intelligent-community-b:${{ github.sha }}
+            docker stop intelligent-community-b-cont
+            docker rm intelligent-community-b-cont
+            docker run -d --name intelligent-community-b-cont --network host qingyu12321/intelligent-community-b:${{ github.sha }}
