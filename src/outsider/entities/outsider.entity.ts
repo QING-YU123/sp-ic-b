@@ -8,7 +8,7 @@ export class Outsider {
     @Column({ type: "varchar", length: 20 })
     createdTime: string;
 
-    @Column({ type: "varchar", length: 20 })
+    @Column({ type: "varchar", length: 20, nullable: true })
     leaveTime: string;
 
     @Column({ type: "varchar", length: 11 })
