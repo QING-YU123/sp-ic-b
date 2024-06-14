@@ -4,11 +4,10 @@ import * as bodyParser from 'body-parser';
 import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
 
 async function bootstrap() {
-  //const app = await NestFactory.create(AppModule);
-  const app = await NestFactory.create<NestFastifyApplication>(AppModule, new FastifyAdapter());
+  const app = await NestFactory.create(AppModule);
   app.use(bodyParser.json({ limit: '100mb' }));
   app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
   app.enableCors();
-  await app.listen(12005, '0.0.0.0');
+  await app.listen(12005);
 }
 bootstrap();

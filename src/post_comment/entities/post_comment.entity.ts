@@ -6,8 +6,11 @@ export class PostComment {
     @PrimaryGeneratedColumn({ type: "bigint" })
     id: number;
 
-    @Column({ type: "varchar", length: 20 })
+    @Column({ name: "created_time", type: "datetime", default: () => "NOW()" })
     createdTime: string;
+
+    @Column({ name: "updated_time", type: "datetime", default: () => "NOW()", onUpdate: "NOW()" })
+    updatedTime: string;
 
     @Column({ type: "bigint" })
     uid: number;
@@ -18,10 +21,10 @@ export class PostComment {
     @Column({ type: "varchar", length: 255 })
     comment: string;
 
-    @Column({ type: "bigint" })
-    c_uid: number;
+    @Column({ name: "reply_uid", type: "bigint" })
+    replyUid: number;
 
-    @Column({ type: "int", default: 0 })
+    @Column({ name: "like_num", type: "int", default: 0 })
     likeNum: number;
 
     @Column({ type: "int", default: 0 })

@@ -5,17 +5,20 @@ export class Outsider {
     @PrimaryGeneratedColumn({type: "bigint"})
     id: number;
 
-    @Column({ type: "varchar", length: 20 })
+    @Column({ name: "created_time", type: "datetime", default: () => "NOW()" })
     createdTime: string;
 
-    @Column({ type: "varchar", length: 20, nullable: true })
+    @Column({ name: "updated_time", type: "datetime", default: () => "NOW()", onUpdate: "NOW()" })
+    updatedTime: string;
+
+    @Column({ name: "leave_time", type: "datetime", nullable: true })
     leaveTime: string;
 
-    @Column({ type: "varchar", length: 11 })
+    @Column({ type: "char", length: 11 })
     phone: string;
 
-    @Column({ type: "int" })
-    sex: number;
+    @Column({ type: "char", length: 1 })
+    gender: string;
 
     @Column({ type: "varchar", length: 10 })
     name: string;

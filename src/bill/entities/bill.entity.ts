@@ -5,8 +5,11 @@ export class Bill {
     @PrimaryGeneratedColumn({type: "bigint"})
     id: number;
     
-    @Column({ type: "varchar", length: 20 })
+    @Column({ name: "created_time", type: "datetime", default: () => "NOW()" })
     createdTime: string;
+
+    @Column({ name: "updated_time", type: "datetime", default: () => "NOW()", onUpdate: "NOW()" })
+    updatedTime: string;
 
     @Column({ type: "bigint" })
     uid: number;
@@ -20,7 +23,7 @@ export class Bill {
     @Column({ type: "int", default: 0 })
     price: number;
 
-    @Column({ type: "varchar", length: 20, nullable: true })
+    @Column({ name: "pay_time", type: "datetime", nullable: true })
     payTime: string;
 
     @Column({ type: "int", default: 0 })

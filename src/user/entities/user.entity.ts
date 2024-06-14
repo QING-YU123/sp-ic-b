@@ -5,13 +5,16 @@ export class User {
     @PrimaryGeneratedColumn({ type: "bigint" })
     id: number;
 
-    @Column({ type: "varchar", length: 20 })
+    @Column({ name: "created_time", type: "datetime",default: () => "NOW()" })
     createdTime: string;
+
+    @Column({ name: "updated_time", type: "datetime",default: () => "NOW()", onUpdate: "NOW()" })
+    updatedTime: string;
 
     @Column({ type: "varchar", length: 11 })
     phone: string;
 
-    @Column({ type: "varchar", length: 64 })
+    @Column({ type: "char", length: 64 })
     password: string;
 
     @Column({ type: "int", default: 3 })
@@ -20,10 +23,10 @@ export class User {
     @Column({ type: "varchar", length: 20 })
     username: string;
 
-    @Column({ type: "int", default: 2 })
-    sex: number;
+    @Column({ type: "char", length: 1 })
+    gender: string;
 
-    @Column({ type: "mediumblob" })
+    @Column({ name: "head_img", type: "mediumblob" })
     headImg: string;
 
     @Column({ type: "varchar", length: 255 })
@@ -32,7 +35,7 @@ export class User {
     @Column({ type: "varchar", length: 10 })
     name: string;
 
-    @Column({ type: "varchar", length: 18 })
+    @Column({ name: "id_card", type: "char", length: 18 })
     idCard: string;
 
     @Column({ type: "varchar", length: 255 })
@@ -41,16 +44,16 @@ export class User {
     @Column({ type: "bigint", default: 0 })
     money: number;
 
-    @Column({ type: "boolean", default: false })
-    isCP: boolean;
+    @Column({ name: "is_cp", type: "boolean", default: false })
+    CP: boolean;
 
-    @Column({ type: "boolean", default: false })
-    isBanTalk: boolean;
+    @Column({ name: "is_ban_talk", type: "boolean", default: false })
+    banTalk: boolean;
 
-    @Column({ type: "int", default: 0 })
+    @Column({ name: "post_num", type: "int", default: 0 })
     postNum: number;
 
-    @Column({ type: "int", default: 0 })
+    @Column({ name: "comment_num", type: "int", default: 0 })
     collectNum: number;
 
     @Column({ type: "int", default: 0 })

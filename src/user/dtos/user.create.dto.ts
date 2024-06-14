@@ -1,6 +1,6 @@
-export class User {
-    checkingUid: number;
+import { Dto } from "src/.dtos/dto";
 
+export class User extends Dto {
     body: {
         createdTime: string;
 

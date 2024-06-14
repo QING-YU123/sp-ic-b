@@ -5,8 +5,11 @@ export class Activity {
     @PrimaryGeneratedColumn({ type: "bigint" })
     id: number;
 
-    @Column({ type: "varchar", length: 20 })
+    @Column({ name: "created_time", type: "datetime", default: () => "NOW()" })
     createdTime: string;
+
+    @Column({ name: "updated_time", type: "datetime", default: () => "NOW()", onUpdate: "NOW()" })
+    updatedTime: string;
 
     @Column({ type: "bigint" })
     uid: number;
@@ -14,7 +17,7 @@ export class Activity {
     @Column({ type: "varchar", length: 30 })
     title: string;
 
-    @Column({ type: "mediumblob" })
+    @Column({ name: "cover_img", type: "mediumblob" })
     coverImg: string;
 
     @Column({ type: "varchar", length: 255 })
@@ -26,10 +29,10 @@ export class Activity {
     @Column({ type: "int", default: 0 })
     type: number;
 
-    @Column({ type: "varchar", length: 20 })
+    @Column({ name: "start_time", type: "datetime" })
     startTime: string;
 
-    @Column({ type: "varchar", length: 20 })
+    @Column({ name: "end_time", type: "datetime" })
     endTime: string;
 
     @Column({ type: "int", default: 0 })

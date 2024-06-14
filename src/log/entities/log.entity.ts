@@ -5,8 +5,11 @@ export class Log {
     @PrimaryGeneratedColumn({ type: "bigint" })
     id: number;
 
-    @Column({ type: "varchar", length: 20 })
+    @Column({ name: "created_time", type: "datetime", default: () => "NOW()" })
     createdTime: string;
+
+    @Column({ name: "updated_time", type: "datetime", default: () => "NOW()", onUpdate: "NOW()" })
+    updatedTime: string;
 
     @Column({ type: "bigint" })
     uid: number;
@@ -17,7 +20,7 @@ export class Log {
     @Column({ type: "varchar", length: 20 })
     username: string;
 
-    @Column({ type: "varchar", length: 11 })
+    @Column({ type: "char", length: 11 })
     phone: string;
 
     @Column({ type: "varchar", length: 5 })

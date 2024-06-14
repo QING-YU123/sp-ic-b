@@ -5,8 +5,11 @@ export class Post {
     @PrimaryGeneratedColumn({ type: "bigint" })
     id: number;
 
-    @Column({ type: "varchar", length: 20 })
+    @Column({ name: "created_time", type: "datetime" })
     createdTime: string;
+
+    @Column({ name: "updated_time", type: "datetime" })
+    updatedTime: string;
 
     @Column({ type: "bigint" })
     uid: number;
@@ -17,19 +20,19 @@ export class Post {
     @Column({ type: "varchar", length: 30 })
     title: string;
 
-    @Column({ type: "mediumblob" })
+    @Column({ name: "cover_img", type: "mediumblob" })
     coverImg: string;
 
     @Column({ type: "varchar", length: 2000 })
     content: string;
 
-    @Column({ type: "int", default: 0 })
+    @Column({ name: "like_num", type: "int", default: 0 })
     likeNum: number;
 
-    @Column({ type: "int", default: 0 })
+    @Column({ name: "collect_num", type: "int", default: 0 })
     collectNum: number;
 
-    @Column({ type: "int", default: 0 })
+    @Column({ name: "comment_num", type: "int", default: 0 })
     commentNum: number;
 
     @Column({ type: "int", default: 0 })
