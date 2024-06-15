@@ -1,6 +1,6 @@
-export class FeedbackCreateDto {
-    checkingUid: number;
+import { Dto } from "src/.dtos/dto";
 
+export class FeedbackCreateDto extends Dto {
     body: {
         createdTime: string;
 

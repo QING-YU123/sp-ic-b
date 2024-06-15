@@ -4,7 +4,7 @@ export class PasswordTool{
     static salt = '19CtJ6UrbxBYG0PgMUYkAg==';
     static count = 141;
 
-    public static encipher(password: string): string{
+    public static encrypt(password: string): string{
         let hashedPassword = password;
         
         for (let i = 0; i < this.count; i++){

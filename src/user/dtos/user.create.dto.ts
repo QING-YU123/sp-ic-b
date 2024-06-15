@@ -1,16 +1,16 @@
 import { Dto } from "src/.dtos/dto";
 
-export class User extends Dto {
+export class UserCreateDto extends Dto {
     body: {
-        createdTime: string;
-
         phone: string;
 
         password: string;
+        
+        power: number;
 
         username: string;
 
-        sex: number;
+        gender: number;
 
         headImg: string;
 

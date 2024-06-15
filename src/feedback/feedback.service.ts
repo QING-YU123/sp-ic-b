@@ -4,6 +4,8 @@ import { Feedback } from './entities/feedback.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { FeedbackCreateDto } from './dtos/feedback.create.dto';
 import { TimeTool } from 'src/.tools/time.tool';
+import { PowerService } from 'src/power/power.service';
+import { Result } from 'src/.dtos/result';
 
 @Injectable()
 export class FeedbackService {
@@ -13,8 +15,10 @@ export class FeedbackService {
   }
 
   async create(feedbackCreateDto: FeedbackCreateDto) {
-    //feedbackCreateDto.body.createdTime = TimeTool.getNowString();
+    if (!(await PowerService.get(feedbackCreateDto)).mOutsider) return Result.fail('权限不足');
 
-    return await FeedbackService.repository.save(feedbackCreateDto.body);
+    const res = FeedbackService.repository.save(feedbackCreateDto.body);
+
+    return Result.isOrNot(res != null);
   }
 }
