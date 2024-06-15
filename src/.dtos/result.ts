@@ -1,13 +1,13 @@
 export class Result { 
     code: number;
 
-    msg: string;
+    message: string;
     
     data: any;
 
-    constructor(code: number, msg: string, data: any) {
+    constructor(code: number, message: string, data: any) {
         this.code = code;
-        this.msg = msg;
+        this.message = message;
         this.data = data;
     }
 
@@ -15,8 +15,8 @@ export class Result {
         return new Result(200, 'success', data);
     }
 
-    static fail(msg: string = 'fail'): Result {
-        return new Result(400, msg, null);
+    static fail(message: string = 'fail'): Result {
+        return new Result(400, message, null);
     }
 
     static isOrNot(condition: boolean): Result {
