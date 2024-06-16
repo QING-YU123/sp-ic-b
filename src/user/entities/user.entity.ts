@@ -29,7 +29,7 @@ export class User {
     @Column({ name: "head_img", type: "mediumblob" })
     headImg: string;
 
-    @Column({ type: "varchar", length: 255 })
+    @Column({ type: "varchar", length: 255, default: "" })
     introduction: string;
 
     @Column({ type: "varchar", length: 10 })

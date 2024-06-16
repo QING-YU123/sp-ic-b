@@ -1,3 +1,5 @@
+import { MsgConst } from "src/.const/msg.const";
+
 export class Result { 
     code: number;
 
@@ -11,15 +13,15 @@ export class Result {
         this.data = data;
     }
 
-    static success(data: any = null): Result {
-        return new Result(200, 'success', data);
+    static success(message: string, data: any = null): Result {
+        return new Result(200, message, data);
     }
 
-    static fail(message: string = 'fail'): Result {
+    static fail(message: string): Result {
         return new Result(400, message, null);
     }
 
     static isOrNot(condition: boolean, message: string): Result {
-        return condition ? Result.success() : Result.fail(message);
+        return condition ? Result.success(message + MsgConst.success) : Result.fail(message + MsgConst.fail);
     }
 }

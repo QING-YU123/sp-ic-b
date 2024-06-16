@@ -1,6 +1,6 @@
-export class UserUpdateDto { 
-    checkingUid: number;
+import { Dto } from "src/.dtos/dto";
 
+export class UserUpdateDto extends Dto { 
     body: {
         id: number;
 

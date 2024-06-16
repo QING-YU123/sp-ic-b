@@ -1,7 +1,9 @@
 import { Dto } from "src/.dtos/dto";
 
-export class UserDeleteDto extends Dto {
+export class RepairUpdateDto extends Dto {
     body: {
         id: number;
+
+        status: number;
     }
 }

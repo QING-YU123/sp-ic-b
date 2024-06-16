@@ -8,6 +8,7 @@ import { OutsiderDeleteDto } from './dtos/outsider.delete.dto';
 import { OutsiderUpdateDto } from './dtos/outsider.update.dto';
 import { OutsiderQueryDto } from './dtos/outsider.query.dto';
 import { PowerService } from 'src/power/power.service';
+import { MsgConst } from 'src/.const/msg.const';
 
 @Injectable()
 export class OutsiderService {
@@ -17,31 +18,31 @@ export class OutsiderService {
   }
     
   async create(outsiderCreateDto: OutsiderCreateDto) {
-    if (!(await PowerService.get(outsiderCreateDto)).mOutsider) return Result.fail('权限不足');
+    if (!(await PowerService.get(outsiderCreateDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
     
     const res = OutsiderService.repository.save(outsiderCreateDto.body);
 
-    return Result.isOrNot(res != null, '创建外来人员失败');
+    return Result.isOrNot(res != null, MsgConst.outsider.create);
   }
   
   async delete(outsiderDeleteDto: OutsiderDeleteDto) {
-    if (!(await PowerService.get(outsiderDeleteDto)).mOutsider) return Result.fail('权限不足');
+    if (!(await PowerService.get(outsiderDeleteDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
     
     const res = await OutsiderService.repository.update(outsiderDeleteDto.body.id, { leaveTime: () => "NOW()" });
 
-    return Result.isOrNot(res.affected != 0, '删除外来人员失败');
+    return Result.isOrNot(res.affected != 0, MsgConst.outsider.delete);
   }
   
   async update(outsiderUpdateDto: OutsiderUpdateDto) {
-    if (!(await PowerService.get(outsiderUpdateDto)).mOutsider) return Result.fail('权限不足');
+    if (!(await PowerService.get(outsiderUpdateDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
 
     const res = await OutsiderService.repository.update(outsiderUpdateDto.body.id, outsiderUpdateDto.body);
 
-    return Result.isOrNot(res.affected != 0, '更新外来人员失败');
+    return Result.isOrNot(res.affected != 0, MsgConst.outsider.update);
   }
   
   async query(outsiderQueryDto: OutsiderQueryDto) {
-    if (!(await PowerService.get(outsiderQueryDto)).mOutsider) return Result.fail('权限不足');
+    if (!(await PowerService.get(outsiderQueryDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
     
     // 分页查询
     const [data, total] = await OutsiderService.repository.findAndCount({
@@ -52,7 +53,7 @@ export class OutsiderService {
       }
     });
 
-    return Result.success({
+    return Result.success(MsgConst.outsider.query + MsgConst.success, {
       data: data,
       total: total
     });

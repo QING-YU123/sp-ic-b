@@ -14,8 +14,6 @@ export class UserCreateDto extends Dto {
 
         headImg: string;
 
-        introduction: string;
-
         name: string;
 
         idCard: string;

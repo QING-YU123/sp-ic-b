@@ -24,8 +24,8 @@ export class PowerService {
 
   static async get(dto: Dto) {
     if (PowerService.powerList.length < 10) return new Power();
-    const user = await UserService.repository.findOne({ select: ['power'], where: { id: dto.checkingUid } });
-    if (user == null) return new Power();
+    const user = await UserService.repository.findOne({ select: ['power', 'status'], where: { id: dto.checkingUid } });
+    if (user == null || user.status != 0) return new Power();
     return PowerService.powerList[user.power];
   }
 }

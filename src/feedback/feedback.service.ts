@@ -9,6 +9,7 @@ import { PowerService } from 'src/power/power.service';
 import { Result } from 'src/.dtos/result';
 import { FeedbackUpdateDto } from './dtos/feedback.update.dto';
 import { FeedbackQueryDto } from './dtos/feedback.query.dto';
+import { MsgConst } from 'src/.const/msg.const';
 
 @Injectable()
 export class FeedbackService {
@@ -18,32 +19,32 @@ export class FeedbackService {
   }
 
   async create(feedbackCreateDto: FeedbackCreateDto) {
-    if (!(await PowerService.get(feedbackCreateDto)).mOutsider) return Result.fail('权限不足');
+    if (!(await PowerService.get(feedbackCreateDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
 
     const res = FeedbackService.repository.save(feedbackCreateDto.body);
 
-    return Result.isOrNot(res != null, '反馈失败');
+    return Result.isOrNot(res != null, MsgConst.feedback.create);
   }
 
   async delete(feedbackDeleteDto: FeedbackDeleteDto) {
-    if (!(await PowerService.get(feedbackDeleteDto)).mOutsider) return Result.fail('权限不足');
+    if (!(await PowerService.get(feedbackDeleteDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
     
     const res = await FeedbackService.repository.update(feedbackDeleteDto.body.id, {status: 1});
 
-    return Result.isOrNot(res.affected != 0, '反馈记录删除失败');
+    return Result.isOrNot(res.affected != 0, MsgConst.feedback.delete);
   }
 
   async update(feedbackUpdateDto: FeedbackUpdateDto) {
-    if (!(await PowerService.get(feedbackUpdateDto)).mOutsider) return Result.fail('权限不足');
+    if (!(await PowerService.get(feedbackUpdateDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
 
     const res = await FeedbackService.repository.update(feedbackUpdateDto.body.id,
       { result: feedbackUpdateDto.body.result, status: 2 });
 
-    return Result.isOrNot(res.affected != 0, '反馈记录更新失败');
+    return Result.isOrNot(res.affected != 0, MsgConst.feedback.update);
   }
 
   async query(feedbackQueryDto: FeedbackQueryDto) {
-    if (!(await PowerService.get(feedbackQueryDto)).mOutsider) return Result.fail('权限不足');
+    if (!(await PowerService.get(feedbackQueryDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
     
     // 分页查询
     const [data, total] = await FeedbackService.repository.findAndCount({
@@ -60,7 +61,7 @@ export class FeedbackService {
       }
     });
     
-    return Result.success({
+    return Result.success(MsgConst.feedback.query + MsgConst.success, {
       data: data,
       total: total
     });
