@@ -21,7 +21,7 @@ export class OutsiderService {
     
     const res = OutsiderService.repository.save(outsiderCreateDto.body);
 
-    return Result.isOrNot(res != null);
+    return Result.isOrNot(res != null, '创建外来人员失败');
   }
   
   async delete(outsiderDeleteDto: OutsiderDeleteDto) {
@@ -29,7 +29,7 @@ export class OutsiderService {
     
     const res = await OutsiderService.repository.update(outsiderDeleteDto.body.id, { leaveTime: () => "NOW()" });
 
-    return Result.isOrNot(res.affected != 0);
+    return Result.isOrNot(res.affected != 0, '删除外来人员失败');
   }
   
   async update(outsiderUpdateDto: OutsiderUpdateDto) {
@@ -37,7 +37,7 @@ export class OutsiderService {
 
     const res = await OutsiderService.repository.update(outsiderUpdateDto.body.id, outsiderUpdateDto.body);
 
-    return Result.isOrNot(res.affected != 0);
+    return Result.isOrNot(res.affected != 0, '更新外来人员失败');
   }
   
   async query(outsiderQueryDto: OutsiderQueryDto) {

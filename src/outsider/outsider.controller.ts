@@ -47,7 +47,7 @@ export class OutsiderController {
   @Post('query')
   async query(@Body() outsiderQueryDto: OutsiderQueryDto) { 
     if (!NumberTool.isInteger(outsiderQueryDto.checkingUid)) return Result.fail('权限不足');
-    if (!NumberTool.isInteger(outsiderQueryDto.body.pageSize)) return Result.fail('pageSize不正确');
+    if (!NumberTool.isIntegerInRange(outsiderQueryDto.body.pageSize, 1, 100)) return Result.fail('pageSize不正确');
     if (!NumberTool.isInteger(outsiderQueryDto.body.pageIndex)) return Result.fail('pageIndex不正确');
 
     return await this.outsiderService.query(outsiderQueryDto);

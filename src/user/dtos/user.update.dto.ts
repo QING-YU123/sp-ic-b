@@ -1,11 +1,11 @@
-import { Dto } from "src/.dtos/dto";
+export class UserUpdateDto { 
+    checkingUid: number;
 
-export class UserCreateDto extends Dto {
     body: {
+        id: number;
+
         phone: string;
 
-        password: string;
-        
         power: number;
 
         username: string;
@@ -23,5 +23,9 @@ export class UserCreateDto extends Dto {
         address: string;
 
         CP: boolean;
+
+        banTalk: boolean;
+
+        status: number;
     }
 }

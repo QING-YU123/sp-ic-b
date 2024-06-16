@@ -19,7 +19,7 @@ export class Result {
         return new Result(400, message, null);
     }
 
-    static isOrNot(condition: boolean): Result {
-        return condition ? Result.success() : Result.fail();
+    static isOrNot(condition: boolean, message: string): Result {
+        return condition ? Result.success() : Result.fail(message);
     }
 }

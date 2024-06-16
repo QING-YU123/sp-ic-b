@@ -15,8 +15,6 @@ export class PowerService {
 
   static powerList: Power[] = [];
 
-  static openCheck = true;
-
   async init() {
     const res = await PowerService.repository.find();
     res.forEach((item) => { 
@@ -26,7 +24,6 @@ export class PowerService {
 
   static async get(dto: Dto) {
     if (PowerService.powerList.length < 10) return new Power();
-    if (!this.openCheck) return PowerService.powerList[1];
     const user = await UserService.repository.findOne({ select: ['power'], where: { id: dto.checkingUid } });
     if (user == null) return new Power();
     return PowerService.powerList[user.power];

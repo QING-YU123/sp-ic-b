@@ -1,5 +1,6 @@
 export class NumberTool { 
     static isInteger(num: any): boolean { 
+        if (typeof num == "undefined") return false; 
         const str: string = num.toString(); 
         return Math.floor(Number(str)).toString() === str; 
     }
