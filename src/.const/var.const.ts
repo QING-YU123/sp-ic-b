@@ -1,4 +1,4 @@
-export class VarConst { 
-    static genders: string[] = ["男", "女"];
-    static defaultPassword: string = "zhsq88888";
+export const VarConst = { 
+    genders: ["男", "女"],
+    defaultPassword: "zhsq88888"
 }
