@@ -10,6 +10,7 @@ import { Result } from 'src/.dtos/result';
 import { FeedbackUpdateDto } from './dtos/feedback.update.dto';
 import { FeedbackQueryDto } from './dtos/feedback.query.dto';
 import { MsgConst } from 'src/.const/msg.const';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class FeedbackService {
@@ -19,15 +20,16 @@ export class FeedbackService {
   }
 
   async create(feedbackCreateDto: FeedbackCreateDto) {
-    if (!(await PowerService.get(feedbackCreateDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
+    if (!(await PowerService.get(feedbackCreateDto)).uFeedback) return Result.fail(MsgConst.powerLowE);
 
+    feedbackCreateDto.body.uid = feedbackCreateDto.checkingUid;
     const res = FeedbackService.repository.save(feedbackCreateDto.body);
 
     return Result.isOrNot(res != null, MsgConst.feedback.create);
   }
 
   async delete(feedbackDeleteDto: FeedbackDeleteDto) {
-    if (!(await PowerService.get(feedbackDeleteDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
+    if (!(await PowerService.get(feedbackDeleteDto)).mFeedback) return Result.fail(MsgConst.powerLowE);
     
     const res = await FeedbackService.repository.update(feedbackDeleteDto.body.id, {status: 1});
 
@@ -35,7 +37,7 @@ export class FeedbackService {
   }
 
   async update(feedbackUpdateDto: FeedbackUpdateDto) {
-    if (!(await PowerService.get(feedbackUpdateDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
+    if (!(await PowerService.get(feedbackUpdateDto)).uFeedback) return Result.fail(MsgConst.powerLowE);
 
     const res = await FeedbackService.repository.update(feedbackUpdateDto.body.id,
       { result: feedbackUpdateDto.body.result, status: 2 });
@@ -44,9 +46,8 @@ export class FeedbackService {
   }
 
   async query(feedbackQueryDto: FeedbackQueryDto) {
-    if (!(await PowerService.get(feedbackQueryDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
+    if (!(await PowerService.get(feedbackQueryDto)).mFeedback) return Result.fail(MsgConst.powerLowE);
     
-    // 分页查询
     const [data, total] = await FeedbackService.repository.findAndCount({
       skip: (feedbackQueryDto.body.pageIndex - 1) * feedbackQueryDto.body.pageSize,
       take: feedbackQueryDto.body.pageSize,
@@ -57,8 +58,18 @@ export class FeedbackService {
       where: {
         // status除了1之外的都要筛选
         status: In([0, 2]),
-        
       }
+    });
+    const user = await UserService.repository.find({
+      select: ["id", "name", "phone"],
+      where: { id: In(data.map(item => item.uid)) }
+    });
+    let data1: any = data;
+    data1.forEach(item => {
+      const u = user.find(userItem => userItem.id === item.uid);
+      item.name = u.name;
+      item.phone = u.phone;
+      item.image = item.image.toString();
     });
     
     return Result.success(MsgConst.feedback.query + MsgConst.success, {

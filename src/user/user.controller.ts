@@ -18,6 +18,7 @@ import { UserUpdateOwnDto } from './dtos/user.update_own.dto';
 import { UserBanTalkDto } from './dtos/user.ban_talk.dto';
 import { BooleanTool } from './../.tools/boolean.tool';
 import { MsgConst } from './../.const/msg.const';
+import { ObjectTool } from 'src/.tools/object.tool';
 
 @Controller('user')
 export class UserController {
@@ -26,6 +27,7 @@ export class UserController {
   @Post('create')
   async create(@Body() userCreateDto: UserCreateDto) { 
     if (!NumberTool.isInteger(userCreateDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(userCreateDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!StringTool.isLengthInRange(userCreateDto.body.phone, 11, 11)) return Result.fail(MsgConst.phoneLengthE);
     if (!StringTool.isLengthInRange(userCreateDto.body.password, 6, 16)) return Result.fail(MsgConst.passwordLengthE);
     if (!NumberTool.isIntegerInRange(userCreateDto.body.power, 2, 9)) return Result.fail(MsgConst.powerAllotE);
@@ -44,6 +46,7 @@ export class UserController {
   @Post('delete')
   async delete(@Body() userDeleteDto: UserDeleteDto) { 
     if (!NumberTool.isInteger(userDeleteDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(userDeleteDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!NumberTool.isInteger(userDeleteDto.body.id)) return Result.fail(MsgConst.idNotExistE);
 
     return await this.userService.delete(userDeleteDto);
@@ -52,6 +55,7 @@ export class UserController {
   @Post('update')
   async update(@Body() userUpdateDto: UserUpdateDto) { 
     if (!NumberTool.isInteger(userUpdateDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(userUpdateDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!NumberTool.isInteger(userUpdateDto.body.id)) return Result.fail(MsgConst.idNotExistE);
     if (!StringTool.isLengthInRange(userUpdateDto.body.phone, 11, 11)) return Result.fail(MsgConst.phoneLengthE);
     if (!NumberTool.isIntegerInRange(userUpdateDto.body.power, 2, 9)) return Result.fail(MsgConst.powerAllotE);
@@ -76,6 +80,7 @@ export class UserController {
   @Post('query')
   async query(@Body() userQueryDto: UserQueryDto) { 
     if (!NumberTool.isInteger(userQueryDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(userQueryDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!NumberTool.isIntegerInRange(userQueryDto.body.pageSize, 1, 100)) return Result.fail(MsgConst.pageSizeE);
     if (!NumberTool.isInteger(userQueryDto.body.pageIndex)) return Result.fail(MsgConst.pageIndexE);
 
@@ -85,6 +90,7 @@ export class UserController {
   @Post('resetPasswordAdmin')
   async resetPasswordAdmin(@Body() userResetPasswordAdminDto: UserResetPasswordAdminDto) { 
     if (!NumberTool.isInteger(userResetPasswordAdminDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(userResetPasswordAdminDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!NumberTool.isInteger(userResetPasswordAdminDto.body.id)) return Result.fail(MsgConst.idNotExistE);
 
     return await this.userService.resetPasswordAdmin(userResetPasswordAdminDto);
@@ -115,6 +121,7 @@ export class UserController {
   @Post('resetPasswordOwn')
   async resetPasswordOwn(@Body() userResetPasswordOwnDto: UserResetPasswordOwnDto) {
     if (!NumberTool.isInteger(userResetPasswordOwnDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(userResetPasswordOwnDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!StringTool.isLengthInRange(userResetPasswordOwnDto.body.oldPassword, 6, 16))
       return Result.fail(MsgConst.oldPasswordLengthE);
     if (!StringTool.isLengthInRange(userResetPasswordOwnDto.body.newPassword, 6, 16))
@@ -126,6 +133,7 @@ export class UserController {
   @Post('uploadHeadImg')
   async uploadHeadImg(@Body() userUploadHeadImgDto: UserUploadHeadImgDto) {
     if (!NumberTool.isInteger(userUploadHeadImgDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(userUploadHeadImgDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!StringTool.isLengthInRange(userUploadHeadImgDto.body.headImg, 1, 16000000))
       return Result.fail(MsgConst.imageSizeE);
 
@@ -135,6 +143,7 @@ export class UserController {
   @Post('updateOwn')
   async updateOwn(@Body() userUpdateOwnDto: UserUpdateOwnDto) { 
     if (!NumberTool.isInteger(userUpdateOwnDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(userUpdateOwnDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!StringTool.isLengthInRange(userUpdateOwnDto.body.username, 1, 20)) return Result.fail(MsgConst.usernameLengthE);
     if (!StringTool.isLengthInRange(userUpdateOwnDto.body.gender, 1, 1)) return Result.fail(MsgConst.genderLengthE);
     if (!VarConst.genders.includes(userUpdateOwnDto.body.gender)) return Result.fail(MsgConst.genderE);
@@ -145,8 +154,9 @@ export class UserController {
   }
 
   @Post('banTalk')
-  async banTalk(@Body() userBanTalkDto: UserBanTalkDto) { 
+  async banTalk(@Body() userBanTalkDto: UserBanTalkDto) {
     if (!NumberTool.isInteger(userBanTalkDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(userBanTalkDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!NumberTool.isInteger(userBanTalkDto.body.id)) return Result.fail(MsgConst.idNotExistE);
     if (!BooleanTool.isBoolean(userBanTalkDto.body.banTalk)) return Result.fail(MsgConst.booleanE);
 

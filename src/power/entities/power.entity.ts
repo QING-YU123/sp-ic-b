@@ -48,7 +48,7 @@ export class Power {
     mParking: boolean;
 
     @Column({ name: "u_approve", type: "boolean", default: false })
-    uApprove: boolean;
+    uPost: boolean;
 
     @Column({ name: "u_collect", type: "boolean", default: false })
     uCollect: boolean;

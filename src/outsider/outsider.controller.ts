@@ -10,6 +10,7 @@ import { OutsiderQueryDto } from './dtos/outsider.query.dto';
 import { PasswordTool } from './../.tools/password.tool';
 import { MsgConst } from 'src/.const/msg.const';
 import { VarConst } from 'src/.const/var.const';
+import { ObjectTool } from 'src/.tools/object.tool';
 
 @Controller('outsider')
 export class OutsiderController {
@@ -18,6 +19,7 @@ export class OutsiderController {
   @Post('create')
   async create(@Body() outsiderCreateDto: OutsiderCreateDto) { 
     if (!NumberTool.isInteger(outsiderCreateDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(outsiderCreateDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!StringTool.isLengthInRange(outsiderCreateDto.body.phone, 11, 11)) return Result.fail(MsgConst.phoneLengthE);
     if (!StringTool.isLengthInRange(outsiderCreateDto.body.gender, 1, 1)) return Result.fail(MsgConst.genderLengthE);
     if (!VarConst.genders.includes(outsiderCreateDto.body.gender)) return Result.fail(MsgConst.genderE);
@@ -30,6 +32,7 @@ export class OutsiderController {
   @Post('delete')
   async delete(@Body() outsiderDeleteDto: OutsiderDeleteDto) {
     if (!NumberTool.isInteger(outsiderDeleteDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(outsiderDeleteDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!NumberTool.isInteger(outsiderDeleteDto.body.id)) return Result.fail(MsgConst.idNotExistE);
 
     return await this.outsiderService.delete(outsiderDeleteDto);
@@ -38,6 +41,7 @@ export class OutsiderController {
   @Post('update')
   async update(@Body() outsiderUpdateDto: OutsiderUpdateDto) { 
     if (!NumberTool.isInteger(outsiderUpdateDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(outsiderUpdateDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!NumberTool.isInteger(outsiderUpdateDto.body.id)) return Result.fail(MsgConst.idNotExistE);
     if (!StringTool.isLengthInRange(outsiderUpdateDto.body.phone, 11, 11)) return Result.fail(MsgConst.phoneLengthE);
     if (!StringTool.isLengthInRange(outsiderUpdateDto.body.gender, 1, 1)) return Result.fail(MsgConst.genderLengthE);
@@ -51,6 +55,7 @@ export class OutsiderController {
   @Post('query')
   async query(@Body() outsiderQueryDto: OutsiderQueryDto) { 
     if (!NumberTool.isInteger(outsiderQueryDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(outsiderQueryDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!NumberTool.isIntegerInRange(outsiderQueryDto.body.pageSize, 1, 100)) return Result.fail(MsgConst.pageSizeE);
     if (!NumberTool.isInteger(outsiderQueryDto.body.pageIndex)) return Result.fail(MsgConst.pageIndexE);
 

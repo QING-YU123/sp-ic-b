@@ -11,7 +11,7 @@ export class Parking {
     @Column({ name: "updated_time", type: "datetime", default: () => "NOW()", onUpdate: "NOW()" })
     updatedTime: string;
 
-    @Column({ type: "bigint", nullable: true })
+    @Column({ type: "bigint", default: 1 })
     uid: number;
 
     @Column({ type: "int" })

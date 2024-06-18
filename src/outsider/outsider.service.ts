@@ -44,7 +44,6 @@ export class OutsiderService {
   async query(outsiderQueryDto: OutsiderQueryDto) {
     if (!(await PowerService.get(outsiderQueryDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
     
-    // 分页查询
     const [data, total] = await OutsiderService.repository.findAndCount({
       skip: (outsiderQueryDto.body.pageIndex - 1) * outsiderQueryDto.body.pageSize,
       take: outsiderQueryDto.body.pageSize,

@@ -5,10 +5,10 @@ export class Post {
     @PrimaryGeneratedColumn({ type: "bigint" })
     id: number;
 
-    @Column({ name: "created_time", type: "datetime" })
+    @Column({ name: "created_time", type: "datetime", default: () => "NOW()" })
     createdTime: string;
 
-    @Column({ name: "updated_time", type: "datetime" })
+    @Column({ name: "updated_time", type: "datetime", default: () => "NOW()", onUpdate: "NOW()" })
     updatedTime: string;
 
     @Column({ type: "bigint" })
@@ -23,7 +23,7 @@ export class Post {
     @Column({ name: "cover_img", type: "mediumblob" })
     coverImg: string;
 
-    @Column({ type: "varchar", length: 2000 })
+    @Column({ type: "mediumblob" }) 
     content: string;
 
     @Column({ name: "like_num", type: "int", default: 0 })

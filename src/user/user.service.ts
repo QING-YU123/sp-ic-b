@@ -19,6 +19,7 @@ import { UserUploadHeadImgDto } from './dtos/user.upload_head_img.dto';
 import { UserUpdateOwnDto } from './dtos/user.update_own.dto';
 import { UserBanTalkDto } from './dtos/user.ban_talk.dto';
 import { MsgConst } from 'src/.const/msg.const';
+import { ParkingService } from 'src/parking/parking.service';
 
 @Injectable()
 export class UserService {
@@ -99,7 +100,7 @@ export class UserService {
       order: {
         id: 'DESC'
       },
-      select: ['id', 'createdTime', 'updatedTime', 'phone', 'power', 'username', 'gender', 'headImg', 'introduction', 'name', 'idCard', 'address', 'money', 'CP', 'banTalk', 'postNum', 'collectNum', 'status'],
+      select: ['id', 'createdTime', 'updatedTime', 'phone', 'power', 'username', 'gender', 'introduction', 'name', 'idCard', 'address', 'money', 'CP', 'banTalk', 'postNum', 'collectNum', 'status'],
       where: where
     });
 
@@ -130,10 +131,16 @@ export class UserService {
     const user = await UserService.repository.findOne({ where: { phone: userLoginDto.phone } });
     if (user == null) return Result.fail(MsgConst.userNotExistE);
     if (user.password != PasswordTool.encrypt(userLoginDto.password)) return Result.fail(MsgConst.passwordE);
-    if (user.status == 2) return Result.fail(MsgConst.userIsBaned);
+    if (user.status == 2) return Result.fail(MsgConst.userIsBanned);
 
     delete user.password;
     delete user.status;
+    user.headImg = user.headImg.toString();
+    let user1: any = user;
+    user1.parking = await ParkingService.repository.findOne({
+      select: ['updatedTime', 'carNum', 'price', 'id'],
+      where: { uid: user.id }
+    });
 
     return Result.success(MsgConst.user.login + MsgConst.success, user);
   }
@@ -190,6 +197,8 @@ export class UserService {
   async get(id: number) {
     const user = await UserService.repository.findOne({ select: ['id', 'power', 'username', 'gender', 'headImg', 'introduction', 'CP'], where: { id } });
     if (user == null) return Result.fail(MsgConst.userNotExistE);
+
+    user.headImg = user.headImg.toString();
 
     return Result.success(MsgConst.user.get + MsgConst.success, user);
   }

@@ -1,7 +1,13 @@
 export const MsgConst = {
     powerLowE: "权限不足",
+
+    bodyNotExistE: "body体不存在",
     
     idNotExistE: "id不存在",
+
+    idRangeE: "id范围不正确",
+
+    idHadExistE: "id已存在",
 
     phoneLengthE: "手机号长度不正确",
 
@@ -37,6 +43,8 @@ export const MsgConst = {
 
     statusE: "状态不正确",
 
+    typeE: "类型不正确",
+
     pageSizeE: "页面大小不正确",
 
     pageIndexE: "页号不正确",
@@ -45,7 +53,13 @@ export const MsgConst = {
 
     userNotExistE: "用户不存在",
 
-    userIsBaned: "用户已被封禁",
+    userIsBanned: "用户已被封禁",
+
+    userIsBannedTalk: "用户已被禁言",
+
+    uidNotExistE: "uid不存在",
+
+    tagLengthE: "标签长度不正确",
 
     titleLengthE: "标题长度不正确",
 
@@ -53,11 +67,19 @@ export const MsgConst = {
 
     resultLengthE: "结果长度不正确",
 
+    priceRangeE: "价格范围不正确",
+
+    carNumLengthE: "车牌号长度不正确",
+
+    balanceRangeE: "商品余量范围不正确",
+
     success: "成功",
 
     fail: "失败",
 
     operate: "操作",
+
+    operateFail: "操作失败",
 
     outsider: {
         create: "登记外来人员",
@@ -87,6 +109,108 @@ export const MsgConst = {
         update: "报修处理",
 
         query: "报修记录查询"
+    },
+
+    parking: {
+        create: "车位创建",
+
+        delete: "车位删除",
+
+        update: "车位信息更新",
+
+        query: "车位信息查询"
+    },
+
+    store: {
+        create: "店铺创建",
+
+        delete: "店铺删除",
+
+        update: "店铺信息更新",
+
+        query: "店铺信息查询"
+    },
+
+    goods: {
+        create: "商品添加",
+
+        delete: "商品删除",
+
+        update: "商品信息更新",
+
+        query: "商品信息查询"
+    },
+
+    payment: {
+        create: "缴费记录创建",
+
+        delete: "缴费记录删除",
+
+        update: "缴费记录更新",
+
+        query: "缴费记录查询"
+    },
+
+    notice: {
+        create: "公告创建",
+
+        delete: "公告删除",
+
+        update: "公告信息更新",
+
+        query: "公告信息查询"
+    },
+
+    message: {
+        create: "消息创建",
+
+        read: "消息已读",
+
+        query: "消息查询"
+    },
+
+    post: {
+        create: "帖子创建",
+
+        delete: "帖子删除",
+
+        update: "审核操作",
+
+        query: "帖子查询"
+    },
+
+    postLike: {
+        create: "帖子点赞",
+
+        delete: "帖子取消点赞",
+
+        query: "帖子点赞查询"
+    },
+
+    postCollect: {
+        create: "帖子收藏",
+
+        delete: "帖子取消收藏",
+
+        query: "帖子收藏查询"
+    },
+
+    postComment: {
+        create: "帖子评论",
+
+        delete: "帖子评论删除",
+
+        update: "帖子评论更新",
+
+        query: "帖子评论查询"
+    },
+
+    postCommentLike: {
+        create: "评论点赞",
+
+        delete: "评论取消点赞",
+
+        query: "评论点赞查询"
     },
 
     user: {
