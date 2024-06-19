@@ -52,8 +52,10 @@ export class GoodsService {
 
   async update(goodsUpdateDto: GoodsUpdateDto) {
     const shopkeeper = await StoreService.repository.findOne({ select: ['uid'], where: { id: goodsUpdateDto.body.sid } });
-    if (goodsUpdateDto.checkingUid != shopkeeper.uid) {
-      return Result.fail(MsgConst.powerLowE);
+    if (!(await PowerService.get(goodsUpdateDto)).mAdmin0) {
+      if (goodsUpdateDto.checkingUid != shopkeeper.uid) {
+        return Result.fail(MsgConst.powerLowE);
+      }
     }
 
     const res = await GoodsService.repository.update(goodsUpdateDto.body.id, goodsUpdateDto.body);
@@ -64,7 +66,7 @@ export class GoodsService {
   async query(goodsQueryDto: GoodsQueryDto) {
     if (!(await PowerService.get(goodsQueryDto)).uMoney) return Result.fail(MsgConst.powerLowE);
 
-    const [data, total] = await GoodsService.repository.findAndCount({
+    let [data, total] = await GoodsService.repository.findAndCount({
       skip: (goodsQueryDto.body.pageIndex - 1) * goodsQueryDto.body.pageSize,
       take: goodsQueryDto.body.pageSize,
       order: {
@@ -74,6 +76,9 @@ export class GoodsService {
       where: {
         status: 0,
       }
+    });
+    data.forEach(item => {
+      item.coverImg = item.coverImg.toString();
     });
 
     return Result.success(MsgConst.goods.query + MsgConst.success, {

@@ -44,6 +44,9 @@ export class User {
     @Column({ type: "bigint", default: 0 })
     money: number;
 
+    @Column({ name: "pay_password", type: "char", length: 64, nullable: true })
+    payPassword: string;
+
     @Column({ name: "is_cp", type: "boolean", default: false })
     CP: boolean;
 

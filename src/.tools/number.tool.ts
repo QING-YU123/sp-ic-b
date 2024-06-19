@@ -2,7 +2,7 @@ import { NumConst } from './../.const/num.const';
 
 export class NumberTool { 
     static isInteger(num: any): boolean { 
-        if (typeof num == "undefined") return false; 
+        if (typeof num == "undefined" || num == null) return false;
         const str: string = num.toString(); 
         return Math.floor(Number(str)).toString() === str; 
     }

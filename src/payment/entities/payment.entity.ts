@@ -14,6 +14,9 @@ export class Payment {
     @Column({ type: "bigint" })
     uid: number;
 
+    @Column({ type: "bigint", nullable: true })
+    bid: number;
+
     @Column({ name: "created_uid", type: "bigint" })
     createdUid: number;
 

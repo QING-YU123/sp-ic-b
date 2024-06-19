@@ -14,10 +14,13 @@ export class Bill {
     @Column({ type: "bigint" })
     uid: number;
 
+    @Column({ type: "bigint" })
+    pmid: number;
+
     @Column({ type: "varchar", length: 30 })
     title: string;
 
-    @Column({ type: "varchar", length: 255 })
+    @Column({ type: "varchar", length: 500 })
     content: string;
 
     @Column({ type: "int", default: 0 })

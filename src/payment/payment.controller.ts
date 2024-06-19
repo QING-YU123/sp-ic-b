@@ -38,8 +38,6 @@ export class PaymentController {
   
   @Post('update')
   async update(@Body() paymentUpdateDto: PaymentUpdateDto) { 
-    return Result.fail("有前置业务尚未完成，暂时无法提供服务");
-
     if (!NumberTool.isInteger(paymentUpdateDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
     if (!ObjectTool.isBodyExist(paymentUpdateDto)) return Result.fail(MsgConst.bodyNotExistE);
     if (!NumberTool.isInteger(paymentUpdateDto.body.id)) return Result.fail(MsgConst.idNotExistE);

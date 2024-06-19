@@ -21,7 +21,7 @@ export class PostComment {
     @Column({ type: "varchar", length: 255 })
     comment: string;
 
-    @Column({ name: "reply_uid", type: "bigint" })
+    @Column({ name: "reply_uid", type: "bigint", nullable: true })
     replyUid: number;
 
     @Column({ name: "like_num", type: "int", default: 0 })

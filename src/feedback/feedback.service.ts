@@ -46,7 +46,8 @@ export class FeedbackService {
   }
 
   async query(feedbackQueryDto: FeedbackQueryDto) {
-    if (!(await PowerService.get(feedbackQueryDto)).mFeedback) return Result.fail(MsgConst.powerLowE);
+    const power = await PowerService.get(feedbackQueryDto);
+    if (!power.uFeedback) return Result.fail(MsgConst.powerLowE);
     
     const [data, total] = await FeedbackService.repository.findAndCount({
       skip: (feedbackQueryDto.body.pageIndex - 1) * feedbackQueryDto.body.pageSize,
@@ -57,7 +58,7 @@ export class FeedbackService {
       // 通过OR条件筛选
       where: {
         // status除了1之外的都要筛选
-        status: In([0, 2]),
+        status: In(power.mFeedback? [0, 2] : [0]),
       }
     });
     const user = await UserService.repository.find({

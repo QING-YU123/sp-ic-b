@@ -49,7 +49,8 @@ export class MessageService {
 
 
   async read(messageReadDto: MessageReadDto) {
-    if (!(await PowerService.get(messageReadDto)).mAdmin0) return Result.fail(MsgConst.powerLowE);
+    const uid = await MessageService.repository.findOne({ select: ['uid'],where: { id: messageReadDto.body.id } });
+    if (messageReadDto.checkingUid  != uid.uid) return Result.fail(MsgConst.readNotHimselfE);
 
     const res = await MessageService.repository.update(messageReadDto.body.id, { read: true });
 

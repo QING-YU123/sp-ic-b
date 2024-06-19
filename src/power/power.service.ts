@@ -1,9 +1,12 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Res } from '@nestjs/common';
 import { Power } from './entities/power.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { UserService } from 'src/user/user.service';
 import { Dto } from 'src/.dtos/dto';
+import { PowerQueryDto } from './dtos/power.query.dto';
+import { Result } from 'src/.dtos/result';
+import { MsgConst } from 'src/.const/msg.const';
 
 @Injectable()
 export class PowerService {
@@ -11,6 +14,12 @@ export class PowerService {
   constructor(@InjectRepository(Power) repository: Repository<Power>) { 
     PowerService.repository = repository;
     this.init();
+  }
+  
+  async query(powerQueryDto: PowerQueryDto) {
+    if (!(await PowerService.get(powerQueryDto)).mAdmin0) return Result.fail(MsgConst.powerLowE);
+
+    return Result.success(MsgConst.power.query + MsgConst.success, PowerService.powerList);
   }
 
   static powerList: Power[] = [];

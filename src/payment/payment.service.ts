@@ -9,6 +9,7 @@ import { MsgConst } from 'src/.const/msg.const';
 import { PaymentDeleteDto } from './dtos/payment.delete.dto';
 import { PaymentUpdateDto } from './dtos/payment.update.dto';
 import { PaymentQueryDto } from './dtos/payment.query.dto';
+import { BillService } from 'src/bill/bill.service';
 
 @Injectable()
 export class PaymentService {
@@ -35,9 +36,17 @@ export class PaymentService {
   }
 
   async update(paymentUpdateDto: PaymentUpdateDto) {
-    if (!(await PowerService.get(paymentUpdateDto)).mPayment) return Result.fail(MsgConst.powerLowE);
+    if (!(await PowerService.get(paymentUpdateDto)).uMoney) return Result.fail(MsgConst.powerLowE);
+    const payment = await PaymentService.repository.findOne({ where: { id: paymentUpdateDto.body.id } });
+    if (payment.bid != null) return Result.fail(MsgConst.billHadExistE);
 
-    const res = await PaymentService.repository.update(paymentUpdateDto.body.id, { status: 2, payTime: () => "Now()" });
+    const bill = await BillService.repository.save({
+      pmid: payment.id,
+      title: payment.title,
+      content: payment.content,
+      price: payment.price
+    });
+    const res = await PaymentService.repository.update(paymentUpdateDto.body.id, { bid: bill.id });
 
     return Result.isOrNot(res.affected != 0, MsgConst.payment.update);
   }

@@ -1,3 +1,5 @@
+import { query } from "express";
+
 export const MsgConst = {
     powerLowE: "权限不足",
 
@@ -9,9 +11,25 @@ export const MsgConst = {
 
     idHadExistE: "id已存在",
 
+    billHadExistE: "账单已被创建",
+
     phoneLengthE: "手机号长度不正确",
 
     passwordLengthE: "密码长度不正确",
+
+    payPasswordLengthE: "支付密码长度不正确",
+
+    payPasswordE: "支付密码不正确",
+
+    notSelfPayE: "不是本人支付",
+
+    payE: "支付失败",
+
+    hadPayE: "账单已支付，请勿重复支付",
+
+    hadNotPayE: "账单未支付，无法删除",
+
+    notEnoughMoneyE: "余额不足",
 
     passwordE: "密码不正确",
 
@@ -20,6 +38,8 @@ export const MsgConst = {
     newPasswordLengthE: "新密码长度不正确",
 
     oldPasswordE: "旧密码不正确",
+
+    commentLengthE: "评论长度超出限制",
 
     powerAllotE: "权限分配不正确",
 
@@ -34,6 +54,8 @@ export const MsgConst = {
     idCardLengthE: "身份证号长度不正确",
 
     addressLengthE: "地址长度不正确",
+
+    hadAttendE: "已参加活动，请勿重复参加",
 
     booleanE: "布尔值不正确",
 
@@ -59,6 +81,8 @@ export const MsgConst = {
 
     uidNotExistE: "uid不存在",
 
+    aidNotExistE: "活动id不存在",
+
     tagLengthE: "标签长度不正确",
 
     titleLengthE: "标题长度不正确",
@@ -73,6 +97,12 @@ export const MsgConst = {
 
     balanceRangeE: "商品余量范围不正确",
 
+    readNotHimselfE: "不是本人读消息",
+
+    startTimeE: "开始时间不正确",
+
+    endTimeE: "结束时间不正确",
+
     success: "成功",
 
     fail: "失败",
@@ -80,6 +110,16 @@ export const MsgConst = {
     operate: "操作",
 
     operateFail: "操作失败",
+
+    power: {
+        query: "权限列表查询",
+    },
+
+    log: {
+        create: "日志创建",
+
+        query: "日志查询"
+    },
 
     outsider: {
         create: "登记外来人员",
@@ -131,6 +171,24 @@ export const MsgConst = {
         query: "店铺信息查询"
     },
 
+    activity: {
+        create: "活动创建",
+
+        delete: "活动删除",
+
+        update: "活动信息更新",
+
+        query: "活动查询"
+    },
+
+    attend: {
+        create: "参加记录创建",
+
+        update: "参加记录更新",
+
+        query: "参加记录查询"
+    },
+
     goods: {
         create: "商品添加",
 
@@ -142,11 +200,11 @@ export const MsgConst = {
     },
 
     payment: {
-        create: "缴费记录创建",
+        create: "缴费单创建",
 
         delete: "缴费记录删除",
 
-        update: "缴费记录更新",
+        update: "订单创建",
 
         query: "缴费记录查询"
     },
@@ -167,6 +225,16 @@ export const MsgConst = {
         read: "消息已读",
 
         query: "消息查询"
+    },
+
+    bill: {
+        create: "账单创建",
+
+        delete: "账单删除",
+
+        update: "支付",
+
+        query: "账单信息查询"
     },
 
     post: {

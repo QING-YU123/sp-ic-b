@@ -1,7 +1,8 @@
 import { Dto } from "src/.dtos/dto";
 
-export class PaymentUpdateDto extends Dto {
+export class ActivityDeleteDto extends Dto{ 
     body: {
         id: number;
-    }
+
+    };
 }
