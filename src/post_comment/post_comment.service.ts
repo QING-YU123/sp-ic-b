@@ -18,6 +18,12 @@ export class PostCommentService {
     PostCommentService.repository = repository;
   }
   
+  /**
+   * 帖子评论记录创建
+   * 
+   * @param postCommentCreateDto 帖子评论记录创建传输对象
+   * @returns Result
+   */
   async create(postCommentCreateDto: PostCommentCreateDto) {
     if (!(await PowerService.get(postCommentCreateDto)).uPost) return Result.fail(MsgConst.powerLowE);
     const user = await UserService.repository.findOne({
@@ -33,6 +39,12 @@ export class PostCommentService {
     return Result.isOrNot(res != null, MsgConst.postComment.create);
   }
   
+  /**
+   * 帖子评论记录删除
+   * 
+   * @param postCommentDeleteDto 帖子评论记录删除传输对象
+   * @returns Result
+   */
   async delete(postCommentDeleteDto: PostCommentDeleteDto) {
     const pc = await PostCommentService.repository.findOne({
       select: ['uid', 'pid'],
@@ -51,6 +63,12 @@ export class PostCommentService {
     return Result.isOrNot(res.affected != 0, MsgConst.postComment.delete);
   }
   
+  /**
+   * 帖子评论记录查询
+   * 
+   * @param postCommentQueryDto 帖子评论记录查询传输对象
+   * @returns Result
+   */
   async query(postCommentQueryDto: PostCommentQueryDto) {
     if (!(await PowerService.get(postCommentQueryDto)).uPost) return Result.fail(MsgConst.powerLowE);
 

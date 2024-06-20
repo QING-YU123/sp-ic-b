@@ -41,7 +41,7 @@ export class User {
     @Column({ type: "varchar", length: 255 })
     address: string;
 
-    @Column({ type: "bigint", default: 0 })
+    @Column({ type: "bigint", default: null })
     money: number;
 
     @Column({ name: "pay_password", type: "char", length: 64, nullable: true })

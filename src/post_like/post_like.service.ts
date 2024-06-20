@@ -17,6 +17,12 @@ export class PostLikeService {
     PostLikeService.repository = repository;
   }
   
+  /**
+   * 帖子点赞创建业务逻辑
+   * 
+   * @param postLikeCreateDto 帖子点赞创建数据传输对象
+   * @returns Result
+   */
   async create(postLikeCreateDto: PostLikeCreateDto) {
     if (!(await PowerService.get(postLikeCreateDto)).uPost) return Result.fail(MsgConst.powerLowE);
     if ((await PostLikeService.repository.countBy({
@@ -33,6 +39,12 @@ export class PostLikeService {
     return Result.isOrNot(postLike != null, MsgConst.postLike.create);
   }
   
+  /**
+   * 帖子点赞删除业务逻辑
+   * 
+   * @param postLikeDeleteDto 帖子点赞删除数据传输对象
+   * @returns Result
+   */
   async delete(postLikeDeleteDto: PostLikeDeleteDto) {
     if (!(await PowerService.get(postLikeDeleteDto)).uPost) return Result.fail(MsgConst.powerLowE);
 
@@ -45,6 +57,12 @@ export class PostLikeService {
     return Result.isOrNot(res.affected == 1, MsgConst.postLike.delete);
   }
   
+  /**
+   * 帖子点赞查询业务逻辑
+   * 
+   * @param postLikeQueryDto 帖子点赞查询数据传输对象
+   * @returns Result
+   */
   async query(postLikeQueryDto: PostLikeQueryDto) {
     if (!(await PowerService.get(postLikeQueryDto)).uPost) return Result.fail(MsgConst.powerLowE);
 

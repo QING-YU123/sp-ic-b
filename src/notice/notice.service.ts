@@ -17,6 +17,12 @@ export class NoticeService {
     NoticeService.repository = repository;
   }
   
+  /**
+   * 公告创建业务逻辑处理
+   * 
+   * @param noticeCreateDto 公告创建数据传输对象
+   * @returns Result
+   */
   async create(noticeCreateDto: NoticeCreateDto) {
     if (!(await PowerService.get(noticeCreateDto)).mNotice) return Result.fail(MsgConst.powerLowE);
     noticeCreateDto.body.uid = noticeCreateDto.checkingUid;
@@ -26,6 +32,12 @@ export class NoticeService {
     return Result.isOrNot(res != null, MsgConst.notice.create);
   }
 
+  /**
+   * 公告删除业务逻辑处理
+   * 
+   * @param noticeDeleteDto 公告删除数据传输对象
+   * @returns Result
+   */
   async delete(noticeDeleteDto: NoticeDeleteDto) { 
     if (!(await PowerService.get(noticeDeleteDto)).mNotice) return Result.fail(MsgConst.powerLowE);
 
@@ -34,6 +46,12 @@ export class NoticeService {
     return Result.isOrNot(res.affected != 0, MsgConst.notice.delete);
   }
 
+  /**
+   * 公告更新业务逻辑处理
+   * 
+   * @param noticeUpdateDto 公告更新数据传输对象
+   * @returns Result
+   */
   async update(noticeUpdateDto: NoticeUpdateDto) { 
     if (!(await PowerService.get(noticeUpdateDto)).mNotice) return Result.fail(MsgConst.powerLowE);
 
@@ -42,6 +60,12 @@ export class NoticeService {
     return Result.isOrNot(res.affected != 0, MsgConst.notice.update);
   }
 
+  /**
+   * 公告查询业务逻辑处理
+   * 
+   * @param noticeQueryDto 公告查询数据传输对象
+   * @returns Result
+   */
   async query(noticeQueryDto : NoticeQueryDto) { 
     if (!(await PowerService.get(noticeQueryDto)).uNotice) return Result.fail(MsgConst.powerLowE);
 

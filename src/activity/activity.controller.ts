@@ -10,6 +10,7 @@ import { NumConst } from 'src/.const/num.const';
 import { ActivityDeleteDto } from './dtos/activity.delete.dto';
 import { ActivityUpdateDto } from './dtos/activity.update.dto';
 import { ActivityQueryDto } from './dtos/activity.query.dto';
+import { TimeTool } from 'src/.tools/time.tool';
 
 @Controller('activity')
 export class ActivityController {
@@ -25,8 +26,9 @@ export class ActivityController {
     if (!StringTool.isLengthInRange(activityCreateDto.body.introduction, 0, 255)) return Result.fail(MsgConst.contentLengthE);
     if (!StringTool.isLengthInRange(activityCreateDto.body.tag, 0, 50)) return Result.fail(MsgConst.tagLengthE);
     if (!NumberTool.isIntegerInRange(activityCreateDto.body.type,0,5)) return Result.fail(MsgConst.typeE);
-    if (!StringTool.isLengthInRange(activityCreateDto.body.startTime, 19, 19)) return Result.fail(MsgConst.startTimeE);
-    if (!StringTool.isLengthInRange(activityCreateDto.body.endTime, 19, 19)) return Result.fail(MsgConst.endTimeE);
+    if (!TimeTool.isExist(activityCreateDto.body.startTime)) return Result.fail(MsgConst.startTimeE);
+    if (!TimeTool.isExist(activityCreateDto.body.endTime)) return Result.fail(MsgConst.endTimeE);
+    if (activityCreateDto.body.startTime >= activityCreateDto.body.endTime) return Result.fail(MsgConst.endTimeE);
 
     return  await this.activityService.create(activityCreateDto);
   }
@@ -50,8 +52,9 @@ export class ActivityController {
       return Result.fail(MsgConst.titleLengthE);
     if (!StringTool.isLengthInRange(activityUpdateDto.body.introduction, 0, 255)) return Result.fail(MsgConst.contentLengthE);
     if (!StringTool.isLengthInRange(activityUpdateDto.body.tag, 0, 50)) return Result.fail(MsgConst.tagLengthE);
-    if (!StringTool.isLengthInRange(activityUpdateDto.body.startTime, 19, 19)) return Result.fail(MsgConst.startTimeE);
-    if (!StringTool.isLengthInRange(activityUpdateDto.body.endTime, 19, 19)) return Result.fail(MsgConst.endTimeE);
+    if (!TimeTool.isExist(activityUpdateDto.body.startTime)) return Result.fail(MsgConst.startTimeE);
+    if (!TimeTool.isExist(activityUpdateDto.body.endTime)) return Result.fail(MsgConst.endTimeE);
+    if (activityUpdateDto.body.startTime >= activityUpdateDto.body.endTime) return Result.fail(MsgConst.endTimeE);
     if (!NumberTool.isIntegerInRange(activityUpdateDto.body.type,0,5)) return Result.fail(MsgConst.typeE);
     if (!NumberTool.isIntegerInRange(activityUpdateDto.body.status,0,4)) return Result.fail(MsgConst.statusE);
 

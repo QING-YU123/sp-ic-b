@@ -20,6 +20,9 @@ import { UserUpdateOwnDto } from './dtos/user.update_own.dto';
 import { UserBanTalkDto } from './dtos/user.ban_talk.dto';
 import { MsgConst } from 'src/.const/msg.const';
 import { ParkingService } from 'src/parking/parking.service';
+import { UserOpenMoneyDto } from './dtos/user.open_money.dto';
+import { UserOpMoneyDto } from './dtos/user.op_money.dto';
+import { BillService } from 'src/bill/bill.service';
 
 @Injectable()
 export class UserService {
@@ -28,6 +31,12 @@ export class UserService {
     UserService.repository = repository;
   }
   
+  /**
+   * 管理员创建用户业务逻辑处理
+   * 
+   * @param userRegisterDto 管理员创建用户数据传输对象
+   * @returns Result
+   */
   async create(userCreateDto: UserCreateDto) {
     const power = await PowerService.get(userCreateDto);
     if (userCreateDto.body.power == 2) {
@@ -47,6 +56,12 @@ export class UserService {
     return Result.isOrNot(user != null, MsgConst.user.create);
   }
   
+  /**
+   * 管理员删除用户业务逻辑处理
+   * 
+   * @param userLoginDto 管理员删除用户数据传输对象
+   * @returns Result
+   */
   async delete(userDeleteDto: UserDeleteDto) {
     const power = await PowerService.get(userDeleteDto);
     const power1 = await UserService.repository.findOne({ select: ['power'], where: { id: userDeleteDto.body.id } });
@@ -64,6 +79,12 @@ export class UserService {
     return Result.isOrNot(user.affected != 0, MsgConst.user.delete);
   }
   
+  /**
+   * 管理员更新用户业务逻辑处理
+   * 
+   * @param userUpdateDto 管理员更新用户数据传输对象
+   * @returns Result
+   */
   async update(userUpdateDto: UserUpdateDto) {
     const power = await PowerService.get(userUpdateDto);
     const power1 = await UserService.repository.findOne({ select: ['power'], where: { id: userUpdateDto.body.id } });
@@ -85,6 +106,12 @@ export class UserService {
     return Result.isOrNot(user.affected != 0, MsgConst.user.update);
   }
   
+  /**
+   * 管理员查询用户业务逻辑处理
+   * 
+   * @param userQueryDto 管理员查询用户数据传输对象
+   * @returns Result
+   */
   async query(userQueryDto: UserQueryDto) {
     const power = await PowerService.get(userQueryDto);
     if (!power.mUser) return Result.fail(MsgConst.powerLowE);
@@ -110,6 +137,12 @@ export class UserService {
     });
   }
   
+  /**
+   * 管理员重置用户密码业务逻辑处理
+   * 
+   * @param userResetPasswordAdminDto 管理员重置用户密码数据传输对象
+   * @returns Result
+   */
   async resetPasswordAdmin(userResetPasswordAdminDto: UserResetPasswordAdminDto) {
     const power = await PowerService.get(userResetPasswordAdminDto);
     const power1 = await UserService.repository.findOne({ select: ['power'], where: { id: userResetPasswordAdminDto.body.id } });
@@ -127,6 +160,12 @@ export class UserService {
     return Result.isOrNot(res.affected != 0, MsgConst.user.resetPassword);
   }
   
+  /**
+   * 用户登录业务逻辑处理
+   * 
+   * @param userLoginDto 用户登录数据传输对象
+   * @returns Result
+   */
   async login(userLoginDto: UserLoginDto) {
     const user = await UserService.repository.findOne({ where: { phone: userLoginDto.phone } });
     if (user == null) return Result.fail(MsgConst.userNotExistE);
@@ -145,6 +184,12 @@ export class UserService {
     return Result.success(MsgConst.user.login + MsgConst.success, user);
   }
   
+  /**
+   * 用户注册业务逻辑处理
+   * 
+   * @param userRegisterDto 用户注册数据传输对象
+   * @returns Result
+   */
   async register(userRegisterDto: UserRegisterDto) {
     if ((await UserService.repository.countBy({ phone: userRegisterDto.phone })) != 0) return Result.fail(MsgConst.phoneExistE);
 
@@ -155,6 +200,12 @@ export class UserService {
     return Result.isOrNot(user != null, MsgConst.user.register);
   }
   
+  /**
+   * 用户重置密码业务逻辑处理
+   * 
+   * @param userResetPasswordOwnDto 用户重置密码数据传输对象
+   * @returns Result
+   */
   async resetPasswordOwn(userResetPasswordOwnDto: UserResetPasswordOwnDto) {
     if ( (await UserService.repository.countBy({
       id: userResetPasswordOwnDto.checkingUid,
@@ -167,6 +218,12 @@ export class UserService {
     return Result.isOrNot(res.affected != 0, MsgConst.user.resetPassword);
   }
   
+  /**
+   * 用户上传头像业务逻辑处理
+   * 
+   * @param userUploadHeadImgDto 用户上传头像数据传输对象
+   * @returns Result
+   */
   async uploadHeadImg(userUploadHeadImgDto: UserUploadHeadImgDto) {
     const user = await UserService.repository.findOne({ where: { id: userUploadHeadImgDto.checkingUid } });
     if (user == null) return Result.fail(MsgConst.userNotExistE);
@@ -177,6 +234,12 @@ export class UserService {
     return Result.isOrNot(res.affected != 0, MsgConst.user.uploadHeadImg);
   }
   
+  /**
+   * 用户更新自己的信息业务逻辑处理
+   * 
+   * @param userUpdateOwnDto 用户更新自己的信息数据传输对象
+   * @returns Result
+   */
   async updateOwn(userUpdateOwnDto: UserUpdateOwnDto) {
     const user = await UserService.repository.findOne({ where: { id: userUpdateOwnDto.checkingUid } });
     if (user == null) return Result.fail(MsgConst.userNotExistE);
@@ -186,6 +249,12 @@ export class UserService {
     return Result.isOrNot(res.affected != 0, MsgConst.user.updateOwn);
   }
   
+  /**
+   * 用户禁言业务逻辑处理
+   * 
+   * @param userBanTalkDto 用户禁言数据传输对象
+   * @returns Result
+   */
   async banTalk(userBanTalkDto: UserBanTalkDto) {
     if (!(await PowerService.get(userBanTalkDto)).mBanTalk) return Result.fail(MsgConst.powerLowE);
 
@@ -194,6 +263,12 @@ export class UserService {
     return Result.isOrNot(res.affected != 0, MsgConst.operate);
   }
   
+  /**
+   * 用户获取自己的信息业务逻辑处理
+   * 
+   * @param id 用户id
+   * @returns Result
+   */
   async get(id: number) {
     const user = await UserService.repository.findOne({ select: ['id', 'power', 'username', 'gender', 'headImg', 'introduction', 'CP'], where: { id } });
     if (user == null) return Result.fail(MsgConst.userNotExistE);
@@ -201,5 +276,51 @@ export class UserService {
     user.headImg = user.headImg.toString();
 
     return Result.success(MsgConst.user.get + MsgConst.success, user);
+  }
+  
+  /**
+   * 用户获开通钱包业务逻辑处理
+   * 
+   * @param id 用户id
+   * @returns Result
+   */
+  async openMoney(userOpenMoneyDto: UserOpenMoneyDto) {
+    if (!(await PowerService.get(userOpenMoneyDto)).uMoney) return Result.fail(MsgConst.powerLowE);
+    const user = await UserService.repository.findOne({ select: ['money'], where: { id: userOpenMoneyDto.checkingUid } });
+    if (user.money != null) return Result.fail(MsgConst.hadOpenMoney);
+    const res = await UserService.repository.update(userOpenMoneyDto.checkingUid, {
+      money: 0,
+      payPassword : PasswordTool.encrypt(userOpenMoneyDto.body.payPassword)
+    });
+
+    return Result.isOrNot(res.affected != 0, MsgConst.user.openMoney);
+  }
+  
+  /**
+   * 用户操作余额业务逻辑处理
+   * 
+   * @param userOpMoneyDto 用户操作余额数据传输对象
+   * @returns Result
+   */
+  async opMoney(userOpMoneyDto: UserOpMoneyDto) {
+    if (!(await PowerService.get(userOpMoneyDto)).uMoney) return Result.fail(MsgConst.powerLowE);
+    const user = await UserService.repository.findOne({ select: ['id', 'money'], where: { id: userOpMoneyDto.checkingUid } });
+    if (user.money == null) return Result.fail(MsgConst.notOpenMoney);
+    if (user.money - (-userOpMoneyDto.body.money) < 0) return Result.fail(MsgConst.notEnoughMoneyE);
+
+    const res = await UserService.repository.update(userOpMoneyDto.checkingUid, {
+      money: () => "user.money + " + userOpMoneyDto.body.money
+    });
+    if (res.affected != 0) {
+      BillService.repository.save({
+        uid: user.id,
+        title: userOpMoneyDto.body.money > 0 ? MsgConst.user.addMoney : MsgConst.user.redMoney,
+        content: "剩余金额：" + (user.money - (-userOpMoneyDto.body.money)) / 100 + "元",
+        price: userOpMoneyDto.body.money
+      });
+    }
+
+    return Result.isOrNot(res.affected != 0,
+      userOpMoneyDto.body.money > 0 ? MsgConst.user.addMoney : MsgConst.user.redMoney);
   }
 }

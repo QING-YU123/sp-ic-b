@@ -19,6 +19,12 @@ export class ParkingService {
     ParkingService.repository = repository;
   }
 
+  /**
+   * 车位创建业务逻辑处理
+   * 
+   * @param parkingCreateDto 车位创建数据传输对象
+   * @returns Result
+   */
   async create(parkingCreateDto: ParkingCreateDto) {
     if (!(await PowerService.get(parkingCreateDto)).mAdmin0) return Result.fail(MsgConst.powerLowE);
     if (typeof parkingCreateDto.body.id === "undefined") parkingCreateDto.body.id = 0;
@@ -30,6 +36,12 @@ export class ParkingService {
     return Result.isOrNot(res != null, MsgConst.parking.create);
   }
 
+  /**
+   * 车位删除业务逻辑处理
+   * 
+   * @param parkingDeleteDto 车位删除数据传输对象
+   * @returns Result
+   */
   async delete(parkingDeleteDto: ParkingDeleteDto) {
     if (!(await PowerService.get(parkingDeleteDto)).mAdmin0) return Result.fail(MsgConst.powerLowE);
     
@@ -38,6 +50,12 @@ export class ParkingService {
     return Result.isOrNot(res.affected != 0, MsgConst.parking.delete);
   }
 
+  /**
+   * 车位更新业务逻辑处理
+   * 
+   * @param parkingUpdateDto 车位更新数据传输对象
+   * @returns Result
+   */
   async update(parkingUpdateDto: ParkingUpdateDto) {
     if (!(await PowerService.get(parkingUpdateDto)).mParking) return Result.fail(MsgConst.powerLowE);
     const user = await UserService.repository.findOne({ select: ["id"], where: { phone: parkingUpdateDto.body.phone } });
@@ -52,6 +70,12 @@ export class ParkingService {
     return Result.isOrNot(res.affected != 0, MsgConst.parking.update);
   }
 
+  /**
+   * 车位查询业务逻辑处理
+   * 
+   * @param parkingQueryDto 车位查询数据传输对象
+   * @returns Result
+   */
   async query(parkingQueryDto: ParkingQueryDto) {
     if (!(await PowerService.get(parkingQueryDto)).mParking) return Result.fail(MsgConst.powerLowE);
     

@@ -1,0 +1,343 @@
+Date : 2024-06-20 10:06:09
+Directory : c:\Workspaces\Visual Studio Code\wuye\sp-ic-b
+Total : 223 files,  4819 codes, 20 comments, 1352 blanks, all 6191 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| TypeScript         |        213 |      4,572 |          3 |      1,302 |      5,877 |
+| JSON               |          4 |         89 |          0 |          3 |         92 |
+| Markdown           |          1 |         51 |          2 |         21 |         74 |
+| YAML               |          1 |         32 |          0 |          7 |         39 |
+| JavaScript         |          1 |         25 |          0 |          1 |         26 |
+| JSON with Comments |          1 |         22 |          0 |          0 |         22 |
+| SQL                |          1 |         20 |         10 |          9 |         39 |
+| Docker             |          1 |          8 |          5 |          9 |         22 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                     | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                        |        223 |      4,819 |         20 |      1,352 |      6,191 |
+| . (Files)                                                                                                |          8 |        195 |          7 |         34 |        236 |
+| .github                                                                                                  |          1 |         32 |          0 |          7 |         39 |
+| .github\workflows                                                                                        |          1 |         32 |          0 |          7 |         39 |
+| src                                                                                                      |        214 |      4,592 |         13 |      1,311 |      5,916 |
+| src (Files)                                                                                              |          5 |        109 |          0 |         14 |        123 |
+| src\.const                                                                                               |          4 |        187 |          0 |        134 |        321 |
+| src\.dtos                                                                                                |          2 |         24 |          0 |          8 |         32 |
+| src\.sql                                                                                                 |          1 |         20 |         10 |          9 |         39 |
+| src\.tools                                                                                               |          6 |         49 |          0 |          8 |         57 |
+| src\activity                                                                                             |         10 |        225 |          0 |         71 |        296 |
+| src\activity (Files)                                                                                     |          5 |        156 |          0 |         36 |        192 |
+| src\activity\dtos                                                                                        |          4 |         41 |          0 |         23 |         64 |
+| src\activity\entities                                                                                    |          1 |         28 |          0 |         12 |         40 |
+| src\attend                                                                                               |          9 |        191 |          0 |         46 |        237 |
+| src\attend (Files)                                                                                       |          5 |        152 |          0 |         32 |        184 |
+| src\attend\dtos                                                                                          |          3 |         23 |          0 |          8 |         31 |
+| src\attend\entities                                                                                      |          1 |         16 |          0 |          6 |         22 |
+| src\bill                                                                                                 |          9 |        201 |          0 |         47 |        248 |
+| src\bill (Files)                                                                                         |          5 |        156 |          0 |         31 |        187 |
+| src\bill\dtos                                                                                            |          3 |         21 |          0 |          6 |         27 |
+| src\bill\entities                                                                                        |          1 |         24 |          0 |         10 |         34 |
+| src\feedback                                                                                             |         10 |        206 |          0 |         54 |        260 |
+| src\feedback (Files)                                                                                     |          5 |        155 |          0 |         36 |        191 |
+| src\feedback\dtos                                                                                        |          4 |         29 |          0 |          9 |         38 |
+| src\feedback\entities                                                                                    |          1 |         22 |          0 |          9 |         31 |
+| src\goods                                                                                                |         10 |        241 |          1 |         67 |        309 |
+| src\goods (Files)                                                                                        |          5 |        173 |          1 |         36 |        210 |
+| src\goods\dtos                                                                                           |          4 |         39 |          0 |         19 |         58 |
+| src\goods\entities                                                                                       |          1 |         29 |          0 |         12 |         41 |
+| src\log                                                                                                  |          8 |        161 |          0 |         41 |        202 |
+| src\log (Files)                                                                                          |          5 |        122 |          0 |         26 |        148 |
+| src\log\dtos                                                                                             |          2 |         17 |          0 |          6 |         23 |
+| src\log\entities                                                                                         |          1 |         22 |          0 |          9 |         31 |
+| src\message                                                                                              |          9 |        169 |          0 |         48 |        217 |
+| src\message (Files)                                                                                      |          5 |        127 |          0 |         33 |        160 |
+| src\message\dtos                                                                                         |          3 |         22 |          0 |          7 |         29 |
+| src\message\entities                                                                                     |          1 |         20 |          0 |          8 |         28 |
+| src\notice                                                                                               |         10 |        194 |          1 |         56 |        251 |
+| src\notice (Files)                                                                                       |          5 |        141 |          1 |         36 |        178 |
+| src\notice\dtos                                                                                          |          4 |         31 |          0 |         11 |         42 |
+| src\notice\entities                                                                                      |          1 |         22 |          0 |          9 |         31 |
+| src\outsider                                                                                             |         10 |        195 |          0 |         56 |        251 |
+| src\outsider (Files)                                                                                     |          5 |        143 |          0 |         36 |        179 |
+| src\outsider\dtos                                                                                        |          4 |         32 |          0 |         12 |         44 |
+| src\outsider\entities                                                                                    |          1 |         20 |          0 |          8 |         28 |
+| src\parking                                                                                              |         10 |        205 |          0 |         52 |        257 |
+| src\parking (Files)                                                                                      |          5 |        160 |          0 |         37 |        197 |
+| src\parking\dtos                                                                                         |          4 |         29 |          0 |          9 |         38 |
+| src\parking\entities                                                                                     |          1 |         16 |          0 |          6 |         22 |
+| src\payment                                                                                              |         10 |        204 |          0 |         56 |        260 |
+| src\payment (Files)                                                                                      |          5 |        149 |          0 |         36 |        185 |
+| src\payment\dtos                                                                                         |          4 |         29 |          0 |          9 |         38 |
+| src\payment\entities                                                                                     |          1 |         26 |          0 |         11 |         37 |
+| src\post                                                                                                 |         10 |        234 |          0 |         61 |        295 |
+| src\post (Files)                                                                                         |          5 |        174 |          0 |         37 |        211 |
+| src\post\dtos                                                                                            |          4 |         32 |          0 |         12 |         44 |
+| src\post\entities                                                                                        |          1 |         28 |          0 |         12 |         40 |
+| src\post_collect                                                                                         |         10 |        203 |          0 |         49 |        252 |
+| src\post_collect (Files)                                                                                 |          5 |        161 |          0 |         36 |        197 |
+| src\post_collect\dtos                                                                                    |          4 |         28 |          0 |          8 |         36 |
+| src\post_collect\entities                                                                                |          1 |         14 |          0 |          5 |         19 |
+| src\post_comment                                                                                         |          9 |        193 |          0 |         49 |        242 |
+| src\post_comment (Files)                                                                                 |          5 |        147 |          0 |         32 |        179 |
+| src\post_comment\dtos                                                                                    |          3 |         23 |          0 |          8 |         31 |
+| src\post_comment\entities                                                                                |          1 |         23 |          0 |          9 |         32 |
+| src\post_comment_like                                                                                    |          9 |        157 |          0 |         40 |        197 |
+| src\post_comment_like (Files)                                                                            |          5 |        124 |          0 |         31 |        155 |
+| src\post_comment_like\dtos                                                                               |          3 |         19 |          0 |          4 |         23 |
+| src\post_comment_like\entities                                                                           |          1 |         14 |          0 |          5 |         19 |
+| src\post_like                                                                                            |          9 |        156 |          0 |         40 |        196 |
+| src\post_like (Files)                                                                                    |          5 |        123 |          0 |         31 |        154 |
+| src\post_like\dtos                                                                                       |          3 |         19 |          0 |          4 |         23 |
+| src\post_like\entities                                                                                   |          1 |         14 |          0 |          5 |         19 |
+| src\power                                                                                                |          7 |        139 |          0 |         46 |        185 |
+| src\power (Files)                                                                                        |          5 |         89 |          0 |         23 |        112 |
+| src\power\dtos                                                                                           |          1 |          2 |          0 |          1 |          3 |
+| src\power\entities                                                                                       |          1 |         48 |          0 |         22 |         70 |
+| src\repair                                                                                               |         10 |        200 |          1 |         53 |        254 |
+| src\repair (Files)                                                                                       |          5 |        151 |          1 |         36 |        188 |
+| src\repair\dtos                                                                                          |          4 |         29 |          0 |          9 |         38 |
+| src\repair\entities                                                                                      |          1 |         20 |          0 |          8 |         28 |
+| src\store                                                                                                |         10 |        235 |          0 |         67 |        302 |
+| src\store (Files)                                                                                        |          5 |        171 |          0 |         38 |        209 |
+| src\store\dtos                                                                                           |          4 |         38 |          0 |         18 |         56 |
+| src\store\entities                                                                                       |          1 |         26 |          0 |         11 |         37 |
+| src\user                                                                                                 |         17 |        494 |          0 |        139 |        633 |
+| src\user (Files)                                                                                         |          5 |        356 |          0 |         76 |        432 |
+| src\user\dtos                                                                                            |         11 |         94 |          0 |         43 |        137 |
+| src\user\entities                                                                                        |          1 |         44 |          0 |         20 |         64 |
++----------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                 | language           | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\.eslintrc.js                                               | JavaScript         |         25 |          0 |          1 |         26 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\.github\workflows\learn-github-actions.yml                 | YAML               |         32 |          0 |          7 |         39 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\.prettierrc                                                | JSON               |          4 |          0 |          0 |          4 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\Dockerfile                                                 | Docker             |          8 |          5 |          9 |         22 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\README.md                                                  | Markdown           |         51 |          2 |         21 |         74 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\nest-cli.json                                              | JSON               |          8 |          0 |          1 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\package.json                                               | JSON               |         73 |          0 |          1 |         74 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.const\init.const.ts                                   | TypeScript         |          3 |          0 |          0 |          3 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.const\msg.const.ts                                    | TypeScript         |        175 |          0 |        132 |        307 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.const\num.const.ts                                    | TypeScript         |          5 |          0 |          2 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.const\var.const.ts                                    | TypeScript         |          4 |          0 |          0 |          4 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.dtos\dto.ts                                           | TypeScript         |          4 |          0 |          1 |          5 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.dtos\result.ts                                        | TypeScript         |         20 |          0 |          7 |         27 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.sql\init.sql                                          | SQL                |         20 |         10 |          9 |         39 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.tools\boolean.tool.ts                                 | TypeScript         |          5 |          0 |          0 |          5 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.tools\number.tool.ts                                  | TypeScript         |         14 |          0 |          3 |         17 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.tools\object.tool.ts                                  | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.tools\password.tool.ts                                | TypeScript         |         14 |          0 |          4 |         18 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.tools\string.tool.ts                                  | TypeScript         |          5 |          0 |          0 |          5 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\.tools\time.tool.ts                                    | TypeScript         |          5 |          0 |          0 |          5 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\activity\activity.controller.spec.ts                   | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\activity\activity.controller.ts                        | TypeScript         |         61 |          0 |         10 |         71 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\activity\activity.module.ts                            | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\activity\activity.service.spec.ts                      | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\activity\activity.service.ts                           | TypeScript         |         54 |          0 |         14 |         68 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\activity\dtos\activity.create.dto.ts                   | TypeScript         |         13 |          0 |          9 |         22 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\activity\dtos\activity.delete.dto.ts                   | TypeScript         |          6 |          0 |          2 |          8 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\activity\dtos\activity.query.dto.ts                    | TypeScript         |          8 |          0 |          3 |         11 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\activity\dtos\activity.update.dto.ts                   | TypeScript         |         14 |          0 |          9 |         23 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\activity\entities\activity.entity.ts                   | TypeScript         |         28 |          0 |         12 |         40 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\app.controller.spec.ts                                 | TypeScript         |         18 |          0 |          5 |         23 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\app.controller.ts                                      | TypeScript         |         10 |          0 |          3 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\app.module.ts                                          | TypeScript         |         62 |          0 |          2 |         64 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\app.service.ts                                         | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\attend\attend.controller.spec.ts                       | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\attend\attend.controller.ts                            | TypeScript         |         45 |          0 |          9 |         54 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\attend\attend.module.ts                                | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\attend\attend.service.spec.ts                          | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\attend\attend.service.ts                               | TypeScript         |         66 |          0 |         11 |         77 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\attend\dtos\attend.create.dto.ts                       | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\attend\dtos\attend.query.dto.ts                        | TypeScript         |          9 |          0 |          4 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\attend\dtos\attend.update.dto.ts                       | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\attend\entities\attend.entity.ts                       | TypeScript         |         16 |          0 |          6 |         22 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\bill\bill.controller.spec.ts                           | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\bill\bill.controller.ts                                | TypeScript         |         40 |          0 |          8 |         48 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\bill\bill.module.ts                                    | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\bill\bill.service.spec.ts                              | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\bill\bill.service.ts                                   | TypeScript         |         75 |          0 |         11 |         86 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\bill\dtos\bill.delete.dto.ts                           | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\bill\dtos\bill.query.dto.ts                            | TypeScript         |          8 |          0 |          3 |         11 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\bill\dtos\bill.update.dto.ts                           | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\bill\entities\bill.entity.ts                           | TypeScript         |         24 |          0 |         10 |         34 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\feedback\dtos\feedback.create.dto.ts                   | TypeScript         |          9 |          0 |          4 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\feedback\dtos\feedback.delete.dto.ts                   | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\feedback\dtos\feedback.query.dto.ts                    | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\feedback\dtos\feedback.update.dto.ts                   | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\feedback\entities\feedback.entity.ts                   | TypeScript         |         22 |          0 |          9 |         31 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\feedback\feedback.controller.spec.ts                   | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\feedback\feedback.controller.ts                        | TypeScript         |         48 |          0 |         10 |         58 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\feedback\feedback.module.ts                            | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\feedback\feedback.service.spec.ts                      | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\feedback\feedback.service.ts                           | TypeScript         |         66 |          0 |         14 |         80 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\goods\dtos\goods.create.dto.ts                         | TypeScript         |         12 |          0 |          7 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\goods\dtos\goods.delete.dto.ts                         | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\goods\dtos\goods.query.dto.ts                          | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\goods\dtos\goods.update.dto.ts                         | TypeScript         |         14 |          0 |          9 |         23 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\goods\entities\goods.entity.ts                         | TypeScript         |         29 |          0 |         12 |         41 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\goods\goods.controller.spec.ts                         | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\goods\goods.controller.ts                              | TypeScript         |         57 |          0 |         10 |         67 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\goods\goods.module.ts                                  | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\goods\goods.service.spec.ts                            | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\goods\goods.service.ts                                 | TypeScript         |         75 |          1 |         14 |         90 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\log\dtos\log.create.dto.ts                             | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\log\dtos\log.query.dto.ts                              | TypeScript         |         10 |          0 |          4 |         14 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\log\entities\log.entity.ts                             | TypeScript         |         22 |          0 |          9 |         31 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\log\log.controller.spec.ts                             | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\log\log.controller.ts                                  | TypeScript         |         34 |          0 |          6 |         40 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\log\log.module.ts                                      | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\log\log.service.spec.ts                                | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\log\log.service.ts                                     | TypeScript         |         47 |          0 |          8 |         55 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\main.ts                                                | TypeScript         |         12 |          0 |          2 |         14 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\message\dtos\message.create.dto.ts                     | TypeScript         |          9 |          0 |          4 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\message\dtos\message.query.dto.ts                      | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\message\dtos\message.read.dto.ts                       | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\message\entities\message.entity.ts                     | TypeScript         |         20 |          0 |          8 |         28 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\message\message.controller.spec.ts                     | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\message\message.controller.ts                          | TypeScript         |         38 |          0 |          9 |         47 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\message\message.module.ts                              | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\message\message.service.spec.ts                        | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\message\message.service.ts                             | TypeScript         |         48 |          0 |         12 |         60 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\notice\dtos\notice.create.dto.ts                       | TypeScript         |          9 |          0 |          4 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\notice\dtos\notice.delete.dto.ts                       | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\notice\dtos\notice.query.dto.ts                        | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\notice\dtos\notice.update.dto.ts                       | TypeScript         |          9 |          0 |          4 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\notice\entities\notice.entity.ts                       | TypeScript         |         22 |          0 |          9 |         31 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\notice\notice.controller.spec.ts                       | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\notice\notice.controller.ts                            | TypeScript         |         49 |          0 |         10 |         59 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\notice\notice.module.ts                                | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\notice\notice.service.spec.ts                          | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\notice\notice.service.ts                               | TypeScript         |         51 |          1 |         14 |         66 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\outsider\dtos\outsider.create.dto.ts                   | TypeScript         |          9 |          0 |          4 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\outsider\dtos\outsider.delete.dto.ts                   | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\outsider\dtos\outsider.query.dto.ts                    | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\outsider\dtos\outsider.update.dto.ts                   | TypeScript         |         10 |          0 |          5 |         15 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\outsider\entities\outsider.entity.ts                   | TypeScript         |         20 |          0 |          8 |         28 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\outsider\outsider.controller.spec.ts                   | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\outsider\outsider.controller.ts                        | TypeScript         |         55 |          0 |         10 |         65 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\outsider\outsider.module.ts                            | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\outsider\outsider.service.spec.ts                      | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\outsider\outsider.service.ts                           | TypeScript         |         47 |          0 |         14 |         61 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\parking\dtos\parking.create.dto.ts                     | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\parking\dtos\parking.delete.dto.ts                     | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\parking\dtos\parking.query.dto.ts                      | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\parking\dtos\parking.update.dto.ts                     | TypeScript         |          9 |          0 |          4 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\parking\entities\parking.entity.ts                     | TypeScript         |         16 |          0 |          6 |         22 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\parking\parking.controller.spec.ts                     | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\parking\parking.controller.ts                          | TypeScript         |         51 |          0 |         10 |         61 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\parking\parking.module.ts                              | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\parking\parking.service.spec.ts                        | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\parking\parking.service.ts                             | TypeScript         |         68 |          0 |         15 |         83 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\payment\dtos\payment.create.dto.ts                     | TypeScript         |         10 |          0 |          5 |         15 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\payment\dtos\payment.delete.dto.ts                     | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\payment\dtos\payment.query.dto.ts                      | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\payment\dtos\payment.update.dto.ts                     | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\payment\entities\payment.entity.ts                     | TypeScript         |         26 |          0 |         11 |         37 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\payment\payment.controller.spec.ts                     | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\payment\payment.controller.ts                          | TypeScript         |         48 |          0 |         10 |         58 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\payment\payment.module.ts                              | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\payment\payment.service.spec.ts                        | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\payment\payment.service.ts                             | TypeScript         |         60 |          0 |         14 |         74 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post\dtos\post.create.dto.ts                           | TypeScript         |         11 |          0 |          6 |         17 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post\dtos\post.delete.dto.ts                           | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post\dtos\post.query.dto.ts                            | TypeScript         |          8 |          0 |          3 |         11 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post\dtos\post.update.dto.ts                           | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post\entities\post.entity.ts                           | TypeScript         |         28 |          0 |         12 |         40 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post\post.controller.spec.ts                           | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post\post.controller.ts                                | TypeScript         |         52 |          0 |         10 |         62 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post\post.module.ts                                    | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post\post.service.spec.ts                              | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post\post.service.ts                                   | TypeScript         |         81 |          0 |         15 |         96 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_collect\dtos\post_collect.create.dto.ts           | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_collect\dtos\post_collect.delete.dto.ts           | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_collect\dtos\post_collect.query.dto.ts            | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_collect\dtos\post_collect.query_list.dto.ts       | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_collect\entities\post_collect.entity.ts           | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_collect\post_collect.controller.spec.ts           | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_collect\post_collect.controller.ts                | TypeScript         |         45 |          0 |         10 |         55 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_collect\post_collect.module.ts                    | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_collect\post_collect.service.spec.ts              | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_collect\post_collect.service.ts                   | TypeScript         |         75 |          0 |         14 |         89 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment\dtos\post_comment.create.dto.ts           | TypeScript         |          9 |          0 |          4 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment\dtos\post_comment.delete.dto.ts           | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment\dtos\post_comment.query.dto.ts            | TypeScript         |          8 |          0 |          3 |         11 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment\entities\post_comment.entity.ts           | TypeScript         |         23 |          0 |          9 |         32 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment\post_comment.controller.spec.ts           | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment\post_comment.controller.ts                | TypeScript         |         40 |          0 |          8 |         48 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment\post_comment.module.ts                    | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment\post_comment.service.spec.ts              | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment\post_comment.service.ts                   | TypeScript         |         66 |          0 |         12 |         78 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment_like\dtos\post_comment_like.create.dto.ts | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment_like\dtos\post_comment_like.delete.ts     | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment_like\dtos\post_comment_like.query.ts      | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment_like\entities\post_comment_like.entity.ts | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment_like\post_comment_like.controller.spec.ts | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment_like\post_comment_like.controller.ts      | TypeScript         |         34 |          0 |          8 |         42 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment_like\post_comment_like.module.ts          | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment_like\post_comment_like.service.spec.ts    | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_comment_like\post_comment_like.service.ts         | TypeScript         |         49 |          0 |         11 |         60 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_like\dtos\post_like.create.dto.ts                 | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_like\dtos\post_like.delete.dto.ts                 | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_like\dtos\post_like.query.dto.ts                  | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_like\entities\post_like.entity.ts                 | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_like\post_like.controller.spec.ts                 | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_like\post_like.controller.ts                      | TypeScript         |         34 |          0 |          8 |         42 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_like\post_like.module.ts                          | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_like\post_like.service.spec.ts                    | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\post_like\post_like.service.ts                         | TypeScript         |         48 |          0 |         11 |         59 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\power\dtos\power.query.dto.ts                          | TypeScript         |          2 |          0 |          1 |          3 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\power\entities\power.entity.ts                         | TypeScript         |         48 |          0 |         22 |         70 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\power\power.controller.spec.ts                         | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\power\power.controller.ts                              | TypeScript         |         14 |          0 |          4 |         18 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\power\power.module.ts                                  | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\power\power.service.spec.ts                            | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\power\power.service.ts                                 | TypeScript         |         34 |          0 |          7 |         41 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\repair\dtos\repair.create.dto.ts                       | TypeScript         |          9 |          0 |          4 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\repair\dtos\repair.delete.dto.ts                       | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\repair\dtos\repair.query.dto.ts                        | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\repair\dtos\repair.update.dto.ts                       | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\repair\entities\repair.entity.ts                       | TypeScript         |         20 |          0 |          8 |         28 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\repair\repair.controller.spec.ts                       | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\repair\repair.controller.ts                            | TypeScript         |         47 |          0 |         10 |         57 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\repair\repair.module.ts                                | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\repair\repair.service.spec.ts                          | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\repair\repair.service.ts                               | TypeScript         |         63 |          1 |         14 |         78 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\store\dtos\store.create.dto.ts                         | TypeScript         |         12 |          0 |          7 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\store\dtos\store.delete.dto.ts                         | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\store\dtos\store.query.dto.ts                          | TypeScript         |          8 |          0 |          3 |         11 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\store\dtos\store.update.dto.ts                         | TypeScript         |         12 |          0 |          7 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\store\entities\store.entity.ts                         | TypeScript         |         26 |          0 |         11 |         37 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\store\store.controller.spec.ts                         | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\store\store.controller.ts                              | TypeScript         |         57 |          0 |         10 |         67 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\store\store.module.ts                                  | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\store\store.service.spec.ts                            | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\store\store.service.ts                                 | TypeScript         |         73 |          0 |         16 |         89 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\dtos\user.ban_talk.dto.ts                         | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\dtos\user.create.dto.ts                           | TypeScript         |         15 |          0 |         10 |         25 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\dtos\user.delete.dto.ts                           | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\dtos\user.login.dto.ts                            | TypeScript         |          4 |          0 |          1 |          5 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\dtos\user.query.dto.ts                            | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\dtos\user.register.dto.ts                         | TypeScript         |         10 |          0 |          7 |         17 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\dtos\user.reset_password_admin.dto.ts             | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\dtos\user.reset_password_own.dto.ts               | TypeScript         |          7 |          0 |          2 |          9 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\dtos\user.update.dto.ts                           | TypeScript         |         18 |          0 |         13 |         31 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\dtos\user.update_own.dto.ts                       | TypeScript         |          8 |          0 |          3 |         11 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\dtos\user.upload_head_img.dto.ts                  | TypeScript         |          6 |          0 |          1 |          7 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\entities\user.entity.ts                           | TypeScript         |         44 |          0 |         20 |         64 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\user.controller.spec.ts                           | TypeScript         |         16 |          0 |          5 |         21 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\user.controller.ts                                | TypeScript         |        147 |          0 |         26 |        173 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\user.module.ts                                    | TypeScript         |         11 |          0 |          2 |         13 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\user.service.spec.ts                              | TypeScript         |         14 |          0 |          5 |         19 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\src\user\user.service.ts                                   | TypeScript         |        168 |          0 |         38 |        206 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\tsconfig.build.json                                        | JSON               |          4 |          0 |          1 |          5 |
+| c:\Workspaces\Visual Studio Code\wuye\sp-ic-b\tsconfig.json                                              | JSON with Comments |         22 |          0 |          0 |         22 |
+| Total                                                                                                    |                    |      4,819 |         20 |      1,352 |      6,191 |
++----------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

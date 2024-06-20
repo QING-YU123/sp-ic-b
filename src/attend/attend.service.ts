@@ -19,6 +19,12 @@ export class AttendService {
     AttendService.repository = repository;
   }
 
+  /**
+   * 参加记录创建业务逻辑处理
+   * 
+   * @param attendCreateDto 参加记录创建数据传输对象
+   * @returns Result
+   */
   async create(attendCreateDto: AttendCreateDto) { 
     if (!(await PowerService.get(attendCreateDto)).uActivity) return Result.fail(MsgConst.powerLowE);
     if ((await AttendService.repository.countBy({
@@ -32,6 +38,12 @@ export class AttendService {
     return Result.isOrNot(res != null, MsgConst.attend.create);
   }
 
+  /**
+   * 参加记录更新业务逻辑处理
+   * 
+   *@param attendUpdateDto 参加记录更新数据传输对象
+   * @returns Result
+   */
   async update(attendUpdateDto: AttendUpdateDto) {
     if (!(await PowerService.get(attendUpdateDto)).mActivity) return Result.fail(MsgConst.powerLowE);
     
@@ -40,6 +52,12 @@ export class AttendService {
     return Result.isOrNot(res.affected != 0, MsgConst.attend.update);
   }
 
+  /**
+   * 参加记录查询业务逻辑处理
+   * 
+   * @param attendQueryDto 参加记录查询数据传输对象
+   * @returns Result
+   */
   async query(attendQueryDto: AttendQueryDto){
     const power = await PowerService.get(attendQueryDto);
     const power1 = await UserService.repository.findOne({ select: ['power'], where: { id: attendQueryDto.checkingUid } });

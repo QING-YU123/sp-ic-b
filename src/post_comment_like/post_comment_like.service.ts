@@ -17,6 +17,12 @@ export class PostCommentLikeService {
     PostCommentLikeService.repository = repository;
   }
 
+  /**
+   * 帖子点赞记录创建业务逻辑
+   * 
+   * @param postCommentLikeCreateDto 帖子点赞记录创建数据传输对象
+   * @returns Result
+   */
   async create(postCommentLikeCreateDto: PostCommentLikeCreateDto) {
     if (!(await PowerService.get(postCommentLikeCreateDto)).uPost) return Result.fail(MsgConst.powerLowE);
     if ((await PostCommentLikeService.repository.countBy({
@@ -34,6 +40,12 @@ export class PostCommentLikeService {
     return Result.isOrNot(postLike != null, MsgConst.postCommentLike.create);
   }
   
+  /**
+   * 帖子点赞记录删除业务逻辑
+   * 
+   * @param postCommentLikeDeleteDto 帖子点赞记录删除数据传输对象
+   * @returns Result
+   */
   async delete(postCommentLikeDeleteDto: PostCommentLikeDeleteDto) {
     if (!(await PowerService.get(postCommentLikeDeleteDto)).uPost) return Result.fail(MsgConst.powerLowE);
 
@@ -46,6 +58,12 @@ export class PostCommentLikeService {
     return Result.isOrNot(res.affected == 1, MsgConst.postCommentLike.delete);
   }
   
+  /**
+   * 帖子点赞记录查询业务逻辑
+   * 
+   * @param postCommentLikeQueryDto 帖子点赞记录查询数据传输对象
+   * @returns Result
+   */
   async query(postCommentLikeQueryDto: PostCommentLikeQueryDto) {
     if (!(await PowerService.get(postCommentLikeQueryDto)).uPost) return Result.fail(MsgConst.powerLowE);
 

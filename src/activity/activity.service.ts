@@ -18,6 +18,12 @@ export class ActivityService {
     ActivityService.repository = repository;
   }
 
+  /**
+   * 用户创建业务逻辑处理
+   * 
+   * @param activityCreateDto 用户创建数据传输对象
+   * @returns Result
+   */
   async create(activityCreateDto: ActivityCreateDto) {
     if (!(await PowerService.get(activityCreateDto)).mActivity) return Result.fail(MsgConst.powerLowE);
 
@@ -27,6 +33,12 @@ export class ActivityService {
     return Result.isOrNot(res != null, MsgConst.activity.create);
   }
 
+  /**
+   * 用户删除业务逻辑处理
+   * 
+   * @param activityDeleteDto 用户删除数据传输对象
+   * @returns Result
+   */
   async delete(activityDeleteDto: ActivityDeleteDto) {
     if (!(await PowerService.get(activityDeleteDto)).mActivity) return Result.fail(MsgConst.powerLowE);
 
@@ -35,6 +47,12 @@ export class ActivityService {
     return Result.isOrNot(res.affected != 0, MsgConst.activity.delete);
   }
 
+  /**
+   * 用户更新业务逻辑处理
+   * 
+   * @param activityUpdateDto 用户更新数据传输对象
+   * @returns Result
+   */
   async update(activityUpdateDto: ActivityUpdateDto) {
     if (!(await PowerService.get(activityUpdateDto)).mActivity) return Result.fail(MsgConst.powerLowE);
 
@@ -43,6 +61,12 @@ export class ActivityService {
     return Result.isOrNot(res.affected != 0, MsgConst.activity.update);
   }
 
+  /**
+   * 用户查询业务逻辑处理
+   * 
+   * @param activityQueryDto 用户查询数据传输对象
+   * @returns Result
+   */
   async query(activityQueryDto: ActivityQueryDto) {
     if (!(await PowerService.get(activityQueryDto)).uActivity) return Result.fail(MsgConst.powerLowE);
     const power1 = await UserService.repository.findOne({ select : ['power'] , where : { id : activityQueryDto.checkingUid } });

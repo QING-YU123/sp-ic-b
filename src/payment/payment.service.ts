@@ -18,6 +18,12 @@ export class PaymentService {
     PaymentService.repository = repository;
   }
 
+  /**
+   * 缴费记录创建业务逻辑处理
+   * 
+   * @param paymentCreateDto 缴费记录创建数据传输对象
+   * @returns Result
+   */
   async create(paymentCreateDto: PaymentCreateDto) {
     if (!(await PowerService.get(paymentCreateDto)).mPayment) return Result.fail(MsgConst.powerLowE);
     
@@ -27,6 +33,12 @@ export class PaymentService {
     return Result.isOrNot(res != null, MsgConst.payment.create);
   }
 
+  /**
+   * 缴费记录删除业务逻辑处理
+   * 
+   * @param paymentDeleteDto 缴费记录删除数据传输对象
+   * @returns Result
+   */
   async delete(paymentDeleteDto: PaymentDeleteDto) {
     if (!(await PowerService.get(paymentDeleteDto)).mPayment) return Result.fail(MsgConst.powerLowE);
 
@@ -35,6 +47,12 @@ export class PaymentService {
     return Result.isOrNot(res.affected != 0, MsgConst.payment.delete);
   }
 
+  /**
+   * 缴费记录更新业务逻辑处理
+   * 
+   * @param paymentUpdateDto 缴费记录更新数据传输对象
+   * @returns Result
+   */
   async update(paymentUpdateDto: PaymentUpdateDto) {
     if (!(await PowerService.get(paymentUpdateDto)).uMoney) return Result.fail(MsgConst.powerLowE);
     const payment = await PaymentService.repository.findOne({ where: { id: paymentUpdateDto.body.id } });
@@ -46,11 +64,17 @@ export class PaymentService {
       content: payment.content,
       price: payment.price
     });
-    const res = await PaymentService.repository.update(paymentUpdateDto.body.id, { bid: bill.id });
+    PaymentService.repository.update(paymentUpdateDto.body.id, { bid: bill.id });
 
-    return Result.isOrNot(res.affected != 0, MsgConst.payment.update);
+    return Result.success(MsgConst.billCreate, bill.id);
   }
-
+  
+  /**
+   * 缴费记录查询业务逻辑处理
+   * 
+   * @param paymentQueryDto 缴费记录查询数据传输对象
+   * @returns Result
+   */
   async query(paymentQueryDto: PaymentQueryDto) {
     if (!(await PowerService.get(paymentQueryDto)).uMoney) return Result.fail(MsgConst.powerLowE);
 

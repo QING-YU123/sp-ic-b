@@ -17,6 +17,12 @@ export class PostCollectService {
     PostCollectService.repository = repository;
   }
   
+  /**
+   * 收藏记录创建业务逻辑处理
+   * 
+   * @param postCollectCreateDto 收藏记录创建数据传输对象
+   * @returns Result
+   */
   async create(postCollectCreateDto: PostCollectCreateDto) {
     if (!(await PowerService.get(postCollectCreateDto)).uCollect) return Result.fail(MsgConst.powerLowE);
     if ((await PostCollectService.repository.countBy({
@@ -33,6 +39,12 @@ export class PostCollectService {
     return Result.isOrNot(postLike != null, MsgConst.postCollect.create);
   }
   
+  /**
+   * 收藏记录删除业务逻辑处理
+   * 
+   * @param postCollectDeleteDto 收藏记录删除数据传输对象
+   * @returns Result
+   */
   async delete(postCollectDeleteDto: PostCollectDeleteDto) {
     if (!(await PowerService.get(postCollectDeleteDto)).uCollect) return Result.fail(MsgConst.powerLowE);
 
@@ -45,6 +57,12 @@ export class PostCollectService {
     return Result.isOrNot(res.affected == 1, MsgConst.postCollect.delete);
   }
   
+  /**
+   * 收藏记录查询业务逻辑处理
+   * 
+   * @param postCollectQueryDto 收藏记录查询数据传输对象
+   * @returns Result
+   */
   async query(postCollectQueryDto: PostCollectDeleteDto) {
     if (!(await PowerService.get(postCollectQueryDto)).uCollect) return Result.fail(MsgConst.powerLowE);
 
@@ -56,6 +74,12 @@ export class PostCollectService {
     return Result.success(MsgConst.postCollect.query + MsgConst.success, res == 1);
   }
   
+  /**
+   * 收藏记录列表查询业务逻辑处理
+   * 
+   * @param postCollectQueryListDto 收藏记录列表查询数据传输对象
+   * @returns Result
+   */
   async queryList(postCollectQueryListDto: PostCollectQueryListDto) {
     if (!(await PowerService.get(postCollectQueryListDto)).uCollect) return Result.fail(MsgConst.powerLowE);
 

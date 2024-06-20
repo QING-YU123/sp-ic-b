@@ -19,6 +19,8 @@ import { UserBanTalkDto } from './dtos/user.ban_talk.dto';
 import { BooleanTool } from './../.tools/boolean.tool';
 import { MsgConst } from './../.const/msg.const';
 import { ObjectTool } from 'src/.tools/object.tool';
+import { UserOpenMoneyDto } from './dtos/user.open_money.dto';
+import { UserOpMoneyDto } from './dtos/user.op_money.dto';
 
 @Controller('user')
 export class UserController {
@@ -168,5 +170,24 @@ export class UserController {
     if (!NumberTool.isInteger(body.id)) return Result.fail(MsgConst.idNotExistE);
 
     return await this.userService.get(body.id);
+  }
+
+  @Post('open-money')
+  async openMoney(@Body() userOpenMoneyDto: UserOpenMoneyDto) { 
+    if (!NumberTool.isInteger(userOpenMoneyDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(userOpenMoneyDto)) return Result.fail(MsgConst.bodyNotExistE);
+    if (!StringTool.isLengthInRange(userOpenMoneyDto.body.payPassword, 6, 6))
+      return Result.fail(MsgConst.payPasswordLengthE);
+
+    return await this.userService.openMoney(userOpenMoneyDto);
+  }
+
+  @Post('op-money')
+  async opMoney(@Body() userOpMoneyDto: UserOpMoneyDto) { 
+    if (!NumberTool.isInteger(userOpMoneyDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(userOpMoneyDto)) return Result.fail(MsgConst.bodyNotExistE);
+    if (!NumberTool.isInteger(userOpMoneyDto.body.money)) return Result.fail(MsgConst.idNotExistE);
+
+    return await this.userService.opMoney(userOpMoneyDto);
   }
 }

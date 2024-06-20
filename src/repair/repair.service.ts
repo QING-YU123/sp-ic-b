@@ -18,6 +18,12 @@ export class RepairService {
     RepairService.repository = repository;
   }
 
+  /**
+   * 维修申报创建业务逻辑处理
+   * 
+   * @param repairCreateDto 维修申报创建数据传输对象
+   * @returns Result
+   */
   async create(repairCreateDto: RepairCreateDto) {
     if (!(await PowerService.get(repairCreateDto)).uRepair) return Result.fail(MsgConst.powerLowE);
 
@@ -27,6 +33,12 @@ export class RepairService {
     return Result.isOrNot(res != null, MsgConst.repair.create);
   }
 
+  /**
+   * 维修申报删除业务逻辑处理
+   * 
+   * @param repairDeleteDto 维修申报删除数据传输对象
+   * @returns Result
+   */
   async delete(repairDeleteDto: RepairDeleteDto) {
     if (!(await PowerService.get(repairDeleteDto)).mRepair) return Result.fail(MsgConst.powerLowE);
     
@@ -35,6 +47,12 @@ export class RepairService {
     return Result.isOrNot(res.affected != 0, MsgConst.repair.delete);
   }
 
+  /**
+   * 维修申报更新业务逻辑处理
+   * 
+   * @param repairUpdateDto 维修申报更新数据传输对象
+   * @returns Result
+   */
   async update(repairUpdateDto: RepairUpdateDto) {
     if (!(await PowerService.get(repairUpdateDto)).mRepair) return Result.fail(MsgConst.powerLowE);
 
@@ -44,6 +62,12 @@ export class RepairService {
     return Result.isOrNot(res.affected != 0, MsgConst.repair.update);
   }
 
+  /**
+   * 维修申报查询业务逻辑处理
+   * 
+   * @param repairQueryDto 维修申报查询数据传输对象
+   * @returns Result
+   */
   async query(repairQueryDto: RepairQueryDto) {
     if (!(await PowerService.get(repairQueryDto)).mRepair) return Result.fail(MsgConst.powerLowE);
     

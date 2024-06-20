@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Res } from '@nestjs/common';
 import { Bill } from './entities/bill.entity';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -19,34 +19,51 @@ export class BillService {
     BillService.repository = repository;
   }
   
+  /**
+   * 账单创建业务逻辑处理
+   * 
+   * @param billCreateDto 账单创建数据传输对象
+   * @returns Result
+   */
   async delete(billDeleteDto: BillDeleteDto) {
     const bill = await BillService.repository.findOne({ select: ['uid', 'status'], where: { id: billDeleteDto.body.id } });
     if (bill.uid != billDeleteDto.checkingUid) {
       if (!(await PowerService.get(billDeleteDto)).mUser) return Result.fail(MsgConst.powerLowE);
     }
-    if (bill.status != 0) return Result.fail(MsgConst.hadNotPayE);
+    if (bill.status == 0) return Result.fail(MsgConst.hadNotPayE);
 
-    const res = await BillService.repository.update(billDeleteDto.checkingUid, {
-      status: bill.uid == billDeleteDto.checkingUid? 3 : 1,
+    const res = await BillService.repository.update(billDeleteDto.body.id, {
+      status: bill.uid == billDeleteDto.checkingUid ? 3 : 1,
     });
 
     return Result.isOrNot(res.affected != 0, MsgConst.bill.delete);
   }
   
+  /**
+   * 账单支付业务逻辑处理
+   * 
+   * @param billUpdateDto 账单支付数据传输对象
+   * @returns Result
+   */
   async update(billUpdateDto: BillUpdateDto) {
     if (!(await PowerService.get(billUpdateDto)).uMoney) return Result.fail(MsgConst.powerLowE);
     const bill = await BillService.repository.findOne({
       select: ['uid', 'price', 'status', 'pmid'],
       where: { id: billUpdateDto.body.id }
     });
+    if (bill == null) return Result.fail(MsgConst.idNotExistE);
     if (bill.status != 0) return Result.fail(MsgConst.hadPayE);
     if (bill.uid != billUpdateDto.checkingUid) return Result.fail(MsgConst.notSelfPayE);
     const user = await UserService.repository.findOne({
-      select: ['money', 'payPassword'],
+      select: ['money', 'id'],
       where: { id: billUpdateDto.checkingUid }
     });
+    if (user.money == null) return Result.fail(MsgConst.notOpenMoney);
     if (user.money < bill.price) return Result.fail(MsgConst.notEnoughMoneyE);
-    if (PasswordTool.encrypt(user.payPassword) != billUpdateDto.body.payPassword) return Result.fail(MsgConst.payPasswordE);
+    if ((await UserService.repository.countBy({
+      id: billUpdateDto.checkingUid,
+      payPassword: PasswordTool.encrypt(billUpdateDto.body.payPassword)
+    })) != 1) return Result.fail(MsgConst.payPasswordE);
 
     const res1 = await UserService.repository.update(billUpdateDto.checkingUid, {
       money: ()=> "user.money - " +bill.price
@@ -63,6 +80,12 @@ export class BillService {
     return Result.isOrNot(res2.affected != 0, MsgConst.bill.update);
   }
   
+  /**
+   * 账单查询业务逻辑处理
+   * 
+   * @param billQueryDto 账单查询数据传输对象
+   * @returns Result
+   */
   async query(billQueryDto: BillQueryDto) {
     if (!(await PowerService.get(billQueryDto)).uMoney) return Result.fail(MsgConst.powerLowE);
 

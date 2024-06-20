@@ -1,5 +1,3 @@
-import { query } from "express";
-
 export const MsgConst = {
     powerLowE: "权限不足",
 
@@ -10,6 +8,8 @@ export const MsgConst = {
     idRangeE: "id范围不正确",
 
     idHadExistE: "id已存在",
+
+    dateE: "日期不存在",
 
     billHadExistE: "账单已被创建",
 
@@ -31,6 +31,10 @@ export const MsgConst = {
 
     notEnoughMoneyE: "余额不足",
 
+    notOpenMoney: "未开通钱包，请开通后使用",
+
+    hadOpenMoney: "已开通钱包，请勿重复开通",
+
     passwordE: "密码不正确",
 
     oldPasswordLengthE: "旧密码长度不正确",
@@ -43,33 +47,33 @@ export const MsgConst = {
 
     powerAllotE: "权限分配不正确",
 
-    usernameLengthE: "用户名长度不正确",
+    usernameLengthE: "用户名长度超出限制",
 
-    genderLengthE: "性别长度不正确",
+    genderLengthE: "性别长度超出限制",
 
-    genderE: "性别不正确",
+    genderE: "性别错误",
 
     nameLengthE: "姓名长度不正确",
 
     idCardLengthE: "身份证号长度不正确",
 
-    addressLengthE: "地址长度不正确",
+    addressLengthE: "地址长度超出限制",
 
     hadAttendE: "已参加活动，请勿重复参加",
 
-    booleanE: "布尔值不正确",
+    booleanE: "布尔值错误",
 
-    imageSizeE: "图片大小不正确",
+    imageSizeE: "图片大小超出限制",
 
-    introductionLengthE: "简介长度不正确",
+    introductionLengthE: "简介长度超出限制",
 
-    statusE: "状态不正确",
+    statusE: "状态错误",
 
-    typeE: "类型不正确",
+    typeE: "类型错误",
 
-    pageSizeE: "页面大小不正确",
+    pageSizeE: "页面大小超出限制",
 
-    pageIndexE: "页号不正确",
+    pageIndexE: "页号超出限制",
 
     phoneExistE: "手机号已存在",
 
@@ -83,19 +87,27 @@ export const MsgConst = {
 
     aidNotExistE: "活动id不存在",
 
-    tagLengthE: "标签长度不正确",
+    tagLengthE: "标签长度超出限制",
 
-    titleLengthE: "标题长度不正确",
+    titleLengthE: "标题长度超出限制",
 
-    contentLengthE: "内容长度不正确",
+    contentLengthE: "内容长度超出限制",
 
-    resultLengthE: "结果长度不正确",
+    resultLengthE: "结果长度超出限制",
 
     priceRangeE: "价格范围不正确",
+
+    numRangeE: "数量范围不正确",
 
     carNumLengthE: "车牌号长度不正确",
 
     balanceRangeE: "商品余量范围不正确",
+
+    balanceNotEnough: "商品余量不足",
+
+    goodsHadRemove: "商品已下架",
+
+    buyFailE: "购买失败",
 
     readNotHimselfE: "不是本人读消息",
 
@@ -110,6 +122,8 @@ export const MsgConst = {
     operate: "操作",
 
     operateFail: "操作失败",
+
+    billCreate: "账单创建成功",
 
     power: {
         query: "权限列表查询",
@@ -203,8 +217,6 @@ export const MsgConst = {
         create: "缴费单创建",
 
         delete: "缴费记录删除",
-
-        update: "订单创建",
 
         query: "缴费记录查询"
     },
@@ -300,6 +312,12 @@ export const MsgConst = {
 
         updateOwn: "更新信息",
 
-        get: "获取用户信息"
+        get: "获取用户信息",
+
+        openMoney: "开通钱包",
+
+        addMoney: "充值",
+
+        redMoney: "提现",
     }
 }

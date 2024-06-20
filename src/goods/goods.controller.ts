@@ -10,6 +10,7 @@ import { GoodsDeleteDto } from './dtos/goods.delete.dto';
 import { GoodsUpdateDto } from './dtos/goods.update.dto';
 import { ObjectTool } from 'src/.tools/object.tool';
 import { GoodsQueryDto } from './dtos/goods.query.dto';
+import { GoodsBuyDto } from './dtos/goods.buy.dto';
 
 @Controller('goods')
 export class GoodsController {
@@ -62,5 +63,15 @@ export class GoodsController {
     if (!NumberTool.isInteger(goodsQueryDto.body.pageIndex)) return Result.fail(MsgConst.pageIndexE);
 
     return this.goodsService.query(goodsQueryDto);
+  }
+
+  @Post('buy')
+  async buy(@Body() goodsBuyDto: GoodsBuyDto) { 
+    if (!NumberTool.isInteger(goodsBuyDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(goodsBuyDto)) return Result.fail(MsgConst.bodyNotExistE);
+    if (!NumberTool.isInteger(goodsBuyDto.body.gid)) return Result.fail(MsgConst.idNotExistE);
+    if (!NumberTool.isIntegerInRange(goodsBuyDto.body.num, 0, NumConst.intMax)) return Result.fail(MsgConst.numRangeE);
+
+    return this.goodsService.buy(goodsBuyDto);
   }
 }

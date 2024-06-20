@@ -23,8 +23,8 @@ export class Log {
     @Column({ type: "char", length: 11 })
     phone: string;
 
-    @Column({ type: "varchar", length: 5 })
-    type: string;
+    @Column({ type: "tinyint" })
+    type: number;
 
     @Column({ type: "varchar", length: 200 })
     content: string;

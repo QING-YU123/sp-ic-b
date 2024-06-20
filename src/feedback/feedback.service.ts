@@ -19,6 +19,12 @@ export class FeedbackService {
     FeedbackService.repository = repository;
   }
 
+  /**
+   * 反馈创建业务逻辑处理
+   * 
+   * @param feedbackCreateDto 反馈创建数据传输对象
+   * @returns Result
+   */
   async create(feedbackCreateDto: FeedbackCreateDto) {
     if (!(await PowerService.get(feedbackCreateDto)).uFeedback) return Result.fail(MsgConst.powerLowE);
 
@@ -28,6 +34,12 @@ export class FeedbackService {
     return Result.isOrNot(res != null, MsgConst.feedback.create);
   }
 
+  /**
+   * 反馈删除业务逻辑处理
+   * 
+   * @param feedbackDeleteDto 反馈删除数据传输对象
+   * @returns Result
+   */
   async delete(feedbackDeleteDto: FeedbackDeleteDto) {
     if (!(await PowerService.get(feedbackDeleteDto)).mFeedback) return Result.fail(MsgConst.powerLowE);
     
@@ -36,6 +48,12 @@ export class FeedbackService {
     return Result.isOrNot(res.affected != 0, MsgConst.feedback.delete);
   }
 
+  /**
+   * 反馈更新业务逻辑处理
+   * 
+   * @param feedbackUpdateDto 反馈更新数据传输对象
+   * @returns Result
+   */
   async update(feedbackUpdateDto: FeedbackUpdateDto) {
     if (!(await PowerService.get(feedbackUpdateDto)).uFeedback) return Result.fail(MsgConst.powerLowE);
 
@@ -45,6 +63,12 @@ export class FeedbackService {
     return Result.isOrNot(res.affected != 0, MsgConst.feedback.update);
   }
 
+  /**
+   * 反馈查询业务逻辑处理
+   * 
+   * @param feedbackQueryDto 反馈查询数据传输对象
+   * @returns Result
+   */
   async query(feedbackQueryDto: FeedbackQueryDto) {
     const power = await PowerService.get(feedbackQueryDto);
     if (!power.uFeedback) return Result.fail(MsgConst.powerLowE);
@@ -55,9 +79,7 @@ export class FeedbackService {
       order: {
         id: 'DESC'
       },
-      // 通过OR条件筛选
       where: {
-        // status除了1之外的都要筛选
         status: In(power.mFeedback? [0, 2] : [0]),
       }
     });

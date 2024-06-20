@@ -14,7 +14,7 @@ export class Bill {
     @Column({ type: "bigint" })
     uid: number;
 
-    @Column({ type: "bigint" })
+    @Column({ type: "bigint", nullable: true })
     pmid: number;
 
     @Column({ type: "varchar", length: 30 })

@@ -18,6 +18,12 @@ export class PostService {
     PostService.repository = repository;
   }
   
+  /**
+   * 帖子创建业务逻辑处理
+   * 
+   * @param postCreateDto 帖子创建数据传输对象
+   * @returns Result
+   */
   async create(postCreateDto: PostCreateDto) {
     const power = await PowerService.get(postCreateDto)
     if (!power.uPost) return Result.fail(MsgConst.powerLowE);
@@ -34,6 +40,12 @@ export class PostService {
     return Result.isOrNot(post != null, MsgConst.post.create);
   }
   
+  /**
+   * 帖子删除业务逻辑处理
+   * 
+   * @param postDeleteDto 帖子删除数据传输对象
+   * @returns Result
+   */
   async delete(postDeleteDto: PostDeleteDto) {
     const power = await PowerService.get(postDeleteDto);
     const post = await PostService.repository.findOne({ select: ['uid'], where: { id: postDeleteDto.body.id } });
@@ -50,6 +62,12 @@ export class PostService {
     return Result.isOrNot(result.affected == 1, MsgConst.post.delete);
   }
   
+  /**
+   * 帖子更新业务逻辑处理
+   * 
+   * @param postDeleteDto 帖子更新数据传输对象
+   * @returns Result
+   */
   async update(postDeleteDto: PostUpdateDto) {
     if (!(await PowerService.get(postDeleteDto)).mApprove) return Result.fail(MsgConst.powerLowE);
 
@@ -59,6 +77,12 @@ export class PostService {
     return Result.isOrNot(res.affected == 1, MsgConst.post.update);
   }
   
+  /**
+   * 帖子查询业务逻辑处理
+   * 
+   * @param postQueryDto 帖子查询数据传输对象
+   * @returns Result
+   */
   async query(postQueryDto: PostQueryDto) {
     const power = await PowerService.get(postQueryDto)
     if (!power.uPost) return Result.fail(MsgConst.powerLowE);

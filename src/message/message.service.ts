@@ -17,6 +17,12 @@ export class MessageService {
     MessageService.repository = repository;
   }
 
+  /** 
+   * 消息创建业务逻辑处理
+   * 
+   * @param messageCreateDto 消息创建数据传输对象
+   * @returns Result
+   */
   async create(messageCreateDto: MessageCreateDto) {
     const power1 = await UserService.repository.findOne({ select: ['power'],where: { id: messageCreateDto.checkingUid } });
     if (power1.power == 3) return Result.fail(MsgConst.powerLowE);
@@ -27,6 +33,12 @@ export class MessageService {
     return Result.isOrNot(res!= null, MsgConst.message.create);
   }
 
+  /** 
+   * 消息查询业务逻辑处理
+   * 
+   * @param messageQueryDto 消息查询数据传输对象
+   * @returns Result
+   */
   async query(messageQueryDto: MessageQueryDto) {
     const power = await PowerService.get(messageQueryDto);
 
@@ -48,6 +60,12 @@ export class MessageService {
   }
 
 
+  /** 
+   * 消息已读业务逻辑处理
+   * 
+   * @param messageReadDto 消息已读数据传输对象
+   * @returns Result
+   */
   async read(messageReadDto: MessageReadDto) {
     const uid = await MessageService.repository.findOne({ select: ['uid'],where: { id: messageReadDto.body.id } });
     if (messageReadDto.checkingUid  != uid.uid) return Result.fail(MsgConst.readNotHimselfE);

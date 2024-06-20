@@ -19,7 +19,12 @@ export class StoreService {
     StoreService.repository = repository;
   }
 
-  
+  /**
+   * 店铺创建业务逻辑处理
+   * 
+   * @param storeCreateDto 店铺创建数据传输对象
+   * @returns Result
+   */
   async create(storeCreateDto: StoreCreateDto) {
     if (!(await PowerService.get(storeCreateDto)).mStore) return Result.fail(MsgConst.powerLowE);
       
@@ -29,6 +34,12 @@ export class StoreService {
     return Result.isOrNot(res != null, MsgConst.store.create);
   }
   
+  /**
+   * 店铺删除业务逻辑处理
+   * 
+   * @param storeDeleteDto 店铺删除数据传输对象
+   * @returns Result
+   */
   async delete(storeDeleteDto: StoreDeleteDto) {
     const user = await StoreService.repository.findOne({ select: ['uid'], where: { id: storeDeleteDto.body.id } });
 
@@ -44,6 +55,12 @@ export class StoreService {
     return Result.isOrNot(res.affected != 0, MsgConst.store.delete);
   }
 
+  /**
+   * 店铺更新业务逻辑处理
+   * 
+   * @param storeUpdateDto 店铺更新数据传输对象
+   * @returns Result
+   */
   async update(storeUpdateDto: StoreUpdateDto) {
     const user = await StoreService.repository.findOne({ select: ['uid'], where: { id: storeUpdateDto.body.id } });
     if (user.uid != storeUpdateDto.checkingUid) {
@@ -55,6 +72,12 @@ export class StoreService {
     return Result.isOrNot(res.affected != 0, MsgConst.store.update);
   }
 
+  /**
+   * 店铺查询业务逻辑处理
+   * 
+   * @param storeQueryDto 店铺查询数据传输对象
+   * @returns Result
+   */
   async query(storeQueryDto: StoreQueryDto) {
     if (!(await PowerService.get(storeQueryDto)).mStore) return Result.fail(MsgConst.powerLowE);
 
