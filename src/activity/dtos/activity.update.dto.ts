@@ -12,8 +12,6 @@ export class ActivityUpdateDto extends Dto{
 
         tag: string;
 
-        type: number;
-
         startTime: string;
 
         endTime: string;

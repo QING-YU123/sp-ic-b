@@ -10,18 +10,25 @@ import { PaymentDeleteDto } from './dtos/payment.delete.dto';
 import { PaymentUpdateDto } from './dtos/payment.update.dto';
 import { PaymentQueryDto } from './dtos/payment.query.dto';
 import { BillService } from 'src/bill/bill.service';
+import { UserService } from 'src/user/user.service';
 
+/**
+ * 缴费单模块服务层
+ */
 @Injectable()
 export class PaymentService {
+  /** 
+   * 缴费单模块数据层
+   */
   static repository: Repository<Payment>;
   constructor(@InjectRepository(Payment) repository: Repository<Payment>) {
     PaymentService.repository = repository;
   }
 
   /**
-   * 缴费记录创建业务逻辑处理
+   * 缴费单创建业务逻辑处理
    * 
-   * @param paymentCreateDto 缴费记录创建数据传输对象
+   * @param paymentCreateDto 缴费单创建DTO
    * @returns Result
    */
   async create(paymentCreateDto: PaymentCreateDto) {
@@ -34,9 +41,9 @@ export class PaymentService {
   }
 
   /**
-   * 缴费记录删除业务逻辑处理
+   * 缴费单删除业务逻辑处理
    * 
-   * @param paymentDeleteDto 缴费记录删除数据传输对象
+   * @param paymentDeleteDto 缴费单删除DTO
    * @returns Result
    */
   async delete(paymentDeleteDto: PaymentDeleteDto) {
@@ -48,9 +55,9 @@ export class PaymentService {
   }
 
   /**
-   * 缴费记录更新业务逻辑处理
+   * 缴费单更新业务逻辑处理
    * 
-   * @param paymentUpdateDto 缴费记录更新数据传输对象
+   * @param paymentUpdateDto 缴费单更新DTO
    * @returns Result
    */
   async update(paymentUpdateDto: PaymentUpdateDto) {
@@ -70,24 +77,31 @@ export class PaymentService {
   }
   
   /**
-   * 缴费记录查询业务逻辑处理
+   * 缴费单查询业务逻辑处理
    * 
-   * @param paymentQueryDto 缴费记录查询数据传输对象
+   * @param paymentQueryDto 缴费单查询DTO
    * @returns Result
    */
   async query(paymentQueryDto: PaymentQueryDto) {
-    if (!(await PowerService.get(paymentQueryDto)).uMoney) return Result.fail(MsgConst.powerLowE);
+    const power = await PowerService.get(paymentQueryDto);
+    if (!power.uMoney) return Result.fail(MsgConst.powerLowE);
 
-    const [data, total] = await PaymentService.repository.findAndCount({
+    let [data, total] = await PaymentService.repository.findAndCount({
       skip: (paymentQueryDto.body.pageIndex - 1) * paymentQueryDto.body.pageSize,
       take: paymentQueryDto.body.pageSize,
       order: {
         id: 'DESC'
       },
       where: {
-        status: In([0,  2]),
+        status: In([0, 2]),
+        uid: power.mPayment ? null : paymentQueryDto.checkingUid
       }
-    })
+    });
+    const user = await UserService.repository.find({ select: ['id', 'name'], where: { id: In(data.map(item => item.uid)) } });
+    let data1: any = data;
+    data1.forEach(item => {
+      item.name = user.find(userItem => userItem.id == item.uid).name;
+    });
 
     return Result.success(MsgConst.payment.query+MsgConst.success, {
       data : data,

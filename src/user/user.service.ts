@@ -24,8 +24,14 @@ import { UserOpenMoneyDto } from './dtos/user.open_money.dto';
 import { UserOpMoneyDto } from './dtos/user.op_money.dto';
 import { BillService } from 'src/bill/bill.service';
 
+/**
+ * 用户模块服务层
+ */
 @Injectable()
 export class UserService {
+  /** 
+   * 用户模块数据层
+   */
   static repository: Repository<User>;
   constructor(@InjectRepository(User) repository: Repository<User>) { 
     UserService.repository = repository;
@@ -34,7 +40,7 @@ export class UserService {
   /**
    * 管理员创建用户业务逻辑处理
    * 
-   * @param userRegisterDto 管理员创建用户数据传输对象
+   * @param userRegisterDto 管理员创建用户DTO
    * @returns Result
    */
   async create(userCreateDto: UserCreateDto) {
@@ -59,7 +65,7 @@ export class UserService {
   /**
    * 管理员删除用户业务逻辑处理
    * 
-   * @param userLoginDto 管理员删除用户数据传输对象
+   * @param userLoginDto 管理员删除用户DTO
    * @returns Result
    */
   async delete(userDeleteDto: UserDeleteDto) {
@@ -82,7 +88,7 @@ export class UserService {
   /**
    * 管理员更新用户业务逻辑处理
    * 
-   * @param userUpdateDto 管理员更新用户数据传输对象
+   * @param userUpdateDto 管理员更新用户DTO
    * @returns Result
    */
   async update(userUpdateDto: UserUpdateDto) {
@@ -109,7 +115,7 @@ export class UserService {
   /**
    * 管理员查询用户业务逻辑处理
    * 
-   * @param userQueryDto 管理员查询用户数据传输对象
+   * @param userQueryDto 管理员查询用户DTO
    * @returns Result
    */
   async query(userQueryDto: UserQueryDto) {
@@ -140,7 +146,7 @@ export class UserService {
   /**
    * 管理员重置用户密码业务逻辑处理
    * 
-   * @param userResetPasswordAdminDto 管理员重置用户密码数据传输对象
+   * @param userResetPasswordAdminDto 管理员重置用户密码DTO
    * @returns Result
    */
   async resetPasswordAdmin(userResetPasswordAdminDto: UserResetPasswordAdminDto) {
@@ -163,7 +169,7 @@ export class UserService {
   /**
    * 用户登录业务逻辑处理
    * 
-   * @param userLoginDto 用户登录数据传输对象
+   * @param userLoginDto 用户登录DTO
    * @returns Result
    */
   async login(userLoginDto: UserLoginDto) {
@@ -187,7 +193,7 @@ export class UserService {
   /**
    * 用户注册业务逻辑处理
    * 
-   * @param userRegisterDto 用户注册数据传输对象
+   * @param userRegisterDto 用户注册DTO
    * @returns Result
    */
   async register(userRegisterDto: UserRegisterDto) {
@@ -203,7 +209,7 @@ export class UserService {
   /**
    * 用户重置密码业务逻辑处理
    * 
-   * @param userResetPasswordOwnDto 用户重置密码数据传输对象
+   * @param userResetPasswordOwnDto 用户重置密码DTO
    * @returns Result
    */
   async resetPasswordOwn(userResetPasswordOwnDto: UserResetPasswordOwnDto) {
@@ -221,7 +227,7 @@ export class UserService {
   /**
    * 用户上传头像业务逻辑处理
    * 
-   * @param userUploadHeadImgDto 用户上传头像数据传输对象
+   * @param userUploadHeadImgDto 用户上传头像DTO
    * @returns Result
    */
   async uploadHeadImg(userUploadHeadImgDto: UserUploadHeadImgDto) {
@@ -237,7 +243,7 @@ export class UserService {
   /**
    * 用户更新自己的信息业务逻辑处理
    * 
-   * @param userUpdateOwnDto 用户更新自己的信息数据传输对象
+   * @param userUpdateOwnDto 用户更新自己的信息DTO
    * @returns Result
    */
   async updateOwn(userUpdateOwnDto: UserUpdateOwnDto) {
@@ -252,11 +258,23 @@ export class UserService {
   /**
    * 用户禁言业务逻辑处理
    * 
-   * @param userBanTalkDto 用户禁言数据传输对象
+   * @param userBanTalkDto 用户禁言DTO
    * @returns Result
    */
   async banTalk(userBanTalkDto: UserBanTalkDto) {
-    if (!(await PowerService.get(userBanTalkDto)).mBanTalk) return Result.fail(MsgConst.powerLowE);
+    const power = await PowerService.get(userBanTalkDto);
+    if (!power.mBanTalk) return Result.fail(MsgConst.powerLowE);
+    const user = await UserService.repository.findOne({ select: ['power'], where: { id: userBanTalkDto.body.id } });
+    if (user.power == 1) return Result.fail(MsgConst.powerLowE);
+    else if (user.power == 2) {
+      if (!power.mAdmin0) return Result.fail(MsgConst.powerLowE);
+    }
+    else if (user.power == 3) {
+      if (!power.mUser) return Result.fail(MsgConst.powerLowE);
+    }
+    else {
+      if (!power.mAdmin1) return Result.fail(MsgConst.powerLowE);
+    }
 
     const res = await UserService.repository.update(userBanTalkDto.body.id, { banTalk: userBanTalkDto.body.banTalk });
     
@@ -281,7 +299,7 @@ export class UserService {
   /**
    * 用户获开通钱包业务逻辑处理
    * 
-   * @param id 用户id
+   * @param userOpenMoneyDto 用户开通钱包DTO
    * @returns Result
    */
   async openMoney(userOpenMoneyDto: UserOpenMoneyDto) {
@@ -299,7 +317,7 @@ export class UserService {
   /**
    * 用户操作余额业务逻辑处理
    * 
-   * @param userOpMoneyDto 用户操作余额数据传输对象
+   * @param userOpMoneyDto 用户操作余额DTO
    * @returns Result
    */
   async opMoney(userOpMoneyDto: UserOpMoneyDto) {

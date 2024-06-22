@@ -10,8 +10,14 @@ import { MessageQueryDto } from './dtos/message.query.dto';
 import { MessageReadDto } from './dtos/message.read.dto';
 import { UserService } from 'src/user/user.service';
 
+/**
+ * 消息模块服务层
+ */
 @Injectable()
 export class MessageService {
+  /**
+   * 消息模块数据层
+   */
   static repository: Repository<Message>;
   constructor(@InjectRepository(Message) repository: Repository<Message>) {
     MessageService.repository = repository;
@@ -20,7 +26,7 @@ export class MessageService {
   /** 
    * 消息创建业务逻辑处理
    * 
-   * @param messageCreateDto 消息创建数据传输对象
+   * @param messageCreateDto 消息创建DTO
    * @returns Result
    */
   async create(messageCreateDto: MessageCreateDto) {
@@ -36,7 +42,7 @@ export class MessageService {
   /** 
    * 消息查询业务逻辑处理
    * 
-   * @param messageQueryDto 消息查询数据传输对象
+   * @param messageQueryDto 消息查询DTO
    * @returns Result
    */
   async query(messageQueryDto: MessageQueryDto) {
@@ -63,12 +69,12 @@ export class MessageService {
   /** 
    * 消息已读业务逻辑处理
    * 
-   * @param messageReadDto 消息已读数据传输对象
+   * @param messageReadDto 消息已读DTO
    * @returns Result
    */
   async read(messageReadDto: MessageReadDto) {
     const uid = await MessageService.repository.findOne({ select: ['uid'],where: { id: messageReadDto.body.id } });
-    if (messageReadDto.checkingUid  != uid.uid) return Result.fail(MsgConst.readNotHimselfE);
+    if (messageReadDto.checkingUid != uid.uid) return Result.fail(MsgConst.readNotHimselfE);
 
     const res = await MessageService.repository.update(messageReadDto.body.id, { read: true });
 

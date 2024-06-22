@@ -20,7 +20,7 @@ export class Activity {
     @Column({ name: "cover_img", type: "mediumblob" })
     coverImg: string;
 
-    @Column({ type: "varchar", length: 255 })
+    @Column({ type: "varchar", length: 500 })
     introduction: string;
 
     @Column({ type: "varchar", length: 50 })

@@ -1,28 +1,33 @@
 import { Injectable } from '@nestjs/common';
-import { In, Repository } from 'typeorm';
-import { Feedback } from './entities/feedback.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MsgConst } from 'src/.const/msg.const';
+import { Result } from 'src/.dtos/result';
+import { PowerService } from 'src/power/power.service';
+import { UserService } from 'src/user/user.service';
+import { In, Repository } from 'typeorm';
 import { FeedbackCreateDto } from './dtos/feedback.create.dto';
 import { FeedbackDeleteDto } from './dtos/feedback.delete.dto';
-import { TimeTool } from 'src/.tools/time.tool';
-import { PowerService } from 'src/power/power.service';
-import { Result } from 'src/.dtos/result';
-import { FeedbackUpdateDto } from './dtos/feedback.update.dto';
 import { FeedbackQueryDto } from './dtos/feedback.query.dto';
-import { MsgConst } from 'src/.const/msg.const';
-import { UserService } from 'src/user/user.service';
+import { FeedbackUpdateDto } from './dtos/feedback.update.dto';
+import { Feedback } from './entities/feedback.entity';
 
+/**
+ * 反馈建议服务层
+ */
 @Injectable()
 export class FeedbackService {
+  /**
+   * 反馈建议数据层
+   */
   static repository: Repository<Feedback>;
   constructor(@InjectRepository(Feedback) repository: Repository<Feedback>) { 
     FeedbackService.repository = repository;
   }
 
   /**
-   * 反馈创建业务逻辑处理
+   * 反馈建议创建业务逻辑处理
    * 
-   * @param feedbackCreateDto 反馈创建数据传输对象
+   * @param feedbackCreateDto 反馈建议创建DTO
    * @returns Result
    */
   async create(feedbackCreateDto: FeedbackCreateDto) {
@@ -35,9 +40,9 @@ export class FeedbackService {
   }
 
   /**
-   * 反馈删除业务逻辑处理
+   * 反馈建议删除业务逻辑处理
    * 
-   * @param feedbackDeleteDto 反馈删除数据传输对象
+   * @param feedbackDeleteDto 反馈建议删除DTO
    * @returns Result
    */
   async delete(feedbackDeleteDto: FeedbackDeleteDto) {
@@ -49,9 +54,9 @@ export class FeedbackService {
   }
 
   /**
-   * 反馈更新业务逻辑处理
+   * 反馈建议更新业务逻辑处理
    * 
-   * @param feedbackUpdateDto 反馈更新数据传输对象
+   * @param feedbackUpdateDto 反馈建议更新DTO
    * @returns Result
    */
   async update(feedbackUpdateDto: FeedbackUpdateDto) {
@@ -64,9 +69,9 @@ export class FeedbackService {
   }
 
   /**
-   * 反馈查询业务逻辑处理
+   * 反馈建议查询业务逻辑处理
    * 
-   * @param feedbackQueryDto 反馈查询数据传输对象
+   * @param feedbackQueryDto 反馈建议查询DTO
    * @returns Result
    */
   async query(feedbackQueryDto: FeedbackQueryDto) {
@@ -80,7 +85,8 @@ export class FeedbackService {
         id: 'DESC'
       },
       where: {
-        status: In(power.mFeedback? [0, 2] : [0]),
+        status: In([0, 2]),
+        uid: power.mFeedback ? null : feedbackQueryDto.checkingUid
       }
     });
     const user = await UserService.repository.find({

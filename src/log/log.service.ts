@@ -9,8 +9,14 @@ import { MsgConst } from 'src/.const/msg.const';
 import { LogCreateDto } from './dtos/log.create.dto';
 import { UserService } from 'src/user/user.service';
 
+/**
+ * 日志模块服务层
+ */
 @Injectable()
 export class LogService {
+  /** 
+   * 日志模块数据层
+   */
   static repository: Repository<Log>;
   constructor(@InjectRepository(Log) repository: Repository<Log>) { 
     LogService.repository = repository;
@@ -19,7 +25,7 @@ export class LogService {
   /**
    * 日志创建业务逻辑处理
    * 
-   * @param logCreateDto 日志创建数据传输对象
+   * @param logCreateDto 日志创建DTO
    * @returns Result
    */
   async create(logCreateDto: LogCreateDto) {
@@ -29,7 +35,7 @@ export class LogService {
   }
 
   /**
-   * 日志添加业务逻辑处理
+   * 静态方法，用来在其他位置创建日志
    * 
    * @param uid 用户ID
    * @param type 日志类型
@@ -57,7 +63,7 @@ export class LogService {
   /**
    * 日志查询业务逻辑处理
    * 
-   * @param logQueryDto 日志查询数据传输对象
+   * @param logQueryDto 日志查询DTO
    * @returns Result
    */
   async query(logQueryDto: LogQueryDto) {

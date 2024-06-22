@@ -10,17 +10,23 @@ import { OutsiderQueryDto } from './dtos/outsider.query.dto';
 import { PowerService } from 'src/power/power.service';
 import { MsgConst } from 'src/.const/msg.const';
 
+/**
+ * 外来人员模块服务层
+ */
 @Injectable()
 export class OutsiderService {
+  /**
+   * 外来人员服务层
+   */
   static repository: Repository<Outsider>;
   constructor(@InjectRepository(Outsider) repository: Repository<Outsider>) { 
     OutsiderService.repository = repository;
   }
   
   /**
-   * 外来人员创建业务逻辑处理
+   * 外来人员登记业务逻辑处理
    * 
-   * @param outsiderCreateDto 外来人员创建数据传输对象
+   * @param outsiderCreateDto 外来人员登记DTO
    * @returns Result
    */
   async create(outsiderCreateDto: OutsiderCreateDto) {
@@ -32,9 +38,9 @@ export class OutsiderService {
   }
   
   /**
-   * 外来人员删除业务逻辑处理
+   * 外来人员注销业务逻辑处理
    * 
-   * @param outsiderDeleteDto 外来人员删除数据传输对象
+   * @param outsiderDeleteDto 外来人员注销DTO
    * @returns Result
    */
   async delete(outsiderDeleteDto: OutsiderDeleteDto) {
@@ -48,7 +54,7 @@ export class OutsiderService {
   /**
    * 外来人员更新业务逻辑处理
    * 
-   * @param outsiderUpdateDto 外来人员更新数据传输对象
+   * @param outsiderUpdateDto 外来人员更新DTO
    * @returns Result
    */
   async update(outsiderUpdateDto: OutsiderUpdateDto) {
@@ -62,7 +68,7 @@ export class OutsiderService {
   /**
    * 外来人员查询业务逻辑处理
    * 
-   * @param outsiderQueryDto 外来人员查询数据传输对象
+   * @param outsiderQueryDto 外来人员查询DTO
    * @returns Result
    */
   async query(outsiderQueryDto: OutsiderQueryDto) {

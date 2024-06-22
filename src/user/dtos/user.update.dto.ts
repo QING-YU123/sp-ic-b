@@ -12,8 +12,6 @@ export class UserUpdateDto extends Dto {
 
         gender: string;
 
-        headImg: string;
-
         introduction: string;
 
         name: string;

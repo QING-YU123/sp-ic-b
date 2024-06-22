@@ -6,6 +6,8 @@ export class PostQueryDto extends Dto {
 
         pageIndex: number,
 
-        approved: boolean
+        approved: boolean,
+
+        search: string
     }
 }

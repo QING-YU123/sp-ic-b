@@ -12,17 +12,23 @@ import { PasswordTool } from 'src/.tools/password.tool';
 import { BillQueryDto } from './dtos/bill.query.dto';
 import { PaymentService } from 'src/payment/payment.service';
 
+/**
+ * 账单模块服务层
+ */
 @Injectable()
 export class BillService {
+  /**
+   * 账单模块数据层
+   */
   static repository: Repository<Bill>;
   constructor(@InjectRepository(Bill) repository: Repository<Bill>) { 
     BillService.repository = repository;
   }
   
   /**
-   * 账单创建业务逻辑处理
+   * 账单删除业务逻辑处理
    * 
-   * @param billCreateDto 账单创建数据传输对象
+   * @param billCreateDto 账单删除DTO
    * @returns Result
    */
   async delete(billDeleteDto: BillDeleteDto) {
@@ -42,7 +48,7 @@ export class BillService {
   /**
    * 账单支付业务逻辑处理
    * 
-   * @param billUpdateDto 账单支付数据传输对象
+   * @param billUpdateDto 账单支付DTO
    * @returns Result
    */
   async update(billUpdateDto: BillUpdateDto) {
@@ -83,7 +89,7 @@ export class BillService {
   /**
    * 账单查询业务逻辑处理
    * 
-   * @param billQueryDto 账单查询数据传输对象
+   * @param billQueryDto 账单查询DTO
    * @returns Result
    */
   async query(billQueryDto: BillQueryDto) {

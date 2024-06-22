@@ -23,7 +23,7 @@ export class Feedback {
     @Column({ type: "mediumblob" })
     image: string;
 
-    @Column({ type: "varchar", length: 255, nullable: true })
+    @Column({ type: "varchar", length: 255, default: () => "'未处理'" })
     result: string;
 
     @Column({ type: "int", default: 0 })

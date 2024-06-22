@@ -1,22 +1,27 @@
 import { Injectable } from '@nestjs/common';
-import { Goods } from './entities/goods.entity';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
-import { GoodsCreateDto } from './dtos/goods.create.dto';
-import { PowerService } from 'src/power/power.service';
-import { Result } from 'src/.dtos/result';
 import { MsgConst } from 'src/.const/msg.const';
-import { GoodsDeleteDto } from './dtos/goods.delete.dto';
-import { GoodsUpdateDto } from './dtos/goods.update.dto';
-import { GoodsQueryDto } from './dtos/goods.query.dto';
-import { StoreService } from 'src/store/store.service';
-import { UserService } from 'src/user/user.service';
-import { GoodsBuyDto } from './dtos/goods.buy.dto';
-import { BillService } from 'src/bill/bill.service';
 import { VarConst } from 'src/.const/var.const';
+import { Result } from 'src/.dtos/result';
+import { BillService } from 'src/bill/bill.service';
+import { PowerService } from 'src/power/power.service';
+import { StoreService } from 'src/store/store.service';
+import { Repository } from 'typeorm';
+import { GoodsBuyDto } from './dtos/goods.buy.dto';
+import { GoodsCreateDto } from './dtos/goods.create.dto';
+import { GoodsDeleteDto } from './dtos/goods.delete.dto';
+import { GoodsQueryDto } from './dtos/goods.query.dto';
+import { GoodsUpdateDto } from './dtos/goods.update.dto';
+import { Goods } from './entities/goods.entity';
 
+/**
+ * 货物模块服务层
+ */
 @Injectable()
 export class GoodsService {
+  /**
+   * 货物模块数据层
+   */
   static repository: Repository<Goods>;
   constructor(@InjectRepository(Goods) repository: Repository<Goods>) {
     GoodsService.repository = repository;
@@ -25,7 +30,7 @@ export class GoodsService {
   /**
    * 商品创建业务逻辑处理
    * 
-   * @param goodsCreateDto 商品创建数据传输对象
+   * @param goodsCreateDto 商品创建DTO
    * @returns Result
    */
   async create(goodsCreateDto: GoodsCreateDto) {
@@ -42,7 +47,7 @@ export class GoodsService {
   /**
    * 商品删除业务逻辑处理
    * 
-   * @param goodsDeleteDto 商品删除数据传输对象
+   * @param goodsDeleteDto 商品删除DTO
    * @returns Result
    */
   async delete(goodsDeleteDto: GoodsDeleteDto) {  
@@ -68,7 +73,7 @@ export class GoodsService {
   /**
    * 商品更新业务逻辑处理
    * 
-   * @param goodsUpdateDto 商品更新数据传输对象
+   * @param goodsUpdateDto 商品更新DTO
    * @returns Result
    */
   async update(goodsUpdateDto: GoodsUpdateDto) {
@@ -87,7 +92,7 @@ export class GoodsService {
   /**
    * 商品查询业务逻辑处理
    * 
-   * @param goodsQueryDto 商品查询数据传输对象
+   * @param goodsQueryDto 商品查询DTO
    * @returns Result
    */
   async query(goodsQueryDto: GoodsQueryDto) {
@@ -99,7 +104,6 @@ export class GoodsService {
       order: {
         id: 'DESC'
       },
-      // 通过OR条件筛选
       where: {
         status: 0,
       }
@@ -117,7 +121,7 @@ export class GoodsService {
   /**
    * 商品购买业务逻辑处理
    * 
-   * @param goodsBuyDto 商品购买数据传输对象
+   * @param goodsBuyDto 商品购买DTO
    * @returns Result
    */
   async buy(goodsBuyDto: GoodsBuyDto) {

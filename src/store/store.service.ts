@@ -1,19 +1,24 @@
-import { Injectable, Res } from '@nestjs/common';
-import { Store } from './entities/store.entity';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Any, In, Repository } from 'typeorm';
 import { MsgConst } from 'src/.const/msg.const';
 import { Result } from 'src/.dtos/result';
-import { StoreCreateDto } from './dtos/store.create.dto';
 import { PowerService } from 'src/power/power.service';
-import { StoreDeleteDto } from './dtos/store.delete.dto';
-import { StoreUpdateDto } from './dtos/store.update.dto';
-import { StoreQueryDto } from './dtos/store.query.dto';
 import { UserService } from 'src/user/user.service';
+import { In, Repository } from 'typeorm';
+import { StoreCreateDto } from './dtos/store.create.dto';
+import { StoreDeleteDto } from './dtos/store.delete.dto';
+import { StoreQueryDto } from './dtos/store.query.dto';
+import { StoreUpdateDto } from './dtos/store.update.dto';
+import { Store } from './entities/store.entity';
 
-
+/**
+ * 店铺模块服务层
+ */
 @Injectable()
 export class StoreService {
+  /** 
+   * 店铺模块数据层
+   */
   static repository: Repository<Store>;
   constructor(@InjectRepository(Store) repository: Repository<Store>) {
     StoreService.repository = repository;
@@ -22,7 +27,7 @@ export class StoreService {
   /**
    * 店铺创建业务逻辑处理
    * 
-   * @param storeCreateDto 店铺创建数据传输对象
+   * @param storeCreateDto 店铺创建DTO
    * @returns Result
    */
   async create(storeCreateDto: StoreCreateDto) {
@@ -37,7 +42,7 @@ export class StoreService {
   /**
    * 店铺删除业务逻辑处理
    * 
-   * @param storeDeleteDto 店铺删除数据传输对象
+   * @param storeDeleteDto 店铺删除DTO
    * @returns Result
    */
   async delete(storeDeleteDto: StoreDeleteDto) {
@@ -58,7 +63,7 @@ export class StoreService {
   /**
    * 店铺更新业务逻辑处理
    * 
-   * @param storeUpdateDto 店铺更新数据传输对象
+   * @param storeUpdateDto 店铺更新DTO
    * @returns Result
    */
   async update(storeUpdateDto: StoreUpdateDto) {
@@ -75,7 +80,7 @@ export class StoreService {
   /**
    * 店铺查询业务逻辑处理
    * 
-   * @param storeQueryDto 店铺查询数据传输对象
+   * @param storeQueryDto 店铺查询DTO
    * @returns Result
    */
   async query(storeQueryDto: StoreQueryDto) {

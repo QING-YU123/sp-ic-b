@@ -1,3 +1,5 @@
+import { read } from "fs";
+
 export const MsgConst = {
     powerLowE: "权限不足",
 
@@ -8,6 +10,8 @@ export const MsgConst = {
     idRangeE: "id范围不正确",
 
     idHadExistE: "id已存在",
+
+    searchLengthE: "搜索内容长度不正确",
 
     dateE: "日期不存在",
 
@@ -43,13 +47,13 @@ export const MsgConst = {
 
     oldPasswordE: "旧密码不正确",
 
-    commentLengthE: "评论长度超出限制",
+    commentLengthE: "评论长度不正确",
 
     powerAllotE: "权限分配不正确",
 
-    usernameLengthE: "用户名长度超出限制",
+    usernameLengthE: "用户名长度不正确",
 
-    genderLengthE: "性别长度超出限制",
+    genderLengthE: "性别长度不正确",
 
     genderE: "性别错误",
 
@@ -57,15 +61,15 @@ export const MsgConst = {
 
     idCardLengthE: "身份证号长度不正确",
 
-    addressLengthE: "地址长度超出限制",
+    addressLengthE: "地址长度不正确",
 
     hadAttendE: "已参加活动，请勿重复参加",
 
     booleanE: "布尔值错误",
 
-    imageSizeE: "图片大小超出限制",
+    imageSizeE: "图片大小不正确",
 
-    introductionLengthE: "简介长度超出限制",
+    introductionLengthE: "简介长度不正确",
 
     statusE: "状态错误",
 
@@ -87,13 +91,13 @@ export const MsgConst = {
 
     aidNotExistE: "活动id不存在",
 
-    tagLengthE: "标签长度超出限制",
+    tagLengthE: "标签长度不正确",
 
-    titleLengthE: "标题长度超出限制",
+    titleLengthE: "标题长度不正确",
 
-    contentLengthE: "内容长度超出限制",
+    contentLengthE: "内容长度不正确",
 
-    resultLengthE: "结果长度超出限制",
+    resultLengthE: "结果长度不正确",
 
     priceRangeE: "价格范围不正确",
 
@@ -196,11 +200,11 @@ export const MsgConst = {
     },
 
     attend: {
-        create: "参加记录创建",
+        create: "活动报名",
 
-        update: "参加记录更新",
+        update: "活动参加记录更新",
 
-        query: "参加记录查询"
+        query: "活动参加记录查询"
     },
 
     goods: {
@@ -228,7 +232,9 @@ export const MsgConst = {
 
         update: "公告信息更新",
 
-        query: "公告信息查询"
+        query: "公告信息查询",
+
+        read: "公告阅读",
     },
 
     message: {

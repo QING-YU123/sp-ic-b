@@ -1,47 +1,50 @@
 import { Injectable } from '@nestjs/common';
-import { Attend } from './entities/attend.entity';
-import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { AttendCreateDto } from './dtos/attend.create.dto';
-import { PowerService } from 'src/power/power.service';
-import { Result } from 'src/.dtos/result';
 import { MsgConst } from 'src/.const/msg.const';
-import { AttendUpdateDto } from './dtos/attend.update.dto';
-import { AttendQueryDto } from './dtos/attend.query.dto';
-import { UserService } from 'src/user/user.service';
-import { ActivityService } from 'src/activity/activity.service';
+import { Result } from 'src/.dtos/result';
 import { NumberTool } from 'src/.tools/number.tool';
+import { PowerService } from 'src/power/power.service';
+import { UserService } from 'src/user/user.service';
+import { In, Repository } from 'typeorm';
+import { AttendCreateDto } from './dtos/attend.create.dto';
+import { AttendQueryDto } from './dtos/attend.query.dto';
+import { AttendUpdateDto } from './dtos/attend.update.dto';
+import { Attend } from './entities/attend.entity';
+import { ActivityService } from 'src/activity/activity.service';
 
+/**
+ * 活动参加记录模块服务层
+ */
 @Injectable()
 export class AttendService {
+  /**
+   * 活动参加记录模块数据层
+   */
   static repository: Repository<Attend>;
   constructor(@InjectRepository(Attend) repository: Repository<Attend>) { 
     AttendService.repository = repository;
   }
 
   /**
-   * 参加记录创建业务逻辑处理
+   * 创建参加记录业务逻辑处理
    * 
-   * @param attendCreateDto 参加记录创建数据传输对象
+   * @param attendCreateDto 参加记录创建DTO
    * @returns Result
    */
   async create(attendCreateDto: AttendCreateDto) { 
     if (!(await PowerService.get(attendCreateDto)).uActivity) return Result.fail(MsgConst.powerLowE);
-    if ((await AttendService.repository.countBy({
-      aid: attendCreateDto.body.aid,
-      uid: attendCreateDto.body.uid
-    })) != 0) return Result.fail(MsgConst.hadAttendE);
-    
     attendCreateDto.body.uid = attendCreateDto.checkingUid;
+    if ((await AttendService.repository.countBy(attendCreateDto.body)) != 0) return Result.fail(MsgConst.hadAttendE);
+    
     const res = await AttendService.repository.save(attendCreateDto.body);
 
     return Result.isOrNot(res != null, MsgConst.attend.create);
   }
 
   /**
-   * 参加记录更新业务逻辑处理
+   * 活动举办人修改活动参与证明
    * 
-   *@param attendUpdateDto 参加记录更新数据传输对象
+   * @param attendUpdateDto 参加记录更新DTO
    * @returns Result
    */
   async update(attendUpdateDto: AttendUpdateDto) {
@@ -55,7 +58,7 @@ export class AttendService {
   /**
    * 参加记录查询业务逻辑处理
    * 
-   * @param attendQueryDto 参加记录查询数据传输对象
+   * @param attendQueryDto 参加记录查询DTO
    * @returns Result
    */
   async query(attendQueryDto: AttendQueryDto){
@@ -74,8 +77,8 @@ export class AttendService {
       aidCondition = attendQueryDto.body.aid;
     }
 
-    const [data , total] = await AttendService.repository.findAndCount({
-      skip: (attendQueryDto.body.pageIndex -1) * attendQueryDto.body.pageSize,
+    let [data, total] = await AttendService.repository.findAndCount({
+      skip: (attendQueryDto.body.pageIndex - 1) * attendQueryDto.body.pageSize,
       take: attendQueryDto.body.pageSize,
       order: {
         id: "DESC"
@@ -84,6 +87,13 @@ export class AttendService {
         uid: uidCondition,
         aid: aidCondition,
       }
+    });
+    let activity = await ActivityService.repository.find({ where: { id: In([data.map(item => item.aid)]) } });
+    activity.forEach(item => { item.coverImg = item.coverImg.toString(); });
+    let data1: any = data;
+    data1.forEach(item => {
+      item.activity = activity.find(activityItem => activityItem.id == item.aid);
+      if (item.result != null) item.result = item.result.toString();
     });
 
     return Result.success(MsgConst.attend.query + MsgConst.success,{

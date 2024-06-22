@@ -10,8 +10,14 @@ import { Result } from 'src/.dtos/result';
 import { MsgConst } from 'src/.const/msg.const';
 import { PostCommentService } from 'src/post_comment/post_comment.service';
 
+/**
+ * 帖子评论点赞模块服务层
+ */
 @Injectable()
 export class PostCommentLikeService {
+  /** 
+   * 帖子评论点赞模块数据层
+   */
   static repository: Repository<PostCommentLike>;
   constructor(@InjectRepository(PostCommentLike) repository: Repository<PostCommentLike>) { 
     PostCommentLikeService.repository = repository;
@@ -20,7 +26,7 @@ export class PostCommentLikeService {
   /**
    * 帖子点赞记录创建业务逻辑
    * 
-   * @param postCommentLikeCreateDto 帖子点赞记录创建数据传输对象
+   * @param postCommentLikeCreateDto 帖子点赞记录创建DTO
    * @returns Result
    */
   async create(postCommentLikeCreateDto: PostCommentLikeCreateDto) {
@@ -43,7 +49,7 @@ export class PostCommentLikeService {
   /**
    * 帖子点赞记录删除业务逻辑
    * 
-   * @param postCommentLikeDeleteDto 帖子点赞记录删除数据传输对象
+   * @param postCommentLikeDeleteDto 帖子点赞记录删除DTO
    * @returns Result
    */
   async delete(postCommentLikeDeleteDto: PostCommentLikeDeleteDto) {
@@ -53,7 +59,8 @@ export class PostCommentLikeService {
       pcid: postCommentLikeDeleteDto.body.pcid,
       uid: postCommentLikeDeleteDto.checkingUid
     });
-    if(res.affected == 1) PostCommentService.repository.update(postCommentLikeDeleteDto.body.pcid, { likeNum: () => "likeNum - 1" });
+    if (res.affected == 1) PostCommentService.repository.update(postCommentLikeDeleteDto.body.pcid,
+      { likeNum: () => "likeNum - 1" });
 
     return Result.isOrNot(res.affected == 1, MsgConst.postCommentLike.delete);
   }
@@ -61,7 +68,7 @@ export class PostCommentLikeService {
   /**
    * 帖子点赞记录查询业务逻辑
    * 
-   * @param postCommentLikeQueryDto 帖子点赞记录查询数据传输对象
+   * @param postCommentLikeQueryDto 帖子点赞记录查询DTO
    * @returns Result
    */
   async query(postCommentLikeQueryDto: PostCommentLikeQueryDto) {

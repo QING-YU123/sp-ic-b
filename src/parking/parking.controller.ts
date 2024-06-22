@@ -11,10 +11,20 @@ import { ParkingQueryDto } from './dtos/parking.query.dto';
 import { NumConst } from 'src/.const/num.const';
 import { ObjectTool } from 'src/.tools/object.tool';
 
+/**
+ * 停车位管理模块控制层
+ */
 @Controller('parking')
 export class ParkingController {
   constructor(private readonly parkingService: ParkingService) { }
   
+  /**
+   * 创建停车位
+   * 仅允许超管访问
+   * 
+   * @param parkingCreateDto 停车位创建DTO
+   * @returns Result
+   */
   @Post('create')
   async create(@Body() parkingCreateDto: ParkingCreateDto) {
     if (!NumberTool.isInteger(parkingCreateDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
@@ -26,6 +36,13 @@ export class ParkingController {
     return await this.parkingService.create(parkingCreateDto);
   }
 
+  /**
+   * 删除停车位
+   * 仅允许超管访问
+   * 
+   * @param parkingDeleteDto 停车位删除DTO
+   * @returns Result
+   */
   @Post('delete')
   async delete(@Body() parkingDeleteDto: ParkingDeleteDto) {
     if (!NumberTool.isInteger(parkingDeleteDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
@@ -35,6 +52,13 @@ export class ParkingController {
     return await this.parkingService.delete(parkingDeleteDto);
   }
 
+  /**
+   * 更新停车位信息
+   * 仅允许拥有车位管理权限的用户访问
+   * 
+   * @param parkingUpdateDto 停车位信息更新DTO
+   * @returns Result
+   */
   @Post('update')
   async update(@Body() parkingUpdateDto: ParkingUpdateDto) { 
     if (!NumberTool.isInteger(parkingUpdateDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
@@ -48,12 +72,21 @@ export class ParkingController {
     return await this.parkingService.update(parkingUpdateDto);
   }
 
+  /**
+   * 查询停车位信息
+   * 仅允许拥有车位管理权限的用户访问
+   * 
+   * @param parkingQueryDto 停车位查询DTO
+   * @returns Result
+   */
   @Post('query')
   async query(@Body() parkingQueryDto: ParkingQueryDto) { 
     if (!NumberTool.isInteger(parkingQueryDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
     if (!ObjectTool.isBodyExist(parkingQueryDto)) return Result.fail(MsgConst.bodyNotExistE);
-    if (!NumberTool.isIntegerInRange(parkingQueryDto.body.pageSize, 1, 100)) return Result.fail(MsgConst.pageSizeE);
-    if (!NumberTool.isInteger(parkingQueryDto.body.pageIndex)) return Result.fail(MsgConst.pageIndexE);
+    if (!NumberTool.isIntegerInRange(parkingQueryDto.body.pageSize, 1, NumConst.pageSizeMax))
+      return Result.fail(MsgConst.pageSizeE);
+    if (!NumberTool.isIntegerInRange(parkingQueryDto.body.pageIndex, 1, NumConst.pageIndexMax))
+      return Result.fail(MsgConst.pageIndexE);
 
     return await this.parkingService.query(parkingQueryDto);
   }

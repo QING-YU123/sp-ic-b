@@ -11,11 +11,22 @@ import { PasswordTool } from './../.tools/password.tool';
 import { MsgConst } from 'src/.const/msg.const';
 import { VarConst } from 'src/.const/var.const';
 import { ObjectTool } from 'src/.tools/object.tool';
+import { NumConst } from 'src/.const/num.const';
 
+/**
+ * 外来人员模块控制层
+ */
 @Controller('outsider')
 export class OutsiderController {
   constructor(private readonly outsiderService: OutsiderService) { }
   
+  /**
+   * 登记外来人员
+   * 仅外来人员管理人员可访问
+   * 
+   * @param outsiderCreateDto 外来人员登记DTO
+   * @returns Result
+   */
   @Post('create')
   async create(@Body() outsiderCreateDto: OutsiderCreateDto) { 
     if (!NumberTool.isInteger(outsiderCreateDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
@@ -29,6 +40,13 @@ export class OutsiderController {
     return await this.outsiderService.create(outsiderCreateDto);
   }
 
+  /**
+   * 注销外来人员
+   * 仅外来人员管理人员可访问
+   * 
+   * @param outsiderDeleteDto 外来人员注销DTO
+   * @returns Result
+   */
   @Post('delete')
   async delete(@Body() outsiderDeleteDto: OutsiderDeleteDto) {
     if (!NumberTool.isInteger(outsiderDeleteDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
@@ -38,6 +56,13 @@ export class OutsiderController {
     return await this.outsiderService.delete(outsiderDeleteDto);
   }
 
+  /**
+   * 更新外来人员信息
+   * 仅外来人员管理人员可访问
+   *  
+   * @param outsiderUpdateDto 外来人员更新DTO
+   * @returns Result
+   */
   @Post('update')
   async update(@Body() outsiderUpdateDto: OutsiderUpdateDto) { 
     if (!NumberTool.isInteger(outsiderUpdateDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
@@ -52,12 +77,21 @@ export class OutsiderController {
     return await this.outsiderService.update(outsiderUpdateDto);
   }
 
+  /**
+   * 查询外来人员信息
+   * 仅外来人员管理人员可访问
+   * 
+   * @param outsiderQueryDto 外来人员查询DTO
+   * @returns Result
+   */
   @Post('query')
   async query(@Body() outsiderQueryDto: OutsiderQueryDto) { 
     if (!NumberTool.isInteger(outsiderQueryDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
     if (!ObjectTool.isBodyExist(outsiderQueryDto)) return Result.fail(MsgConst.bodyNotExistE);
-    if (!NumberTool.isIntegerInRange(outsiderQueryDto.body.pageSize, 1, 100)) return Result.fail(MsgConst.pageSizeE);
-    if (!NumberTool.isInteger(outsiderQueryDto.body.pageIndex)) return Result.fail(MsgConst.pageIndexE);
+    if (!NumberTool.isIntegerInRange(outsiderQueryDto.body.pageSize, 1, NumConst.pageSizeMax))
+      return Result.fail(MsgConst.pageSizeE);
+    if (!NumberTool.isIntegerInRange(outsiderQueryDto.body.pageIndex, 1, NumConst.pageIndexMax))
+      return Result.fail(MsgConst.pageIndexE);
 
     return await this.outsiderService.query(outsiderQueryDto);
   }

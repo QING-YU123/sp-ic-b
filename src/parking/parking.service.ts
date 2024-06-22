@@ -1,19 +1,24 @@
 import { Injectable } from '@nestjs/common';
-import { Parking } from './entities/parking.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { MsgConst } from 'src/.const/msg.const';
+import { Result } from 'src/.dtos/result';
+import { PowerService } from 'src/power/power.service';
+import { UserService } from 'src/user/user.service';
 import { In, Repository } from 'typeorm';
 import { ParkingCreateDto } from './dtos/parking.create.dto';
-import { PowerService } from 'src/power/power.service';
-import { Result } from 'src/.dtos/result';
-import { MsgConst } from 'src/.const/msg.const';
 import { ParkingDeleteDto } from './dtos/parking.delete.dto';
-import { ParkingUpdateDto } from './dtos/parking.update.dto';
 import { ParkingQueryDto } from './dtos/parking.query.dto';
-import { User } from 'src/user/entities/user.entity';
-import { UserService } from 'src/user/user.service';
+import { ParkingUpdateDto } from './dtos/parking.update.dto';
+import { Parking } from './entities/parking.entity';
 
+/**
+ * 停车位管理模块服务层
+ */
 @Injectable()
 export class ParkingService {
+  /** 
+   * 停车位管理模块数据层
+   */
   static repository: Repository<Parking>;
   constructor(@InjectRepository(Parking) repository: Repository<Parking>) { 
     ParkingService.repository = repository;
@@ -22,7 +27,7 @@ export class ParkingService {
   /**
    * 车位创建业务逻辑处理
    * 
-   * @param parkingCreateDto 车位创建数据传输对象
+   * @param parkingCreateDto 车位创建DTO
    * @returns Result
    */
   async create(parkingCreateDto: ParkingCreateDto) {
@@ -39,7 +44,7 @@ export class ParkingService {
   /**
    * 车位删除业务逻辑处理
    * 
-   * @param parkingDeleteDto 车位删除数据传输对象
+   * @param parkingDeleteDto 车位删除DTO
    * @returns Result
    */
   async delete(parkingDeleteDto: ParkingDeleteDto) {
@@ -53,7 +58,7 @@ export class ParkingService {
   /**
    * 车位更新业务逻辑处理
    * 
-   * @param parkingUpdateDto 车位更新数据传输对象
+   * @param parkingUpdateDto 车位更新DTO
    * @returns Result
    */
   async update(parkingUpdateDto: ParkingUpdateDto) {
@@ -73,7 +78,7 @@ export class ParkingService {
   /**
    * 车位查询业务逻辑处理
    * 
-   * @param parkingQueryDto 车位查询数据传输对象
+   * @param parkingQueryDto 车位查询DTO
    * @returns Result
    */
   async query(parkingQueryDto: ParkingQueryDto) {

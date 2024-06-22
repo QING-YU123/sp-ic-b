@@ -1,18 +1,24 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { In, Repository } from 'typeorm';
-import { Repair } from './entities/repair.entity';
-import { RepairCreateDto } from './dtos/repair.create.dto';
-import { PowerService } from 'src/power/power.service';
-import { Result } from 'src/.dtos/result';
-import { RepairDeleteDto } from './dtos/repair.delete.dto';
-import { RepairUpdateDto } from './dtos/repair.update.dto';
-import { RepairQueryDto } from './dtos/repair.query.dto';
 import { MsgConst } from 'src/.const/msg.const';
+import { Result } from 'src/.dtos/result';
+import { PowerService } from 'src/power/power.service';
 import { UserService } from 'src/user/user.service';
+import { In, Repository } from 'typeorm';
+import { RepairCreateDto } from './dtos/repair.create.dto';
+import { RepairDeleteDto } from './dtos/repair.delete.dto';
+import { RepairQueryDto } from './dtos/repair.query.dto';
+import { RepairUpdateDto } from './dtos/repair.update.dto';
+import { Repair } from './entities/repair.entity';
 
+/**
+ * 维修申报模块服务层
+ */
 @Injectable()
 export class RepairService {
+  /**
+   * 维修申报模块数据层
+   */
   static repository: Repository<Repair>;
   constructor(@InjectRepository(Repair) repository: Repository<Repair>) { 
     RepairService.repository = repository;
@@ -21,7 +27,7 @@ export class RepairService {
   /**
    * 维修申报创建业务逻辑处理
    * 
-   * @param repairCreateDto 维修申报创建数据传输对象
+   * @param repairCreateDto 维修申报创建DTO
    * @returns Result
    */
   async create(repairCreateDto: RepairCreateDto) {
@@ -36,7 +42,7 @@ export class RepairService {
   /**
    * 维修申报删除业务逻辑处理
    * 
-   * @param repairDeleteDto 维修申报删除数据传输对象
+   * @param repairDeleteDto 维修申报删除DTO
    * @returns Result
    */
   async delete(repairDeleteDto: RepairDeleteDto) {
@@ -50,7 +56,7 @@ export class RepairService {
   /**
    * 维修申报更新业务逻辑处理
    * 
-   * @param repairUpdateDto 维修申报更新数据传输对象
+   * @param repairUpdateDto 维修申报更新DTO
    * @returns Result
    */
   async update(repairUpdateDto: RepairUpdateDto) {
@@ -65,11 +71,12 @@ export class RepairService {
   /**
    * 维修申报查询业务逻辑处理
    * 
-   * @param repairQueryDto 维修申报查询数据传输对象
+   * @param repairQueryDto 维修申报查询DTO
    * @returns Result
    */
   async query(repairQueryDto: RepairQueryDto) {
-    if (!(await PowerService.get(repairQueryDto)).mRepair) return Result.fail(MsgConst.powerLowE);
+    const power = await PowerService.get(repairQueryDto);
+    if (!power.uRepair) return Result.fail(MsgConst.powerLowE);
     
     const [data, total] = await RepairService.repository.findAndCount({
       skip: (repairQueryDto.body.pageIndex - 1) * repairQueryDto.body.pageSize,
@@ -78,8 +85,8 @@ export class RepairService {
         id: 'DESC'
       },
       where: {
-        // status除了1之外的都要筛选
         status: In([0, 2, 3]),
+        uid: power.mRepair ? null : repairQueryDto.checkingUid
       }
     });
     const user = await UserService.repository.find({

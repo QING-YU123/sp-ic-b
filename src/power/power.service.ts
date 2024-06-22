@@ -1,15 +1,21 @@
-import { Injectable, Res } from '@nestjs/common';
-import { Power } from './entities/power.entity';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { UserService } from 'src/user/user.service';
-import { Dto } from 'src/.dtos/dto';
-import { PowerQueryDto } from './dtos/power.query.dto';
-import { Result } from 'src/.dtos/result';
 import { MsgConst } from 'src/.const/msg.const';
+import { Dto } from 'src/.dtos/dto';
+import { Result } from 'src/.dtos/result';
+import { UserService } from 'src/user/user.service';
+import { Repository } from 'typeorm';
+import { PowerQueryDto } from './dtos/power.query.dto';
+import { Power } from './entities/power.entity';
 
+/**
+ * 鉴权模块服务层
+ */
 @Injectable()
 export class PowerService {
+  /** 
+   * 鉴权模块数据层
+   */
   static repository: Repository<Power>;
   constructor(@InjectRepository(Power) repository: Repository<Power>) { 
     PowerService.repository = repository;
@@ -19,7 +25,7 @@ export class PowerService {
   /**
    * 查询权限业务逻辑处理
    * 
-   * @param powerQueryDto 查询权限数据传输对象
+   * @param powerQueryDto 查询权限DTO
    * @returns Result
    */
   async query(powerQueryDto: PowerQueryDto) {

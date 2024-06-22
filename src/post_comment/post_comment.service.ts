@@ -11,8 +11,14 @@ import { PostCommentQueryDto } from './dtos/post_comment.query.dto';
 import { PostComment } from './entities/post_comment.entity';
 import { PostService } from 'src/post/post.service';
 
+/**
+ * 帖子评论模块服务层
+ */
 @Injectable()
 export class PostCommentService {
+  /** 
+   * 帖子评论模块数据层
+   */
   static repository: Repository<PostComment>;
   constructor(@InjectRepository(PostComment) repository: Repository<PostComment>) { 
     PostCommentService.repository = repository;
@@ -21,7 +27,7 @@ export class PostCommentService {
   /**
    * 帖子评论记录创建
    * 
-   * @param postCommentCreateDto 帖子评论记录创建传输对象
+   * @param postCommentCreateDto 帖子评论记录DTO
    * @returns Result
    */
   async create(postCommentCreateDto: PostCommentCreateDto) {
@@ -42,7 +48,7 @@ export class PostCommentService {
   /**
    * 帖子评论记录删除
    * 
-   * @param postCommentDeleteDto 帖子评论记录删除传输对象
+   * @param postCommentDeleteDto 帖子评论记录DTO
    * @returns Result
    */
   async delete(postCommentDeleteDto: PostCommentDeleteDto) {
@@ -66,7 +72,7 @@ export class PostCommentService {
   /**
    * 帖子评论记录查询
    * 
-   * @param postCommentQueryDto 帖子评论记录查询传输对象
+   * @param postCommentQueryDto 帖子评论记录查询DTO
    * @returns Result
    */
   async query(postCommentQueryDto: PostCommentQueryDto) {

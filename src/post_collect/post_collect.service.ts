@@ -10,17 +10,23 @@ import { PostService } from 'src/post/post.service';
 import { PostCollectDeleteDto } from './dtos/post_collect.delete.dto';
 import { PostCollectQueryListDto } from './dtos/post_collect.query_list.dto';
 
+/**
+ * 帖子收藏模块服务层
+ */
 @Injectable()
 export class PostCollectService {
+  /**
+   * 帖子收藏模块数据层
+   */
   static repository: Repository<PostCollect>;
   constructor(@InjectRepository(PostCollect) repository: Repository<PostCollect>) { 
     PostCollectService.repository = repository;
   }
   
   /**
-   * 收藏记录创建业务逻辑处理
+   * 帖子收藏记录创建业务逻辑处理
    * 
-   * @param postCollectCreateDto 收藏记录创建数据传输对象
+   * @param postCollectCreateDto 帖子收藏记录创建DTO
    * @returns Result
    */
   async create(postCollectCreateDto: PostCollectCreateDto) {
@@ -40,9 +46,9 @@ export class PostCollectService {
   }
   
   /**
-   * 收藏记录删除业务逻辑处理
+   * 帖子收藏记录删除业务逻辑处理
    * 
-   * @param postCollectDeleteDto 收藏记录删除数据传输对象
+   * @param postCollectDeleteDto 帖子收藏记录删除DTO
    * @returns Result
    */
   async delete(postCollectDeleteDto: PostCollectDeleteDto) {
@@ -58,9 +64,9 @@ export class PostCollectService {
   }
   
   /**
-   * 收藏记录查询业务逻辑处理
+   * 帖子收藏记录查询业务逻辑处理
    * 
-   * @param postCollectQueryDto 收藏记录查询数据传输对象
+   * @param postCollectQueryDto 帖子收藏记录查询DTO
    * @returns Result
    */
   async query(postCollectQueryDto: PostCollectDeleteDto) {
@@ -75,9 +81,9 @@ export class PostCollectService {
   }
   
   /**
-   * 收藏记录列表查询业务逻辑处理
+   * 帖子收藏记录列表查询业务逻辑处理
    * 
-   * @param postCollectQueryListDto 收藏记录列表查询数据传输对象
+   * @param postCollectQueryListDto 帖子收藏记录列表查询DTO
    * @returns Result
    */
   async queryList(postCollectQueryListDto: PostCollectQueryListDto) {
