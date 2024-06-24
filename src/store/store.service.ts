@@ -33,6 +33,8 @@ export class StoreService {
    */
   async create(storeCreateDto: StoreCreateDto) {
     if (!(await PowerService.get(storeCreateDto)).mStore) return Result.fail(MsgConst.powerLowE);
+    const user = await UserService.repository.findOne({ select: ['money'], where: { id: storeCreateDto.checkingUid } });
+    if (user.money == null) return Result.fail(MsgConst.notOpenMoney);
       
     storeCreateDto.body.uid = storeCreateDto.checkingUid;
     const res = StoreService.repository.save(storeCreateDto.body);

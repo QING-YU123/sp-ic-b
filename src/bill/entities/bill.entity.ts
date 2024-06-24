@@ -29,6 +29,9 @@ export class Bill {
     @Column({ name: "pay_time", type: "datetime", nullable: true })
     payTime: string;
 
+    @Column({ name: "receipt_uid", type: "bigint" })
+    receiptUid: number;
+
     @Column({ type: "int", default: 0 })
     status: number;
 }

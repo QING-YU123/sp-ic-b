@@ -21,6 +21,7 @@ import { UserUpdateOwnDto } from './dtos/user.update_own.dto';
 import { UserUploadHeadImgDto } from './dtos/user.upload_head_img.dto';
 import { UserService } from './user.service';
 import { NumConst } from 'src/.const/num.const';
+import { UserResetPayPasswordDto } from './dtos/user.reset_pay_password.dto';
 
 /**
  * 用户模块控制层
@@ -294,5 +295,23 @@ export class UserController {
     if (!NumberTool.isInteger(userOpMoneyDto.body.money)) return Result.fail(MsgConst.idNotExistE);
 
     return await this.userService.opMoney(userOpMoneyDto);
+  }
+
+  /**
+   * 用户重置自己的支付密码
+   * 
+   * @param userGetOwnDto 用户重置自己的支付密码DTO
+   * @returns Result
+   */
+  @Post('reset-pay-password')
+  async resetPayPassword(@Body() userResetPayPasswordDto: UserResetPayPasswordDto) { 
+    if (!NumberTool.isInteger(userResetPayPasswordDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(userResetPayPasswordDto)) return Result.fail(MsgConst.bodyNotExistE);
+    if (!StringTool.isLengthInRange(userResetPayPasswordDto.body.password, 6, 16))
+      return Result.fail(MsgConst.passwordLengthE);
+    if (!StringTool.isLengthInRange(userResetPayPasswordDto.body.payPassword, 6, 6))
+      return Result.fail(MsgConst.payPasswordLengthE);
+
+    return await this.userService.resetPayPassword(userResetPayPasswordDto);
   }
 }

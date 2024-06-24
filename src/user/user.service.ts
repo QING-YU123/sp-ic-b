@@ -24,6 +24,7 @@ import { UserOpenMoneyDto } from './dtos/user.open_money.dto';
 import { UserOpMoneyDto } from './dtos/user.op_money.dto';
 import { BillService } from 'src/bill/bill.service';
 import { TimeTool } from 'src/.tools/time.tool';
+import { UserResetPayPasswordDto } from './dtos/user.reset_pay_password.dto';
 
 /**
  * 用户模块服务层
@@ -138,7 +139,7 @@ export class UserService {
       where: where
     });
     let data1: any = data;
-    data1.array.forEach(item => {
+    data1.forEach(item => {
       item.createdTime = TimeTool.convertToDate(item.createdTime);
       item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
@@ -313,7 +314,7 @@ export class UserService {
    */
   async openMoney(userOpenMoneyDto: UserOpenMoneyDto) {
     if (!(await PowerService.get(userOpenMoneyDto)).uMoney) return Result.fail(MsgConst.powerLowE);
-    const user = await UserService.repository.findOne({ select: ['money'], where: { id: userOpenMoneyDto.checkingUid } });
+    const user = await UserService.repository.findOne({ select: ['money', 'id'], where: { id: userOpenMoneyDto.checkingUid } });
     if (user.money != null) return Result.fail(MsgConst.hadOpenMoney);
     const res = await UserService.repository.update(userOpenMoneyDto.checkingUid, {
       money: 0,
@@ -343,11 +344,31 @@ export class UserService {
         uid: user.id,
         title: userOpMoneyDto.body.money > 0 ? MsgConst.user.addMoney : MsgConst.user.redMoney,
         content: "剩余金额：" + (user.money - (-userOpMoneyDto.body.money)) / 100 + "元",
-        price: userOpMoneyDto.body.money
+        price: userOpMoneyDto.body.money,
+        receiptUid: userOpMoneyDto.checkingUid,
+        status: 2
       });
     }
 
     return Result.isOrNot(res.affected != 0,
       userOpMoneyDto.body.money > 0 ? MsgConst.user.addMoney : MsgConst.user.redMoney);
+  }
+  
+  /**
+   * 用户重置支付密码业务逻辑处理
+   * 
+   * @param userResetPayPasswordDto 用户重置支付密码DTO
+   * @returns Result
+   */
+  async resetPayPassword(userResetPayPasswordDto: UserResetPayPasswordDto) {
+    if (!(await PowerService.get(userResetPayPasswordDto)).uMoney) return Result.fail(MsgConst.powerLowE);
+
+    const res = await UserService.repository.update({
+      id: userResetPayPasswordDto.checkingUid,
+      phone: userResetPayPasswordDto.body.phone,
+      password: PasswordTool.encrypt(userResetPayPasswordDto.body.password)
+    }, { payPassword: PasswordTool.encrypt(userResetPayPasswordDto.body.payPassword) });
+
+    return Result.isOrNot(res.affected != 0, MsgConst.user.resetPayPassword);
   }
 }

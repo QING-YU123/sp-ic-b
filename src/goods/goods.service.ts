@@ -130,7 +130,7 @@ export class GoodsService {
   async buy(goodsBuyDto: GoodsBuyDto) {
     if (!(await PowerService.get(goodsBuyDto)).uMoney) return Result.fail(MsgConst.powerLowE);
     const goods = await GoodsService.repository.findOne({
-      select: ['balance', 'name', 'status', 'price'],
+      select: ['balance', 'name', 'status', 'price', 'sid'],
       where: { id: goodsBuyDto.body.gid }
     });
     if (goods.status != 0) return Result.fail(MsgConst.goodsHadRemove);
@@ -143,12 +143,14 @@ export class GoodsService {
     if (res1.affected == 0) return Result.fail(MsgConst.buyFailE);
     let content: string = goods.name + " x " + goodsBuyDto.body.num + "\n";
     let price = goodsBuyDto.body.num * goods.price;
+    const store = await StoreService.repository.findOne({ select: ['uid'], where: { id: goods.sid } });
     const res2 = await BillService.repository.save({
       uid: goodsBuyDto.checkingUid,
       title: VarConst.goodsBillTitle,
       content: content,
-      price: price
-    }); 
+      price: price,
+      receiptUid: store.uid
+    });
 
     return Result.success(MsgConst.billCreate, res2.id);
   }

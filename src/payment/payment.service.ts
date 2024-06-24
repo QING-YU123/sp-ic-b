@@ -67,10 +67,12 @@ export class PaymentService {
     if (payment.bid != null) return Result.fail(MsgConst.billHadExistE);
 
     const bill = await BillService.repository.save({
+      uid: paymentUpdateDto.checkingUid,
       pmid: payment.id,
       title: payment.title,
       content: payment.content,
-      price: payment.price
+      price: payment.price,
+      receiptUid: 1
     });
     PaymentService.repository.update(paymentUpdateDto.body.id, { bid: bill.id });
 

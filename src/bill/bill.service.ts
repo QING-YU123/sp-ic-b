@@ -1,6 +1,6 @@
 import { Injectable, Res } from '@nestjs/common';
 import { Bill } from './entities/bill.entity';
-import { Repository } from 'typeorm';
+import { In, Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { BillDeleteDto } from './dtos/bill.delete.dto';
 import { PowerService } from 'src/power/power.service';
@@ -55,7 +55,7 @@ export class BillService {
   async update(billUpdateDto: BillUpdateDto) {
     if (!(await PowerService.get(billUpdateDto)).uMoney) return Result.fail(MsgConst.powerLowE);
     const bill = await BillService.repository.findOne({
-      select: ['uid', 'price', 'status', 'pmid'],
+      select: ['uid', 'price', 'status', 'pmid', 'receiptUid'],
       where: { id: billUpdateDto.body.id }
     });
     if (bill == null) return Result.fail(MsgConst.idNotExistE);
@@ -76,6 +76,7 @@ export class BillService {
       money: ()=> "user.money - " +bill.price
     });
     if (res1.affected != 1) return Result.fail(MsgConst.payE);
+    UserService.repository.update(bill.receiptUid, { money: () => "user.money + " + bill.price });
     const res2 = await BillService.repository.update(billUpdateDto.body.id, {
       status: 2,
       payTime: () => "NOW()"
@@ -106,8 +107,13 @@ export class BillService {
         status: billQueryDto.body.paid ? 2 : 0
       }
     }); 
+    const user = await UserService.repository.find({
+      select: ['id', 'name', 'username'],
+      where: { id: In(data.map(item => item.receiptUid)) }
+    });
     let data1: any = data;
     data1.forEach((item) => {
+      item.receiptUser = user.find(userItem => userItem.id == item.receiptUid);
       item.createdTime = TimeTool.convertToDate(item.createdTime);
       item.updatedTime = TimeTool.convertToDate(item.updatedTime);
       if (item.payTime != null) item.payTime = TimeTool.convertToDate(item.payTime);

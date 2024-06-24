@@ -325,5 +325,7 @@ export const MsgConst = {
         addMoney: "充值",
 
         redMoney: "提现",
+
+        resetPayPassword: "重置支付密码"
     }
 }
