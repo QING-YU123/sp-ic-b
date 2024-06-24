@@ -10,6 +10,7 @@ import { RepairDeleteDto } from './dtos/repair.delete.dto';
 import { RepairQueryDto } from './dtos/repair.query.dto';
 import { RepairUpdateDto } from './dtos/repair.update.dto';
 import { Repair } from './entities/repair.entity';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 维修申报模块服务层
@@ -98,6 +99,8 @@ export class RepairService {
       const u = user.find(userItem => userItem.id === item.uid);
       item.name = u.name;
       item.phone = u.phone;
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
     
     return Result.success(MsgConst.repair.query + MsgConst.success, {

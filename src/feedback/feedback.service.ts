@@ -10,6 +10,7 @@ import { FeedbackDeleteDto } from './dtos/feedback.delete.dto';
 import { FeedbackQueryDto } from './dtos/feedback.query.dto';
 import { FeedbackUpdateDto } from './dtos/feedback.update.dto';
 import { Feedback } from './entities/feedback.entity';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 反馈建议服务层
@@ -99,6 +100,8 @@ export class FeedbackService {
       item.name = u.name;
       item.phone = u.phone;
       item.image = item.image.toString();
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
     
     return Result.success(MsgConst.feedback.query + MsgConst.success, {

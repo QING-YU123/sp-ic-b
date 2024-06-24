@@ -9,6 +9,7 @@ import { OutsiderUpdateDto } from './dtos/outsider.update.dto';
 import { OutsiderQueryDto } from './dtos/outsider.query.dto';
 import { PowerService } from 'src/power/power.service';
 import { MsgConst } from 'src/.const/msg.const';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 外来人员模块服务层
@@ -74,12 +75,18 @@ export class OutsiderService {
   async query(outsiderQueryDto: OutsiderQueryDto) {
     if (!(await PowerService.get(outsiderQueryDto)).mOutsider) return Result.fail(MsgConst.powerLowE);
     
-    const [data, total] = await OutsiderService.repository.findAndCount({
+    let [data, total] = await OutsiderService.repository.findAndCount({
       skip: (outsiderQueryDto.body.pageIndex - 1) * outsiderQueryDto.body.pageSize,
       take: outsiderQueryDto.body.pageSize,
       order: {
         id: 'DESC'
       }
+    });
+    let data1: any = data;
+    data1.foreach((item) => { 
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
+      if (item.leaveTime) item.leaveTime = TimeTool.convertToDate(item.leaveTime);
     });
 
     return Result.success(MsgConst.outsider.query + MsgConst.success, {

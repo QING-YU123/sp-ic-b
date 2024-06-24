@@ -28,4 +28,10 @@ export class Log {
 
     @Column({ type: "varchar", length: 200 })
     content: string;
+
+    @Column({ type: "varchar", length: 200, nullable: true })
+    result: string;
+
+    @Column({ type: "varchar", length: 30, nullable: true })
+    url: string;
 }

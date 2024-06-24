@@ -10,6 +10,7 @@ import { PostCommentDeleteDto } from './dtos/post_comment.delete.dto';
 import { PostCommentQueryDto } from './dtos/post_comment.query.dto';
 import { PostComment } from './entities/post_comment.entity';
 import { PostService } from 'src/post/post.service';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 帖子评论模块服务层
@@ -93,6 +94,8 @@ export class PostCommentService {
     data1.forEach(item => {
       item.user = user.find(userItem => userItem.id == item.uid);
       delete item.uid;
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
 
     return Result.success(MsgConst.postComment.query + MsgConst.success,

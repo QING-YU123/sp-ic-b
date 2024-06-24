@@ -11,6 +11,7 @@ import { AttendQueryDto } from './dtos/attend.query.dto';
 import { AttendUpdateDto } from './dtos/attend.update.dto';
 import { Attend } from './entities/attend.entity';
 import { ActivityService } from 'src/activity/activity.service';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 活动参加记录模块服务层
@@ -89,11 +90,17 @@ export class AttendService {
       }
     });
     let activity = await ActivityService.repository.find({ where: { id: In([data.map(item => item.aid)]) } });
-    activity.forEach(item => { item.coverImg = item.coverImg.toString(); });
+    activity.forEach(item => {
+      item.coverImg = item.coverImg.toString(); 
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
+    });
     let data1: any = data;
     data1.forEach(item => {
       item.activity = activity.find(activityItem => activityItem.id == item.aid);
       if (item.result != null) item.result = item.result.toString();
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
 
     return Result.success(MsgConst.attend.query + MsgConst.success,{

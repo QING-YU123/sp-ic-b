@@ -13,6 +13,7 @@ import { GoodsDeleteDto } from './dtos/goods.delete.dto';
 import { GoodsQueryDto } from './dtos/goods.query.dto';
 import { GoodsUpdateDto } from './dtos/goods.update.dto';
 import { Goods } from './entities/goods.entity';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 货物模块服务层
@@ -110,6 +111,8 @@ export class GoodsService {
     });
     data.forEach(item => {
       item.coverImg = item.coverImg.toString();
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
 
     return Result.success(MsgConst.goods.query + MsgConst.success, {

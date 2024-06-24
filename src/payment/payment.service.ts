@@ -11,6 +11,7 @@ import { PaymentUpdateDto } from './dtos/payment.update.dto';
 import { PaymentQueryDto } from './dtos/payment.query.dto';
 import { BillService } from 'src/bill/bill.service';
 import { UserService } from 'src/user/user.service';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 缴费单模块服务层
@@ -101,6 +102,9 @@ export class PaymentService {
     let data1: any = data;
     data1.forEach(item => {
       item.name = user.find(userItem => userItem.id == item.uid).name;
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
+      if (item.payTime != null) item.payTime = TimeTool.convertToDate(item.payTime);
     });
 
     return Result.success(MsgConst.payment.query+MsgConst.success, {

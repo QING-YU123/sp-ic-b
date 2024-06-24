@@ -23,6 +23,7 @@ import { ParkingService } from 'src/parking/parking.service';
 import { UserOpenMoneyDto } from './dtos/user.open_money.dto';
 import { UserOpMoneyDto } from './dtos/user.op_money.dto';
 import { BillService } from 'src/bill/bill.service';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 用户模块服务层
@@ -127,7 +128,7 @@ export class UserService {
       power: power.mAdmin0 ? In([2].concat(powerLeft)) : In([].concat(powerLeft)),
       status: power.mAdmin0 ? In([0, 1, 2]) : In([0, 2])
     };
-    const [users, total] = await UserService.repository.findAndCount({
+    let [data, total] = await UserService.repository.findAndCount({
       skip: (userQueryDto.body.pageIndex - 1) * userQueryDto.body.pageSize,
       take: userQueryDto.body.pageSize,
       order: {
@@ -136,9 +137,14 @@ export class UserService {
       select: ['id', 'createdTime', 'updatedTime', 'phone', 'power', 'username', 'gender', 'introduction', 'name', 'idCard', 'address', 'money', 'CP', 'banTalk', 'postNum', 'collectNum', 'status'],
       where: where
     });
+    let data1: any = data;
+    data1.array.forEach(item => {
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
+    });
 
     return Result.success(MsgConst.user.query + MsgConst.success, {
-      data: users,
+      data: data,
       total: total
     });
   }
@@ -186,6 +192,9 @@ export class UserService {
       select: ['updatedTime', 'carNum', 'price', 'id'],
       where: { uid: user.id }
     });
+    user1.createdTime = TimeTool.convertToDate(user1.createdTime);
+    user1.updatedTime = TimeTool.convertToDate(user1.updatedTime);
+    if (user1.parking != null) user1.parking.updatedTime = TimeTool.convertToDate(user1.parking.updatedTime);
 
     return Result.success(MsgConst.user.login + MsgConst.success, user);
   }

@@ -10,6 +10,7 @@ import { ParkingDeleteDto } from './dtos/parking.delete.dto';
 import { ParkingQueryDto } from './dtos/parking.query.dto';
 import { ParkingUpdateDto } from './dtos/parking.update.dto';
 import { Parking } from './entities/parking.entity';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 停车位管理模块服务层
@@ -100,6 +101,8 @@ export class ParkingService {
       const u = user.find(userItem => userItem.id === item.uid);
       item.name = u.name;
       item.phone = u.phone;
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
     
     return Result.success(MsgConst.parking.query + MsgConst.success, {

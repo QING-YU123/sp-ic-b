@@ -10,6 +10,7 @@ import { StoreDeleteDto } from './dtos/store.delete.dto';
 import { StoreQueryDto } from './dtos/store.query.dto';
 import { StoreUpdateDto } from './dtos/store.update.dto';
 import { Store } from './entities/store.entity';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 店铺模块服务层
@@ -106,6 +107,8 @@ export class StoreService {
       const u = user.find(userItem => userItem.id === item.uid);
       item.bossName = u.name;
       item.coverImg = item.coverImg.toString();
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
 
     return Result.success(MsgConst.store.query + MsgConst.success, {

@@ -10,6 +10,7 @@ import { PostDeleteDto } from './dtos/post.delete.dto';
 import { UserService } from 'src/user/user.service';
 import { PostUpdateDto } from './dtos/post.update.dto';
 import { PostQueryDto } from './dtos/post.query.dto';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 帖子模块服务层
@@ -114,6 +115,8 @@ export class PostService {
       if (power.mApprove) item.phone = u.phone;
       item.coverImg = item.coverImg.toString();
       item.content = item.content.toString();
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
     
     return Result.success(MsgConst.post.query + MsgConst.success, {

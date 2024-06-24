@@ -8,6 +8,7 @@ import { Result } from 'src/.dtos/result';
 import { MsgConst } from 'src/.const/msg.const';
 import { LogCreateDto } from './dtos/log.create.dto';
 import { UserService } from 'src/user/user.service';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 日志模块服务层
@@ -42,19 +43,21 @@ export class LogService {
    * @param content 日志内容
    * @returns Result
    */
-  static async add(uid: number, type: number, content: string) { 
+  static async add(uid: number, type: number, content: string, result?: string, url?: string) { 
     const user = await UserService.repository.findOne({
-      select: ['name', 'username', 'phone'],
+      select: ['id','name', 'username', 'phone'],
       where: { id: uid }
     });
 
     const log = await LogService.repository.save({
       uid: uid,
-      name: user.name,
-      username: user.username,
-      phone: user.phone,
+      name: user == null ? "null" : user.name,
+      username: user == null ? "null" : user.username,
+      phone: user == null ? "null" : user.phone,
       type: type,
-      content: content
+      content: content,
+      result: result,
+      url: url
     });
 
     return Result.isOrNot(log != null, MsgConst.log.create);
@@ -69,13 +72,21 @@ export class LogService {
   async query(logQueryDto: LogQueryDto) {
     if (!(await PowerService.get(logQueryDto)).mAdmin1) return Result.fail(MsgConst.powerLowE);
 
-    const [data, total] = await LogService.repository.findAndCount({
+    let [data, total] = await LogService.repository.findAndCount({
       skip: (logQueryDto.body.pageIndex - 1) * logQueryDto.body.pageSize,
       take: logQueryDto.body.pageSize,
       where: {
         type: logQueryDto.body.type,
         createdTime: Between(logQueryDto.body.date, logQueryDto.body.date + 'T23:59:59')
+      },
+      order: {
+        id: 'DESC'
       }
+    });
+    let data1: any = data;
+    data1.forEach(item => {
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
 
     return Result.success(MsgConst.log.query + MsgConst.success, {

@@ -9,6 +9,7 @@ import { Result } from 'src/.dtos/result';
 import { PostService } from 'src/post/post.service';
 import { PostCollectDeleteDto } from './dtos/post_collect.delete.dto';
 import { PostCollectQueryListDto } from './dtos/post_collect.query_list.dto';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 帖子收藏模块服务层
@@ -107,7 +108,11 @@ export class PostCollectService {
       if (item.post != null) {
         item.post.coverImg = item.post.coverImg.toString();
         item.post.content = item.post.content.toString();
+        item.post.createdTime = TimeTool.convertToDate(item.post.createdTime);
+        item.post.updatedTime = TimeTool.convertToDate(item.post.updatedTime);
       }
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
 
     return Result.success(MsgConst.postCollect.query + MsgConst.success, {

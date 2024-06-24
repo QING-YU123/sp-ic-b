@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
 import * as bodyParser from 'body-parser';
-import { FastifyAdapter, NestFastifyApplication } from '@nestjs/platform-fastify';
+import { AppModule } from './app.module';
+import { ActivityService } from './activity/activity.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -9,5 +9,7 @@ async function bootstrap() {
   app.use(bodyParser.urlencoded({ limit: '100mb', extended: true }));
   app.enableCors();
   await app.listen(12005);
+
+  ActivityService.intervalTask();
 }
 bootstrap();

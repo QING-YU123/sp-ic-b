@@ -11,6 +11,7 @@ import { UserService } from 'src/user/user.service';
 import { PasswordTool } from 'src/.tools/password.tool';
 import { BillQueryDto } from './dtos/bill.query.dto';
 import { PaymentService } from 'src/payment/payment.service';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 账单模块服务层
@@ -95,7 +96,7 @@ export class BillService {
   async query(billQueryDto: BillQueryDto) {
     if (!(await PowerService.get(billQueryDto)).uMoney) return Result.fail(MsgConst.powerLowE);
 
-    const [data, total] = await BillService.repository.findAndCount({
+    let [data, total] = await BillService.repository.findAndCount({
       skip: (billQueryDto.body.pageIndex - 1) * billQueryDto.body.pageSize,
       take: billQueryDto.body.pageSize,
       order: {
@@ -105,6 +106,12 @@ export class BillService {
         status: billQueryDto.body.paid ? 2 : 0
       }
     }); 
+    let data1: any = data;
+    data1.forEach((item) => {
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
+      if (item.payTime != null) item.payTime = TimeTool.convertToDate(item.payTime);
+    });
 
     return Result.success(MsgConst.bill.query + MsgConst.success, {
       data: data,

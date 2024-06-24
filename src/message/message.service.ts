@@ -9,6 +9,7 @@ import { PowerService } from 'src/power/power.service';
 import { MessageQueryDto } from './dtos/message.query.dto';
 import { MessageReadDto } from './dtos/message.read.dto';
 import { UserService } from 'src/user/user.service';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 消息模块服务层
@@ -48,7 +49,7 @@ export class MessageService {
   async query(messageQueryDto: MessageQueryDto) {
     const power = await PowerService.get(messageQueryDto);
 
-    const [data, total] = await MessageService.repository.findAndCount({
+    let [data, total] = await MessageService.repository.findAndCount({
       skip: (messageQueryDto.body.pageIndex - 1) * messageQueryDto.body.pageSize,
       take: messageQueryDto.body.pageSize,
       order: {
@@ -57,6 +58,12 @@ export class MessageService {
       where: {
         uid: power.mAdmin1 ? null : messageQueryDto.checkingUid
       }
+    });
+    let data1: any = data;
+
+    data1.forEach((item) => { 
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
    
     return Result.success(MsgConst.message.query + MsgConst.success, {

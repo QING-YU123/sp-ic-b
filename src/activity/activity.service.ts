@@ -4,12 +4,14 @@ import { MsgConst } from 'src/.const/msg.const';
 import { Result } from 'src/.dtos/result';
 import { PowerService } from 'src/power/power.service';
 import { UserService } from 'src/user/user.service';
-import { In, Repository } from 'typeorm';
+import { In, LessThan, Repository } from 'typeorm';
 import { ActivityCreateDto } from './dtos/activity.create.dto';
 import { ActivityDeleteDto } from './dtos/activity.delete.dto';
 import { ActivityQueryDto } from './dtos/activity.query.dto';
 import { ActivityUpdateDto } from './dtos/activity.update.dto';
 import { Activity } from './entities/activity.entity';
+import { TimeTool } from 'src/.tools/time.tool';
+import { LogService } from 'src/log/log.service';
 
 /**
  * 活动模块服务层
@@ -87,11 +89,25 @@ export class ActivityService {
     });
     data.forEach(item => {
       item.coverImg = item.coverImg.toString();
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
+      item.startTime = TimeTool.convertToDate(item.startTime);
+      item.endTime = TimeTool.convertToDate(item.endTime);
     });
 
     return Result.success(MsgConst.activity.query + MsgConst.success, {
       data : data,
       total : total
     });
+  }
+
+  static async intervalTask() {
+    setInterval( async () => { 
+      const res = await ActivityService.repository.update({
+        status: 0,
+        endTime: LessThan(new Date().toLocaleString())
+      }, { status: 3 });
+      if (res.affected > 0) LogService.add(0, 0, "定时任务：更新活动状态为已结束", "本次更新状态数量为：" + res.affected);
+    }, 60000);
   }
 }

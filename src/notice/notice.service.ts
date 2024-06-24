@@ -10,6 +10,7 @@ import { NoticeDeleteDto } from './dtos/notice.delete.dto';
 import { NoticeUpdateDto } from './dtos/notice.update.dto';
 import { NoticeQueryDto } from './dtos/notice.query.dto';
 import { NoticeReadDto } from './dtos/notice.read.dto';
+import { TimeTool } from 'src/.tools/time.tool';
 
 /**
  * 通知公告服务层
@@ -77,7 +78,7 @@ export class NoticeService {
     const power = await PowerService.get(noticeQueryDto);
     if (!power.uNotice) return Result.fail(MsgConst.powerLowE);
 
-    const [data, total] = await NoticeService.repository.findAndCount({
+    let [data, total] = await NoticeService.repository.findAndCount({
       skip: (noticeQueryDto.body.pageIndex - 1) * noticeQueryDto.body.pageSize,
       take: noticeQueryDto.body.pageSize,
       order: {
@@ -86,6 +87,11 @@ export class NoticeService {
       where: {
         status: In(power.mNotice ? [0, 2] : [0])
       }
+    });
+    let data1: any = data;
+    data1.forEach(item => {
+      item.createdTime = TimeTool.convertToDate(item.createdTime);
+      item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
     
     return Result.success(MsgConst.notice.query + MsgConst.success, {
