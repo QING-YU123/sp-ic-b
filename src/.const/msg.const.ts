@@ -186,7 +186,9 @@ export const MsgConst = {
 
         update: "店铺信息更新",
 
-        query: "店铺信息查询"
+        query: "店铺信息查询",
+
+        total: "店铺信息统计"
     },
 
     activity: {

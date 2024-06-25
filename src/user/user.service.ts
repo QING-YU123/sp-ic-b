@@ -182,7 +182,10 @@ export class UserService {
   async login(userLoginDto: UserLoginDto) {
     const user = await UserService.repository.findOne({ where: { phone: userLoginDto.phone } });
     if (user == null) return Result.fail(MsgConst.userNotExistE);
-    if (user.password != PasswordTool.encrypt(userLoginDto.password)) return Result.fail(MsgConst.passwordE);
+    if ((await UserService.repository.findOne({
+      select: ['id'],
+      where: { id: user.id, password: PasswordTool.encrypt(userLoginDto.password) }
+    })) == null) return Result.fail(MsgConst.passwordE);
     if (user.status == 2) return Result.fail(MsgConst.userIsBanned);
 
     delete user.password;
@@ -346,7 +349,8 @@ export class UserService {
         content: "剩余金额：" + (user.money - (-userOpMoneyDto.body.money)) / 100 + "元",
         price: userOpMoneyDto.body.money,
         receiptUid: userOpMoneyDto.checkingUid,
-        status: 2
+        status: 2,
+        payTime: "NOW()"
       });
     }
 

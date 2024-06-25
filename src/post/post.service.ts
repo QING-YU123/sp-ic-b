@@ -41,7 +41,7 @@ export class PostService {
 
 
     postCreateDto.body.uid = postCreateDto.checkingUid;
-    postCreateDto.body.status = power.mApprove? 0 : 3;
+    postCreateDto.body.status = power.mApprove ? 0 : 3;
     const post = PostService.repository.save(postCreateDto.body);
   
     return Result.isOrNot(post != null, MsgConst.post.create);

@@ -11,6 +11,9 @@ import { StoreQueryDto } from './dtos/store.query.dto';
 import { StoreUpdateDto } from './dtos/store.update.dto';
 import { Store } from './entities/store.entity';
 import { TimeTool } from 'src/.tools/time.tool';
+import { StoreTotalDto } from './dtos/store.total.dto';
+import { GoodsService } from 'src/goods/goods.service';
+import { BillService } from 'src/bill/bill.service';
 
 /**
  * 店铺模块服务层
@@ -116,6 +119,46 @@ export class StoreService {
     return Result.success(MsgConst.store.query + MsgConst.success, {
       data: data,
       total: total
+    });
+  }
+  
+  /**
+   * 店铺统计业务逻辑处理
+   * 
+   * @param storeTotalDto 店铺统计DTO
+   * @returns Result
+   */
+  async total(storeTotalDto: StoreTotalDto) {
+    if (!(await PowerService.get(storeTotalDto)).mStore) return Result.fail(MsgConst.powerLowE);
+
+    let storeMoneyTotal: Map<number, { name: string, money: number }> = new Map();
+    let dayMoneyTotal: Map<string, number> = new Map();
+    (await StoreService.repository.find({
+      select: ["id", "name"],
+      where: { status: 0, uid: storeTotalDto.checkingUid }
+    })).forEach(async item => { 
+      let money = 0;
+      (await GoodsService.repository.find({
+        select: ["price", "sold"],
+        where: { sid: item.id }
+      })).forEach(goods => {
+        money += goods.price * goods.sold;
+      });
+      storeMoneyTotal.set(item.id, { name: item.name, money: money });
+    });
+    (await BillService.repository.find({
+      select: ["payTime", "price"],
+      where: { receiptUid: storeTotalDto.checkingUid, status: 2 }
+    })).map(bill => {
+      bill.payTime = TimeTool.convertToDate(bill.payTime).split(' ')[0];
+      return bill;
+    }).forEach(bill => {
+      dayMoneyTotal.set(bill.payTime, dayMoneyTotal.get(bill.payTime) || 0 + bill.price);
+    });
+
+    return Result.success(MsgConst.store.total + MsgConst.success, {
+      storeMoneyTotal: Array.from(storeMoneyTotal.entries()),
+      dayMoneyTotal: Array.from(dayMoneyTotal.entries())
     });
   }
 }

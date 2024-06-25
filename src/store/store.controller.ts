@@ -11,6 +11,7 @@ import { StoreQueryDto } from './dtos/store.query.dto';
 import { ObjectTool } from 'src/.tools/object.tool';
 import { BooleanTool } from 'src/.tools/boolean.tool';
 import { NumConst } from 'src/.const/num.const';
+import { StoreTotalDto } from './dtos/store.total.dto';
 
 /**
  * 店铺模块控制层
@@ -100,5 +101,18 @@ export class StoreController {
     if (!BooleanTool.isBoolean(storeQueryDto.body.myStore)) return Result.fail(MsgConst.booleanE);
 
     return await this.storeService.query(storeQueryDto);
+  }
+
+  /**
+   * 老板统计商店消息
+   * 
+   * @param storeTotalDto 商店信息统计DTO
+   * @returns Result
+   */
+  @Post('total')
+  async total(@Body() storeTotalDto: StoreTotalDto) {
+    if (!NumberTool.isInteger(storeTotalDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+
+    return await this.storeService.total(storeTotalDto);
   }
 }

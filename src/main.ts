@@ -11,6 +11,5 @@ async function bootstrap() {
   await app.listen(12005);
 
   ActivityService.intervalTask();
-  console.log(new Date().toLocaleString())
 }
 bootstrap();
