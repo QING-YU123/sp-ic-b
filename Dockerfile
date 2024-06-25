@@ -12,6 +12,10 @@ RUN yarn install
 
 COPY . .
 
+RUN apk add --no-cache tzdata \
+    && cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
+    && echo "Asia/Shanghai" > /etc/timezone
+
 RUN yarn build
 
 # 暴露端口，与NestJS应用的端口保持一致
