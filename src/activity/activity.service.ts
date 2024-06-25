@@ -105,7 +105,15 @@ export class ActivityService {
     setInterval( async () => { 
       const res = await ActivityService.repository.update({
         status: 0,
-        endTime: LessThan(new Date().toLocaleString())
+        endTime: LessThan(new Date().toLocaleString('en-CA', {
+          year: 'numeric', 
+          month: '2-digit', 
+          day: '2-digit', 
+          hour: '2-digit', 
+          minute: '2-digit', 
+          second: '2-digit', 
+          hour12: false
+        }))
       }, { status: 3 });
       if (res.affected > 0) LogService.add(0, 0, "定时任务：更新活动状态为已结束", "本次更新状态数量为：" + res.affected);
     }, 60000);

@@ -83,7 +83,7 @@ export class OutsiderService {
       }
     });
     let data1: any = data;
-    data1.foreach(item => { 
+    data1.forEach(item => { 
       item.createdTime = TimeTool.convertToDate(item.createdTime);
       item.updatedTime = TimeTool.convertToDate(item.updatedTime);
       if (item.leaveTime) item.leaveTime = TimeTool.convertToDate(item.leaveTime);
