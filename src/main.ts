@@ -1,7 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import * as bodyParser from 'body-parser';
-import { AppModule } from './app.module';
 import { ActivityService } from './activity/activity.service';
+import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
