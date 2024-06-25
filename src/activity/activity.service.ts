@@ -113,7 +113,7 @@ export class ActivityService {
           minute: '2-digit', 
           second: '2-digit', 
           hour12: false
-        }))
+        }).replace(',', ''))
       }, { status: 3 });
       if (res.affected > 0) LogService.add(0, 0, "定时任务：更新活动状态为已结束", "本次更新状态数量为：" + res.affected);
     }, 60000);
