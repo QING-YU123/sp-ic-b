@@ -61,6 +61,8 @@ export class LogController {
   @Post('total')
   async total(@Body() logTotalDto: LogTotalDto) {
     if (!NumberTool.isInteger(logTotalDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(logTotalDto)) return Result.fail(MsgConst.bodyNotExistE);
+    if (!TimeTool.isExist(logTotalDto.body.date)) return Result.fail(MsgConst.dateE);
 
     return await this.logService.total(logTotalDto);
   }

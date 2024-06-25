@@ -102,6 +102,10 @@ export class LogService {
     const res = await LogService.repository.createQueryBuilder('log')
       .select("log.url", "name")
       .addSelect("COUNT(log.id)", "value")
+      .where("log.createdTime BETWEEN :start AND :end", {
+          start: logTotalDto.body.date,
+          end: logTotalDto.body.date + 'T23:59:59'
+        })
       .groupBy("log.url")
       .getRawMany();
 
