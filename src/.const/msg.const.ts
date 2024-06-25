@@ -136,7 +136,9 @@ export const MsgConst = {
     log: {
         create: "日志创建",
 
-        query: "日志查询"
+        query: "日志查询",
+
+        total: "日志统计"
     },
 
     outsider: {

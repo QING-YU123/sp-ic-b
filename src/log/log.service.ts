@@ -9,6 +9,7 @@ import { MsgConst } from 'src/.const/msg.const';
 import { LogCreateDto } from './dtos/log.create.dto';
 import { UserService } from 'src/user/user.service';
 import { TimeTool } from 'src/.tools/time.tool';
+import { LogTotalDto } from './dtos/log.total.dto';
 
 /**
  * 日志模块服务层
@@ -93,5 +94,17 @@ export class LogService {
       data: data,
       total: total,
     });
+  }
+  
+  async total(logTotalDto: LogTotalDto) {
+    if (!(await PowerService.get(logTotalDto)).mAdmin1) return Result.fail(MsgConst.powerLowE);
+
+    const res = await LogService.repository.createQueryBuilder('log')
+      .select("log.url", "name")
+      .addSelect("COUNT(log.id)", "value")
+      .groupBy("log.url")
+      .getRawMany();
+
+    return Result.success(MsgConst.log.total + MsgConst.success, res);
   }
 }

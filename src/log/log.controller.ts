@@ -9,6 +9,7 @@ import { TimeTool } from 'src/.tools/time.tool';
 import { StringTool } from 'src/.tools/string.tool';
 import { LogCreateDto } from './dtos/log.create.dto';
 import { NumConst } from 'src/.const/num.const';
+import { LogTotalDto } from './dtos/log.total.dto';
 
 /**
  * 日志模块控制层
@@ -55,5 +56,12 @@ export class LogController {
     if (!TimeTool.isExist(logQueryDto.body.date)) return Result.fail(MsgConst.dateE);
 
     return await this.logService.query(logQueryDto);
+  }
+
+  @Post('total')
+  async total(@Body() logTotalDto: LogTotalDto) {
+    if (!NumberTool.isInteger(logTotalDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+
+    return await this.logService.total(logTotalDto);
   }
 }
