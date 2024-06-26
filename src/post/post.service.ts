@@ -120,11 +120,9 @@ export class PostService {
       .skip((postQueryDto.body.pageIndex - 1) * postQueryDto.body.pageSize)
       .take(postQueryDto.body.pageSize)
       .orderBy('post.id', 'DESC') 
-      .where('post.status = :status and (post.title like :title or post.tag like :tag)',
+      .where('post.status = :status)',
         {
-          status: postQueryDto.body.approved ? 0 : 3,
-          title: `%${postQueryDto.body.search}%`,
-          tag: `%${postQueryDto.body.search}%`
+          status: postQueryDto.body.approved ? 0 : 3
         })
       .getManyAndCount();
     const user = await UserService.repository.find({
