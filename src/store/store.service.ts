@@ -131,7 +131,7 @@ export class StoreService {
   async total(storeTotalDto: StoreTotalDto) {
     if (!(await PowerService.get(storeTotalDto)).mStore) return Result.fail(MsgConst.powerLowE);
 
-    let storeMoneyTotal: Map<number, { name: string, money: number }> = new Map();
+    let storeMoneyTotal: Map<number, { name: string, value: number }> = new Map();
     let dayMoneyTotal: Map<string, number> = new Map();
     (await StoreService.repository.find({
       select: ["id", "name"],
@@ -144,13 +144,13 @@ export class StoreService {
       })).forEach(goods => {
         money += goods.price * goods.sold;
       });
-      storeMoneyTotal.set(item.id, { name: item.name, money: money });
+      storeMoneyTotal.set(item.id, { name: item.name, value: money });
     });
     (await BillService.repository.find({
       select: ["payTime", "price"],
       where: { receiptUid: storeTotalDto.checkingUid, status: 2 }
     })).map(bill => {
-      bill.payTime = TimeTool.convertToDate(bill.payTime).split(' ')[0];
+      bill.payTime = TimeTool.getTime(bill.payTime).split(' ')[0];
       return bill;
     }).forEach(bill => {
       dayMoneyTotal.set(bill.payTime, dayMoneyTotal.get(bill.payTime) || 0 + bill.price);
