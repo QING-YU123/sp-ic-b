@@ -120,7 +120,7 @@ export class PostService {
       .skip((postQueryDto.body.pageIndex - 1) * postQueryDto.body.pageSize)
       .take(postQueryDto.body.pageSize)
       .orderBy('post.id', 'DESC') 
-      .where('post.status = :status)',
+      .where('post.status = :status',
         {
           status: postQueryDto.body.approved ? 0 : 3
         })
