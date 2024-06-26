@@ -117,7 +117,7 @@ export class PostService {
     if (!power.mApprove) postQueryDto.body.approved = true;
     if (postQueryDto.body.search == null) postQueryDto.body.search = '';
     const [data, total] = await PostService.repository.createQueryBuilder('post')
-      .select(['post.id', 'post.title', 'post.tag', 'post.createdTime', 'post.updatedTime', 'post.uid'])
+      .select(['post.id', 'post.title', 'post.tag', 'post.createdTime', 'post.updatedTime', 'post.uid', 'post.coverImg', 'post.content'])
       .skip((postQueryDto.body.pageIndex - 1) * postQueryDto.body.pageSize)
       .take(postQueryDto.body.pageSize)
       .orderBy('post.id', 'DESC') 
@@ -137,6 +137,8 @@ export class PostService {
       const u = user.find(userItem => userItem.id === item.uid);
       item.name = u.name;
       if (power.mApprove) item.phone = u.phone;
+      item.coverImg = item.coverImg.toString();
+      item.content = item.content.toString();
       item.createdTime = TimeTool.convertToDate(item.createdTime);
       item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
