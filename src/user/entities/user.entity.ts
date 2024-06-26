@@ -56,7 +56,7 @@ export class User {
     @Column({ name: "post_num", type: "int", default: 0 })
     postNum: number;
 
-    @Column({ name: "comment_num", type: "int", default: 0 })
+    @Column({ name: "collect_num", type: "int", default: 0 })
     collectNum: number;
 
     @Column({ type: "int", default: 0 })

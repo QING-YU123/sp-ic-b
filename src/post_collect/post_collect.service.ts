@@ -10,6 +10,7 @@ import { PostService } from 'src/post/post.service';
 import { PostCollectDeleteDto } from './dtos/post_collect.delete.dto';
 import { PostCollectQueryListDto } from './dtos/post_collect.query_list.dto';
 import { TimeTool } from 'src/.tools/time.tool';
+import { UserService } from 'src/user/user.service';
 
 /**
  * 帖子收藏模块服务层
@@ -41,7 +42,10 @@ export class PostCollectService {
       uid: postCollectCreateDto.checkingUid,
       pid: postCollectCreateDto.body.pid
     });
-    if(postLike != null) PostService.repository.update(postCollectCreateDto.body.pid, { collectNum: () => "collectNum + 1" });
+    if (postLike != null) {
+      PostService.repository.update(postCollectCreateDto.body.pid, { collectNum: () => "collectNum + 1" });
+      UserService.repository.update(postCollectCreateDto.checkingUid, { collectNum: () => "collectNum + 1" });
+    }
 
     return Result.isOrNot(postLike != null, MsgConst.postCollect.create);
   }
@@ -59,7 +63,10 @@ export class PostCollectService {
       pid: postCollectDeleteDto.body.pid,
       uid: postCollectDeleteDto.checkingUid
     });
-    if(res.affected == 1) PostService.repository.update(postCollectDeleteDto.body.pid, { collectNum: () => "collectNum - 1" });
+    if (res.affected == 1) {
+      PostService.repository.update(postCollectDeleteDto.body.pid, { collectNum: () => "collectNum - 1" });
+      UserService.repository.update(postCollectDeleteDto.checkingUid, { collectNum: () => "collectNum - 1" });
+    }
 
     return Result.isOrNot(res.affected == 1, MsgConst.postCollect.delete);
   }

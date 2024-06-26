@@ -11,6 +11,8 @@ import { PostQueryDto } from './dtos/post.query.dto';
 import { BooleanTool } from 'src/.tools/boolean.tool';
 import { ObjectTool } from 'src/.tools/object.tool';
 import { NumConst } from 'src/.const/num.const';
+import { PostGetCoverImgDto } from './dtos/post.get_cover_img.dto';
+import { PostGetContentDto } from './dtos/post.get_content.dto';
 
 /**
  * 帖子模块控制层
@@ -96,5 +98,35 @@ export class PostController {
     //if (!StringTool.isLengthInRange(postQueryDto.body.search, 0, 30)) return Result.fail(MsgConst.searchLengthE);
 
     return await this.postService.query(postQueryDto);
+  }
+
+  /**
+   * 获取帖子封面图片
+   * 
+   * @param postGetCoverImgDto 帖子封面图片查询DTO
+   * @returns 
+   */
+  @Post('get-cover-img')
+  async getCoverImg(@Body() postGetCoverImgDto: PostGetCoverImgDto) { 
+    if (!NumberTool.isInteger(postGetCoverImgDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(postGetCoverImgDto)) return Result.fail(MsgConst.bodyNotExistE);
+    if (!NumberTool.isInteger(postGetCoverImgDto.body.id)) return Result.fail(MsgConst.idNotExistE);
+
+    return await this.postService.getCoverImg(postGetCoverImgDto);
+  }
+
+  /**
+   * 获取帖子内容
+   * 
+   * @param postGetContentDto 帖子内容查询DTO
+   * @returns 
+   */
+  @Post('get-content')
+  async getContent(@Body() postGetContentDto: PostGetContentDto) { 
+    if (!NumberTool.isInteger(postGetContentDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+    if (!ObjectTool.isBodyExist(postGetContentDto)) return Result.fail(MsgConst.bodyNotExistE);
+    if (!NumberTool.isInteger(postGetContentDto.body.id)) return Result.fail(MsgConst.idNotExistE);
+
+    return await this.postService.getContent(postGetContentDto);
   }
 }

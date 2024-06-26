@@ -11,6 +11,8 @@ import { UserService } from 'src/user/user.service';
 import { PostUpdateDto } from './dtos/post.update.dto';
 import { PostQueryDto } from './dtos/post.query.dto';
 import { TimeTool } from 'src/.tools/time.tool';
+import { PostGetCoverImgDto } from './dtos/post.get_cover_img.dto';
+import { PostGetContentDto } from './dtos/post.get_content.dto';
 
 /**
  * 帖子模块服务层
@@ -43,6 +45,11 @@ export class PostService {
     postCreateDto.body.uid = postCreateDto.checkingUid;
     postCreateDto.body.status = power.mApprove ? 0 : 3;
     const post = PostService.repository.save(postCreateDto.body);
+    if (post != null) {
+      UserService.repository.update(postCreateDto.checkingUid, {
+        postNum: () => 'postNum + 1'
+      });
+    }
   
     return Result.isOrNot(post != null, MsgConst.post.create);
   }
@@ -63,6 +70,11 @@ export class PostService {
     const result = await PostService.repository.update(postDeleteDto.body.id, {
       status: postDeleteDto.checkingUid == post.uid ? 2 : 1
     });
+    if (result.affected == 1) { 
+      UserService.repository.update(post.uid, {
+        postNum: () => 'postNum - 1'
+      });
+    }
 
     return Result.isOrNot(result.affected == 1, MsgConst.post.delete);
   }
@@ -77,7 +89,18 @@ export class PostService {
     if (!(await PowerService.get(postDeleteDto)).mApprove) return Result.fail(MsgConst.powerLowE);
 
     const res = await PostService.repository.update(postDeleteDto.body.id,
-      { status: postDeleteDto.body.approved? 0 : 1 });
+      { status: postDeleteDto.body.approved ? 0 : 1 });
+    if (res.affected == 1) {
+      if (!postDeleteDto.body.approved) {
+        const post = await PostService.repository.findOne({
+          select: ['uid'],
+          where: { id: postDeleteDto.body.id }
+        });
+        UserService.repository.update(post.uid, {
+          postNum: () => 'postNum - 1'
+        });
+      }
+    }
 
     return Result.isOrNot(res.affected == 1, MsgConst.post.update);
   }
@@ -94,6 +117,7 @@ export class PostService {
     if (!power.mApprove) postQueryDto.body.approved = true;
     if (postQueryDto.body.search == null) postQueryDto.body.search = '';
     const [data, total] = await PostService.repository.createQueryBuilder('post')
+      .select(['post.id', 'post.title', 'post.tag', 'post.createdTime', 'post.updatedTime', 'post.uid'])
       .skip((postQueryDto.body.pageIndex - 1) * postQueryDto.body.pageSize)
       .take(postQueryDto.body.pageSize)
       .orderBy('post.id', 'DESC') 
@@ -113,8 +137,6 @@ export class PostService {
       const u = user.find(userItem => userItem.id === item.uid);
       item.name = u.name;
       if (power.mApprove) item.phone = u.phone;
-      item.coverImg = item.coverImg.toString();
-      item.content = item.content.toString();
       item.createdTime = TimeTool.convertToDate(item.createdTime);
       item.updatedTime = TimeTool.convertToDate(item.updatedTime);
     });
@@ -123,5 +145,41 @@ export class PostService {
       data: data,
       total: total
     });
+  }
+  
+  /**
+   * 帖子获取封面图业务逻辑处理
+   * 
+   * @param postGetCoverImgDto 帖子获取封面图DTO
+   * @returns Result
+   */
+  async getCoverImg(postGetCoverImgDto: PostGetCoverImgDto) {
+    if (!(await PowerService.get(postGetCoverImgDto)).uPost) return Result.fail(MsgConst.powerLowE);
+
+    const post = await PostService.repository.findOne({
+      select: ['coverImg'],
+      where: { id: postGetCoverImgDto.body.id }
+    });
+    if (post == null) return Result.fail(MsgConst.idNotExistE);
+
+    return Result.success(MsgConst.post.getCoverImg + MsgConst.success, post.coverImg.toString());
+  }
+  
+  /**
+   * 帖子获取内容业务逻辑处理
+   *  
+   * @param postGetContentDto 帖子获取内容DTO
+   * @returns Result
+   */
+  async getContent(postGetContentDto: PostGetContentDto) {
+    if (!(await PowerService.get(postGetContentDto)).uPost) return Result.fail(MsgConst.powerLowE);
+
+    const post = await PostService.repository.findOne({
+      select: ['content'],
+      where: { id: postGetContentDto.body.id }
+    });
+    if (post == null) return Result.fail(MsgConst.idNotExistE);
+
+    return Result.success(MsgConst.post.getContent + MsgConst.success, post.content.toString());
   }
 }

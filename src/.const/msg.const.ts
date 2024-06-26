@@ -266,7 +266,11 @@ export const MsgConst = {
 
         update: "审核操作",
 
-        query: "帖子查询"
+        query: "帖子查询",
+
+        getCoverImg: "获取帖子封面图片",
+
+        getContent: "获取帖子内容"
     },
 
     postLike: {
