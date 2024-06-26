@@ -25,6 +25,7 @@ import { UserOpMoneyDto } from './dtos/user.op_money.dto';
 import { BillService } from 'src/bill/bill.service';
 import { TimeTool } from 'src/.tools/time.tool';
 import { UserResetPayPasswordDto } from './dtos/user.reset_pay_password.dto';
+import { UserGetMoneyDto } from './dtos/user.get_money.dto';
 
 /**
  * 用户模块服务层
@@ -190,6 +191,7 @@ export class UserService {
 
     delete user.password;
     delete user.status;
+    delete user.payPassword;
     user.headImg = user.headImg.toString();
     let user1: any = user;
     user1.parking = await ParkingService.repository.findOne({
@@ -374,5 +376,19 @@ export class UserService {
     }, { payPassword: PasswordTool.encrypt(userResetPayPasswordDto.body.payPassword) });
 
     return Result.isOrNot(res.affected != 0, MsgConst.user.resetPayPassword);
+  }
+  
+  /**
+   * 用户获取余额业务逻辑处理
+   * 
+   * @param userGetMoneyDto 用户获取余额DTO
+   * @returns Result
+   */
+  async getMoney(userGetMoneyDto: UserGetMoneyDto) {
+    if (!(await PowerService.get(userGetMoneyDto)).uMoney) return Result.fail(MsgConst.powerLowE);
+
+    const res = await UserService.repository.findOne({ select: ['money'], where: { id: userGetMoneyDto.checkingUid } });
+
+    return Result.success(MsgConst.user.getMoney + MsgConst.success, res.money);
   }
 }

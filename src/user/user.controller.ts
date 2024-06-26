@@ -22,6 +22,7 @@ import { UserUploadHeadImgDto } from './dtos/user.upload_head_img.dto';
 import { UserService } from './user.service';
 import { NumConst } from 'src/.const/num.const';
 import { UserResetPayPasswordDto } from './dtos/user.reset_pay_password.dto';
+import { UserGetMoneyDto } from './dtos/user.get_money.dto';
 
 /**
  * 用户模块控制层
@@ -314,4 +315,17 @@ export class UserController {
 
     return await this.userService.resetPayPassword(userResetPayPasswordDto);
   }
+
+  /**
+   * 用户获取自己的钱包信息
+   * 
+   * @param userGetMoneyDto 用户获取自己的钱包信息DTO
+   * @returns Result
+   */
+  @Post('get-money')
+  async getMoney(@Body() userGetMoneyDto: UserGetMoneyDto) { 
+    if (!NumberTool.isInteger(userGetMoneyDto.checkingUid)) return Result.fail(MsgConst.powerLowE);
+
+    return await this.userService.getMoney(userGetMoneyDto);
+  } 
 }
