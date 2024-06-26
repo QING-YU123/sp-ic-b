@@ -117,7 +117,6 @@ export class PostService {
     if (!power.mApprove) postQueryDto.body.approved = true;
     if (postQueryDto.body.search == null) postQueryDto.body.search = '';
     const [data, total] = await PostService.repository.createQueryBuilder('post')
-      .select(['post.id', 'post.title', 'post.tag', 'post.createdTime', 'post.updatedTime', 'post.uid', 'post.coverImg', 'post.content'])
       .skip((postQueryDto.body.pageIndex - 1) * postQueryDto.body.pageSize)
       .take(postQueryDto.body.pageSize)
       .orderBy('post.id', 'DESC') 
